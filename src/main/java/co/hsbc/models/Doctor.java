@@ -1,46 +1,31 @@
 package main.java.co.hsbc.models;
 
-import main.java.co.hsbc.Enums.Employee;
+import main.java.co.hsbc.Enums.EmployeeEnums;
 
 public class Doctor extends main.java.co.hsbc.models.Employee {
-    String qualifications;
-    String specialization;
+    private String qualifications;
+    private String specialization;
 
-    Employee.Department dept;
+    EmployeeEnums.Department dept = EmployeeEnums.Department.general;
 
-    public Doctor(int empId, Employee.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
+    public Doctor(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
         super(empId, role, empName, password, isActive, contact, email);
         this.qualifications = qualifications;
         this.specialization = specialization;
-        this.dept = Employee.Department.general;
     }
 
-    public Doctor(int empId, Employee.Role role, String empName, String password, boolean isActive, String contact, String qualifications, String specialization) {
-        super(empId, role, empName, password, isActive, contact);
-        this.qualifications = qualifications;
-        this.specialization = specialization;
-        this.dept = Employee.Department.general;
-    }
-
-    public Doctor(int empId, Employee.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization, Employee.Department dept) {
+    public Doctor(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization, EmployeeEnums.Department dept) {
         super(empId, role, empName, password, isActive, contact, email);
         this.qualifications = qualifications;
         this.specialization = specialization;
         this.dept = dept;
     }
 
-    public Doctor(int empId, Employee.Role role, String empName, String password, boolean isActive, String contact, String qualifications, String specialization, Employee.Department dept) {
-        super(empId, role, empName, password, isActive, contact);
-        this.qualifications = qualifications;
-        this.specialization = specialization;
-        this.dept = dept;
-    }
-
-    public Employee.Department getDept() {
+    public EmployeeEnums.Department getDept() {
         return dept;
     }
 
-    public void setDept(Employee.Department dept) {
+    public void setDept(EmployeeEnums.Department dept) {
         this.dept = dept;
     }
 

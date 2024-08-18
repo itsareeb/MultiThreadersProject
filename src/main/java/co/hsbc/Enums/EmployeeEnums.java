@@ -1,6 +1,6 @@
 package main.java.co.hsbc.Enums;
 
-public class Employee {
+public class EmployeeEnums {
     public enum Role {
         user,
         admin,
@@ -9,5 +9,9 @@ public class Employee {
     public enum Department {
         general,
         emergency
+    }
+    public enum Shift {
+        day,
+        night
     }
 }

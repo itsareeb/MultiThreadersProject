@@ -1,22 +1,23 @@
 package main.java.co.hsbc.models;
 
+import main.java.co.hsbc.Enums.EmployeeEnums;
+
 import java.util.Objects;
 
 public class Employee {
-    int empId;
+    private int empId;
 
-    main.java.co.hsbc.Enums.Employee.Role role;
-    String empName;
-    String password;
-    boolean isActive;
-    String contact;
-    String email;
+    private EmployeeEnums.Role role;
+    private String empName;
+    private String password;
+    private boolean isActive;
+    private String contact;
+    private String email;
 
     public Employee() {
     }
 
-    public Employee(int empId, main.java.co.hsbc.Enums.Employee.Role role, String empName, String password, boolean isActive, String contact, String email) {
-        this.empId = empId;
+    public Employee(EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email) {
         this.role = role;
         this.empName = empName;
         this.password = password;
@@ -25,13 +26,15 @@ public class Employee {
         this.email = email;
     }
 
-    public Employee(int empId, main.java.co.hsbc.Enums.Employee.Role role, String empName, String password, boolean isActive, String contact) {
+
+    public Employee(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email) {
         this.empId = empId;
         this.role = role;
         this.empName = empName;
         this.password = password;
         this.isActive = isActive;
         this.contact = contact;
+        this.email = email;
     }
 
     public int getEmpId() {
@@ -42,11 +45,11 @@ public class Employee {
         this.empId = empId;
     }
 
-    public main.java.co.hsbc.Enums.Employee.Role getRole() {
+    public EmployeeEnums.Role getRole() {
         return role;
     }
 
-    public void setRole(main.java.co.hsbc.Enums.Employee.Role role) {
+    public void setRole(EmployeeEnums.Role role) {
         this.role = role;
     }
 
