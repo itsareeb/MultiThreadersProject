@@ -1,0 +1,7 @@
+package main.java.co.hsbc.exceptions;
+
+public class UserNotFoundException extends Exception{
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}
