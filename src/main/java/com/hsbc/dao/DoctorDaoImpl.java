@@ -2,7 +2,6 @@ package com.hsbc.dao;
 
 
 import com.hsbc.models.Appointment;
-import com.hsbc.models.Doctor;
 import com.hsbc.utils.DBUtils;
 
 import java.sql.*;
@@ -20,7 +19,14 @@ public class DoctorDaoImpl implements DoctorDao {
         //System.out.println(conn);
     }
 
-    public List<Appointment> viewAppointments(int id){
+    public static void main(String[] args) {
+        DoctorDaoImpl dao = new DoctorDaoImpl();
+        //System.out.println(dao.viewAppointements(305));
+        //dao.suggestMedicalTest(6, "Dolo", "250mg", "after food");
+        dao.suggestMedicalTest(5, "MRI Scan");
+    }
+
+    public List<Appointment> viewAppointements(int id) {
         List<Appointment> appointments = new ArrayList<Appointment>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -30,7 +36,7 @@ public class DoctorDaoImpl implements DoctorDao {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Appointment appointment = new Appointment();
                 appointment.setAppId(rs.getInt("appointmentID"));
                 appointment.setDate(rs.getDate("date"));
@@ -39,14 +45,12 @@ public class DoctorDaoImpl implements DoctorDao {
                 appointments.add(appointment);
 
                 //System.out.println(appointment);
-        }
-        }
-        catch (SQLException e) {
+            }
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    return appointments;
+        return appointments;
     }
-
 
     //Function to suggest medicines
     public void suggestMedicalTest(int appointmentID, String medicineName, String dosage, String instruction) {
@@ -66,8 +70,7 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-
-    public void suggestMedicalTest(int appointmentID, String testName){
+    public void suggestMedicalTest(int appointmentID, String testName) {
         String sql = "INSERT INTO tests (appointmentID, name) VALUES(?,?)";
         try {
             Statement stmt = conn.createStatement();
@@ -81,20 +84,10 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-
-    public void addSchedule(){
-
+    public void addSchedule() {
     }
 
-    public void updateSchedule(){
+    public void updateSchedule() {
 
-    }
-
-
-        public static void main(String[] args) {
-        DoctorDaoImpl dao = new DoctorDaoImpl();
-        //System.out.println(dao.viewAppointments(305));
-        //dao.suggestMedicalTest(6, "Dolo", "250mg", "after food");
-        dao.suggestMedicalTest(5,"MRI Scan");
     }
 }

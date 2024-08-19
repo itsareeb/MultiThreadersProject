@@ -14,7 +14,7 @@ public class DBUtils {
             try {
                 DriverManager.registerDriver(new Driver());
                 // TODO : Change the username and password as per your MySQL installation
-                conn = DriverManager.getConnection(url, "root", "sql123");
+                conn = DriverManager.getConnection(url, "root", "root123");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
