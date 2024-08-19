@@ -1,0 +1,468 @@
+/*------------------------------ Header------------------------- */
+header {
+  background-color: #0b385f;
+  color: #031f55;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 36px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+
+/*------------------------------ Body---------------------------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #050942;
+    color: #050942;
+  }
+  .body_bgv{
+    background-image: url('images/b1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #050942;
+  }
+  .header {
+   background-color: #051a2c;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 10px;
+  }
+  
+/* -------------------------------Navigation Bar-------------------------- */
+  .navbar-brand{
+      font-family: "Bagel Fat One", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 35px;
+    }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    float: left;
+  }
+
+  .header h1 {
+    margin: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #337AB7;
+    color: rgb(4, 14, 59);
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  .navbar a:hover {
+    color: #cccccc;
+  }
+  nav {
+    background-color: #337AB7;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  
+  nav a:hover {
+    color: #CCCCCC;
+  }
+
+
+/* -------------------------About--------------------------- */
+
+.about {
+  background-color: #333333;
+  color: rgb(4, 3, 88);
+  padding: 50px;
+  text-align: center;
+}
+
+.about h1 {
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+.about p {
+  font-size: 22px;
+  margin-bottom: 50px;
+}
+
+.about .btn {
+  background-color: white;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.about .btn:hover {
+  body {
+      background-color: #F2F2F2;
+      font-family: Arial, sans-serif;
+      color: #333333;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .showcase {
+    background-size: cover;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .showcase h1 {
+    font-size: 60px;
+    margin: 0;
+    color: white;
+  }
+  
+  .showcase p {
+    font-size: 22px;
+    color: white;
+    margin-top: 20px;
+  }
+
+/* ---------------------------Services---------------------------- */
+  .services {
+    background-color: #f2f2f2;
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .services h1 {
+    font-size: 40px;
+    margin-bottom: 50px;
+  }
+  
+  .services .service {
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    margin: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #ddd;
+  }
+  
+  .services .service i {
+    font-size: 60px;
+    color: #333;
+    margin-top: 50px;
+  }
+  
+  .services .service h3 {
+    font-size: 22px;
+    margin-top: 20px;
+  }
+  
+  .services .service p {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+  }    
+      
+      main {
+        background-color: #FFFFFF;
+        padding: 20px;
+      }
+      
+      main h2 {
+        font-size: 24px;
+        margin: 0 0 20px 0;
+      }
+      
+      main p {
+        font-size: 16px;
+        margin: 0 0 20px 0;
+      }
+
+/* -------------------------Footer---------------------------- */
+      .hrStyle{
+        width: 120px; 
+        background-color: #7c4dff;
+        height: 2px;
+      }
+      .heading{
+        text-align: left;
+        font-size: 30px;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .aas{
+        text-align: left;
+      }
+/*--------------------- for webcode.js ---------------------------*/
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: url('images/HMS.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+header, footer {
+  background-color: rgba(5, 24, 63, 0.8);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+.navbarphoto{
+  display: flex;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.service-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 20px;
+  margin: auto;
+
+}
+
+.service-content {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.service {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.service.active {
+  display: flex;
+}
+
+.service img {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.service p {
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* ---------------------Support---------------------------------*/
+
+.support-and-info {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 90px;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 10px;
+  color: #17608a;
+}
+
+.form-container p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #030d3a;
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+td {
+  padding: 10px;
+  vertical-align: top;
+}
+
+label {
+  color: #333;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #290c0c;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn_more {
+  display: inline-block;
+  background-color: #0846a3;
+  color: #0c4947;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-align: center;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.btn_more:hover {
+  background-color: #198bb8;
+  color: #a9c6ff;
+}
+
+.info-card {
+  background: #0b385f;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 10px 0 40px rgba(32, 7, 7, 0.1);
+  /* max-width: 300px; */
+  width: 500px;
+  color: white;
+}
+
+.info-card h2 {
+  margin-bottom: 10px;
+}
+
+.info-card h3 {
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  margin-bottom: 20px;
+}
+
+/* ----------------- For, Our Services Buttons -----------------*/
+button {
+  padding: 10px;
+  background-color: #0846a3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: #198bb8;
+}
+
+.indicators {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indicators .dot {
+  height: 15px;
+  width: 15px;
+  background-color: #a2babe;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.indicators .dot.active {
+  background-color: #051d53;
+}
+
+/*----------------------- Responsive Design----------------- */
+@media (max-width: 600px) {
+  header h1 {
+      font-size: 2em;
+  }
+
+  .service img {
+      max-width: 100px;
+  }
+
+  button {
+      width: 40px;
+      height: 40px;
+  }
+  .navbarphoto{
+    width: 40px;
+    height: 40px;
+    display: flex;
+  }
+}
+
+      
+        
