@@ -20,7 +20,7 @@ public class DoctorDaoImpl implements DoctorDao {
         //System.out.println(conn);
     }
 
-    public List<Appointment> viewAppointements(int id){
+    public List<Appointment> viewAppointments(int id){
         List<Appointment> appointments = new ArrayList<Appointment>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -93,7 +93,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
         public static void main(String[] args) {
         DoctorDaoImpl dao = new DoctorDaoImpl();
-        //System.out.println(dao.viewAppointements(305));
+        //System.out.println(dao.viewAppointments(305));
         //dao.suggestMedicalTest(6, "Dolo", "250mg", "after food");
         dao.suggestMedicalTest(5,"MRI Scan");
     }

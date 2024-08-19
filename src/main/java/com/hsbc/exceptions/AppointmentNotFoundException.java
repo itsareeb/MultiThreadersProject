@@ -1,4 +1,4 @@
-package main.java.co.hsbc.exceptions;
+package com.hsbc.exceptions;
 
 public class AppointmentNotFoundException extends Exception {
     public AppointmentNotFoundException(String message) {

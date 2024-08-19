@@ -1,6 +1,6 @@
-package main.java.co.hsbc.exceptions;
+package com.hsbc.exceptions;
 
-public class SlotAlreadyBookedException extends Exception{
+public class SlotAlreadyBookedException extends Exception {
     public SlotAlreadyBookedException(String message) {
         super(message);
     }
