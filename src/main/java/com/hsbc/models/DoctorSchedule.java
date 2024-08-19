@@ -1,15 +1,15 @@
 package com.hsbc.models;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class DoctorShedule {
+public class DoctorSchedule {
     private int did, shiftno;
     private Date date;
 
-    public DoctorShedule() {
+    public DoctorSchedule() {
     }
 
-    public DoctorShedule(int did, int shiftno, Date date) {
+    public DoctorSchedule(int did, int shiftno, Date date) {
         this.did = did;
         this.shiftno = shiftno;
         this.date = date;
