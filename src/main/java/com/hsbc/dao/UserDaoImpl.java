@@ -125,16 +125,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void registerPatient(Patient patient) throws PatientAlreadyExistsException {
-
-    }
-
-    @Override
-    public void bookAppointment() throws AppointmentAlreadyExistsException {
-
-    }
-
-    @Override
     public void showAllPatients() throws NoPatientsFoundException {
         String sql = "select * from patient";
         try {
