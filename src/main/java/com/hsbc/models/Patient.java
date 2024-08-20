@@ -63,7 +63,7 @@ public class Patient {
         return age;
     }
 
-    public void setDob(int age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

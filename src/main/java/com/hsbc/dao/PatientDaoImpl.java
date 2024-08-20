@@ -1,5 +1,8 @@
 package com.hsbc.dao;
 
+import com.hsbc.Enums.PatientEnums;
+import com.hsbc.exceptions.PatientNotFoundException;
+import com.hsbc.models.Patient;
 import com.hsbc.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +20,7 @@ public class PatientDaoImpl implements PatientDao {
     }
 
     @Override
-    public Boolean isRegisteredPatient(int id){
+    public Boolean isRegisteredPatient(int id) throws SQLException{
         String query = "SELECT * FROM Patient WHERE pid=?";
 
         try {
@@ -31,7 +34,7 @@ public class PatientDaoImpl implements PatientDao {
                 return false;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
         finally {
             try {
@@ -41,4 +44,42 @@ public class PatientDaoImpl implements PatientDao {
             }
         }
     }
+
+    @Override
+    public Patient getPatient(String pname, String contact) throws PatientNotFoundException, SQLException {
+        String query = "SELECT * FROM Patient WHERE pname=? AND contact=?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, pname);
+            ps.setString(2, contact);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Patient patient = new Patient();
+                patient.setPid(rs.getInt("pid"));
+                patient.setPname(rs.getString("pname"));
+                patient.setContact(rs.getString("contact"));
+                patient.setGender(PatientEnums.Gender.valueOf(rs.getString("gender")));
+                patient.setAge(rs.getInt("age"));
+                return patient;
+            }
+            else{
+                throw new PatientNotFoundException("Patient doesn't exist");
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        PatientDao patientDao = new PatientDaoImpl();
+        try {
+            System.out.println(patientDao.getPatient("Aquib", "9898989898"));
+        } catch (PatientNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

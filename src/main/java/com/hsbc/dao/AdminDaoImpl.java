@@ -72,7 +72,7 @@ public class AdminDaoImpl implements AdminDao {
                 patient.setPid(rs.getInt(1));
                 patient.setPname(rs.getString(2));
                 patient.setGender(PatientEnums.Gender.valueOf(rs.getString(3)));
-                patient.setDob(rs.getInt(4));
+                patient.setAge(rs.getInt(4));
                 patient.setContact(rs.getString(5));
                 patient.setEmail(rs.getString(6));
                 patient.setUid(rs.getInt(7));
