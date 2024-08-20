@@ -3,29 +3,29 @@ package com.hsbc.models;
 import java.sql.Date;
 
 public class DoctorSchedule {
-    private int did, shiftno;
+    private int doctorId, shiftNumber;
     private Date date;
 
     public DoctorSchedule() {
     }
 
-    public DoctorSchedule(int did, int shiftno, Date date) {
-        this.did = did;
-        this.shiftno = shiftno;
+    public DoctorSchedule(int doctorId, int shiftno, Date date) {
+        this.doctorId = doctorId;
+        this.shiftNumber = shiftno;
         this.date = date;
     }
 
-    public int getDid() {
-        return did;
+    public int getDoctorId() {
+        return doctorId;
     }
-    public void setDid(int did) {
-        this.did = did;
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
-    public int getShiftno() {
-        return shiftno;
+    public int getShiftNumber() {
+        return shiftNumber;
     }
-    public void setShiftno(int shiftno) {
-        this.shiftno = shiftno;
+    public void setShiftNumber(int shiftNumber) {
+        this.shiftNumber = shiftNumber;
     }
     public Date getDate() {
         return date;
@@ -37,8 +37,8 @@ public class DoctorSchedule {
     @Override
     public String toString() {
         return "DoctorShedule{" +
-                "did=" + did +
-                ", shiftno=" + shiftno +
+                "doctorId=" + doctorId +
+                ", shiftNumber=" + shiftNumber +
                 ", date=" + date +
                 '}';
     }
