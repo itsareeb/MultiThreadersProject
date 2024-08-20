@@ -9,6 +9,6 @@ import java.sql.SQLException;
 
 public interface AuthDao {
     public Employee employeeLogin(String empId, String password) throws EmployeeNotFoundException;
-    public Boolean getEmpAuth(int id, String role);
-    public Boolean getPatientAuth(int id);
+    public Boolean isEmployee(int id, String role);
+    public Boolean isRegisteredPatient(int id);
 }

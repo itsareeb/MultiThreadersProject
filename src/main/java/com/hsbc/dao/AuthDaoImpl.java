@@ -57,7 +57,7 @@ public class AuthDaoImpl implements AuthDao {
     }
 
     @Override
-    public Boolean getEmpAuth(int id, String role){
+    public Boolean isEmployee(int id, String role){
         String query = "SELECT * FROM Employee WHERE emp_id = ? AND role = ?";
 
         try {
@@ -94,7 +94,7 @@ public class AuthDaoImpl implements AuthDao {
 
 
     @Override
-    public Boolean getPatientAuth(int id){
+    public Boolean isRegisteredPatient(int id){
         String query = "SELECT * FROM Patient WHERE pid=?";
 
         try {
@@ -130,9 +130,9 @@ public class AuthDaoImpl implements AuthDao {
         }
 
 
-        System.out.println(authDao.getEmpAuth(1,"user"));
+        System.out.println(authDao.isEmployee(1,"user"));
 
-        System.out.println(authDao.getPatientAuth(1));
+        System.out.println(authDao.isRegisteredPatient(1));
 
     }
 }
