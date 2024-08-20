@@ -1,11 +1,11 @@
 package com.hsbc.dao;
 
 import com.hsbc.utils.DBUtils;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class PatientDaoImpl implements PatientDao {
     Connection conn;
@@ -25,7 +25,6 @@ public class PatientDaoImpl implements PatientDao {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
-
                 return true;
             }
             else{
