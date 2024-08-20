@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void registerPatient(int uid, Patient patient) throws PatientAlreadyExistsException {
 
-        String sql = "insert into patient values(?, ?, ?, ?, ?, ?)";
+        String sql = "insert into patient values(?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, patient.getPid());
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void bookAppointment(DoctorSchedule schedule, ShiftSlot slot, int uid, int pid, int did, int shiftNumber, int slotNumber, Date dateofAppointment,) throws AppointmentAlreadyExistsException {
+    public void bookAppointment(DoctorSchedule schedule, ShiftSlot slot, int uid, int pid, int did, int shiftNumber, int slotNumber, Date dateofAppointment) throws AppointmentAlreadyExistsException {
 //        String sql_to_check = "select * from appointments where appointmentID = ?";
 
         //First we will check if appointment is already booked
@@ -126,6 +126,16 @@ public class UserDaoImpl implements UserDao {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void registerPatient(Patient patient) throws PatientAlreadyExistsException {
+
+    }
+
+    @Override
+    public void bookAppointment() throws AppointmentAlreadyExistsException {
+
     }
 
     @Override
