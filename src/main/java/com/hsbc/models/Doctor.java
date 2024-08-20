@@ -8,6 +8,9 @@ public class Doctor extends Employee {
 
     EmployeeEnums.Department dept = EmployeeEnums.Department.general;
 
+    public Doctor() {
+    }
+
     public Doctor(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
         super(empId, role, empName, password, isActive, contact, email);
         this.qualifications = qualifications;

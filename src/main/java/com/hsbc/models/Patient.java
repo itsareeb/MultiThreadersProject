@@ -2,46 +2,45 @@ package com.hsbc.models;
 
 import com.hsbc.Enums.PatientEnums;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class Patient {
-    private int pId;
+    private int pid;
     private String pname;
     private PatientEnums.Gender gender;
-    private Date dob;
+    private int age;
     private String contact;
     private String email;
-    private int uId;
+    private int uid;
 
     public Patient() {
     }
 
-    public Patient(int pId, String pname, PatientEnums.Gender gender, Date dob, String contact, int uId) {
-        this.pId = pId;
+    public Patient(int pid, String pname, PatientEnums.Gender gender, int age, String contact, int uid) {
+        this.pid = pid;
         this.pname = pname;
         this.gender = gender;
-        this.dob = dob;
+        this.age = age;
         this.contact = contact;
-        this.uId = uId;
+        this.uid = uid;
     }
 
-    public Patient(int pId, String pname, PatientEnums.Gender gender, Date dob, String contact, String email, int uId) {
-        this.pId = pId;
+    public Patient(int pid, String pname, PatientEnums.Gender gender, int age, String contact, String email, int uid) {
+        this.pid = pid;
         this.pname = pname;
         this.gender = gender;
-        this.dob = dob;
+        this.age = age;
         this.contact = contact;
         this.email = email;
-        this.uId = uId;
+        this.uid = uid;
     }
 
-    public int getpId() {
-        return pId;
+    public int getPid() {
+        return pid;
     }
 
-    public void setpId(int pId) {
-        this.pId = pId;
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
     public String getPname() {
@@ -60,12 +59,12 @@ public class Patient {
         this.gender = gender;
     }
 
-    public Date getDob() {
-        return dob;
+    public int getAge() {
+        return age;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getContact() {
@@ -76,12 +75,12 @@ public class Patient {
         this.contact = contact;
     }
 
-    public int getuId() {
-        return uId;
+    public int getUid() {
+        return uid;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setUid(int uId) {
+        this.uid = uid;
     }
 
     public String getEmail() {
@@ -97,24 +96,24 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return pId == patient.pId;
+        return pid == patient.pid;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(pId);
+        return Objects.hashCode(pid);
     }
 
     @Override
     public String toString() {
         return "Patient{" +
-                "pId=" + pId +
+                "pid=" + pid +
                 ", pname='" + pname + '\'' +
                 ", gender=" + gender +
-                ", dob=" + dob +
+                ", age=" + age +
                 ", contact='" + contact + '\'' +
                 ", email='" + email + '\'' +
-                ", uId=" + uId +
+                ", uid=" + uid +
                 '}';
     }
 }

@@ -7,17 +7,19 @@ import java.sql.SQLException;
 
 public class DBUtils {
     public static Connection conn = null;
-    static String url= "jdbc:mysql://localhost:3306/hackathondb";
+    static String url = "jdbc:mysql://localhost:3306/hackathondb";
+
     public static Connection getConnection() {
-        if(conn == null) {
+        if (conn == null) {
             try {
                 DriverManager.registerDriver(new Driver());
-                conn=DriverManager.getConnection(url,"root","root123");
+                // TODO : Change the username and password as per your MySQL installation
+                conn = DriverManager.getConnection(url, "root", "root123");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
             return conn;
-        }
-        else return conn;
+        } else
+            return conn;
     }
 }

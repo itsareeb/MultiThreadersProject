@@ -1,0 +1,74 @@
+<Doctors>
+    <Doctor>
+        <EmpID>501</EmpID>
+        <Name>Doctor1</Name>
+        <Password>p1234</Password>
+        <IsActive>true</IsActive>
+        <Contact>1122331122</Contact>
+        <Email>doctor1@gmail.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Cardiology</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+    <Doctor>
+        <EmpID>502</EmpID>
+        <Name>Doctor2</Name>
+        <Password>p1234</Password>
+        <IsActive>true</IsActive>
+        <Contact>1122331122</Contact>
+        <Email>doctor2@gmail.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Dermatology</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+    <Doctor>
+        <EmpID>503</EmpID>
+        <Name>Doctor3</Name>
+        <Password>p1234</Password>
+        <IsActive>true</IsActive>
+        <Contact>1122331122</Contact>
+        <Email>doctor3@gmail.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Neurology</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+    <Doctor>
+        <EmpID>505</EmpID>
+        <Name>Dr. Smith</Name>
+        <Password>password456</Password>
+        <IsActive>true</IsActive>
+        <Contact>0987654321</Contact>
+        <Email>dr.smith@example.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Cardiology</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+    <Doctor>
+        <EmpID>508</EmpID>
+        <Name>Dr. Bob</Name>
+        <Password>password456</Password>
+        <IsActive>true</IsActive>
+        <Contact>0987654321</Contact>
+        <Email>dr.bob@example.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Orthopedics</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+    <Doctor>
+        <EmpID>510</EmpID>
+        <Name>Dr. Alice</Name>
+        <Password>password789</Password>
+        <IsActive>true</IsActive>
+        <Contact>1122334455</Contact>
+        <Email>dr.alice@example.com</Email>
+        <Qualification>MBBS, MD</Qualification>
+        <Specialization>Pediatrics</Specialization>
+        <Department>general</Department>
+
+    </Doctor>
+</Doctors>
