@@ -12,7 +12,10 @@ header h1 {
   text-transform: uppercase;
 }
 
-
+.mp{
+  margin-left: 150px;
+  text-align: justify;
+}
 /*------------------------------ Body---------------------------- */
 body {
     font-family: Arial, sans-serif;
@@ -40,7 +43,6 @@ body {
       font-style: normal;
       font-size: 35px;
     }
-
   .logo {
     width: 50px;
     height: 50px;
