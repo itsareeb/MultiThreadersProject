@@ -1,10 +1,6 @@
 package com.hsbc.dao;
 
-import com.hsbc.exceptions.AppointmentAlreadyExistsException;
-import com.hsbc.exceptions.NoAppointmentsFoundException;
-import com.hsbc.exceptions.NoDoctorsFoundException;
-import com.hsbc.exceptions.NoPatientsFoundException;
-import com.hsbc.exceptions.PatientAlreadyExistsException;
+import com.hsbc.exceptions.*;
 import com.hsbc.utils.DBUtils;
 import com.hsbc.models.Patient;
 import com.hsbc.models.DoctorSchedule;
@@ -55,11 +51,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void bookAppointment(DoctorSchedule schedule, ShiftSlot slot, int uid, int pid, int did, int shiftNumber, int slotNumber, Date dateofAppointment) throws AppointmentAlreadyExistsException {
-//        String sql_to_check = "select * from appointments where appointmentID = ?";
+    public void bookAppointment(DoctorSchedule schedule, ShiftSlot slot, int uid, int pid, int did, int shiftNumber,
+            int slotNumber, Date dateofAppointment)
+            throws AppointmentAlreadyExistsException, DoctorNotAvailableException, SlotNotAvailableException {
+        // String sql_to_check = "select * from appointments where appointmentID = ?";
 
-        //First we will check if appointment is already booked
-        int count = Integer.parseInt("select count(*) from appointments where doctorID = ? and date = ? and shiftNumber = ? and slotNumber = ?");
+        // First we will check if appointment is already booked
+        int count = Integer.parseInt(
+                "select count(*) from appointments where doctorID = ? and date = ? and shiftNumber = ? and slotNumber = ?");
         try {
             ps = conn.prepareStatement(String.valueOf(count));
             ps.setInt(1, did);
@@ -74,7 +73,6 @@ public class UserDaoImpl implements UserDao {
             System.out.println(e.getMessage());
         }
 
-
         // Now whether schedule is available or not
         String schedule_sql = "select count(*) from schedule where doctorID = ? and date = ? and shift_number = ?";
         try {
@@ -84,7 +82,7 @@ public class UserDaoImpl implements UserDao {
             ps.setInt(3, shiftNumber);
             rs = ps.executeQuery();
             if (rs.getInt(1) == 0) {
-                throw new AppointmentAlreadyExistsException("Doctor is not available on this date");
+                throw new DoctorNotAvailableException("Doctor is not available on this date");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -98,7 +96,7 @@ public class UserDaoImpl implements UserDao {
             ps.setInt(2, slotNumber);
             rs = ps.executeQuery();
             if (rs.getInt(1) == 0) {
-                throw new AppointmentAlreadyExistsException("Slot is not available");
+                throw new SlotNotAvailableException("Slot is not available");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -145,7 +143,8 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getInt(1) + " : " + rs.getString(2) + " : " + rs.getInt(3) + " : " + rs.getString(4) + " : " + rs.getString(5) + " : " + rs.getString(6));
+                System.out.println(rs.getInt(1) + " : " + rs.getString(2) + " : " + rs.getInt(3) + " : "
+                        + rs.getString(4) + " : " + rs.getString(5) + " : " + rs.getString(6));
             }
         } catch (Exception e) {
             throw new NoPatientsFoundException("No patients found");
@@ -189,7 +188,8 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getInt(1) + " : " + rs.getString(2) + " : " + rs.getString(3) + " : " + rs.getString(4) + " : " + rs.getString(5) + " : " + rs.getString(6));
+                System.out.println(rs.getInt(1) + " : " + rs.getString(2) + " : " + rs.getString(3) + " : "
+                        + rs.getString(4) + " : " + rs.getString(5) + " : " + rs.getString(6));
             }
         } catch (Exception e) {
             throw new NoDoctorsFoundException("No doctors found");
