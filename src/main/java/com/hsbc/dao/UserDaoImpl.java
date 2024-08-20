@@ -54,9 +54,7 @@ public class UserDaoImpl implements UserDao {
     public void bookAppointment(DoctorSchedule schedule, ShiftSlot slot, int uid, int pid, int did, int shiftNumber,
             int slotNumber, Date dateofAppointment)
             throws AppointmentAlreadyExistsException, DoctorNotAvailableException, SlotNotAvailableException {
-        // String sql_to_check = "select * from appointments where appointmentID = ?";
 
-        // First we will check if appointment is already booked
         int count = Integer.parseInt(
                 "select count(*) from appointments where doctorID = ? and date = ? and shiftNumber = ? and slotNumber = ?");
         try {
