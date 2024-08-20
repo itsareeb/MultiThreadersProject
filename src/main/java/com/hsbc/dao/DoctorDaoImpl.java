@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static com.hsbc.utils.DBUtils.conn;
+
 
 public class DoctorDaoImpl implements DoctorDao {
 
@@ -21,12 +21,11 @@ public class DoctorDaoImpl implements DoctorDao {
 
     public static void main(String[] args) {
         DoctorDaoImpl dao = new DoctorDaoImpl();
-        //System.out.println(dao.viewAppointements(305));
-        //dao.suggestMedicalTest(6, "Dolo", "250mg", "after food");
+        dao.suggestMedications(6, "Dolo", "250mg", "after food");
         dao.suggestMedicalTest(5, "MRI Scan");
     }
 
-    public List<Appointment> viewAppointements(int id) {
+    public List<Appointment> viewAppointments(int id) {
         List<Appointment> appointments = new ArrayList<Appointment>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -53,7 +52,7 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     //Function to suggest medicines
-    public void suggestMedicalTest(int appointmentID, String medicineName, String dosage, String instruction) {
+    public void suggestMedications(int appointmentID, String medicineName, String dosage, String instruction) {
         String sql = "INSERT INTO Medications (appointmentID, name, dosage, instructions) VALUES(?,?,?,?)";
         try {
             Statement stmt = conn.createStatement();

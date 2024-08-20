@@ -2,10 +2,7 @@ package com.hsbc.dao;
 
 import com.hsbc.Enums.AppointmentEnums;
 import com.hsbc.Enums.PatientEnums;
-import com.hsbc.exceptions.AdminAlreadyExistsException;
-import com.hsbc.exceptions.AppointmentNotFoundException;
-import com.hsbc.exceptions.DoctorNotFoundException;
-import com.hsbc.exceptions.UserAlreadyExistsException;
+import com.hsbc.exceptions.*;
 import com.hsbc.models.*;
 import com.hsbc.utils.DBUtils;
 import org.w3c.dom.Document;
@@ -33,24 +30,23 @@ public class AdminDaoImpl implements AdminDao {
 
 
     @Override
-    public void importUsersFromXMLFile(String filepath) throws UserAlreadyExistsException, DoctorNotFoundException, AdminAlreadyExistsException {
+    public void importUsers(List<User> users) throws UserAlreadyExistsException{
 
     }
 
     @Override
-    public void showDoctorSchedule() throws DoctorNotFoundException {
+    public List<DoctorSchedule> showDoctorSchedule(int doctorID) throws DoctorNotFoundException {
 
     }
 
     @Override
-    public void updateDoctorSchedule() throws DoctorNotFoundException {
+    public void updateDoctorSchedule(DoctorSchedule schedule, int doctorID) throws DoctorNotFoundException, ScheduleNotFoundException {
 
     }
 
     @Override
-    public void cancelAppointments(int appointmentID) throws AppointmentNotFoundException {
+    public void cancelAppointment(int appointmentID) throws AppointmentNotFoundException {
         String sql="UPDATE appointments SET status='cancelled' WHERE appointmentID=?";
-
         try {
             Statement stmt = conn.createStatement();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -59,14 +55,10 @@ public class AdminDaoImpl implements AdminDao {
         } catch (SQLException e) {
             throw new RuntimeException("Error updating appointments schedule", e);
         }
-
-
-
-
     }
 
     @Override
-    public List<Patient> showAllpatients() {
+    public List<Patient> showAllPatients() throws NoPatientsFoundException {
         List<Patient> patients = new ArrayList<Patient>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -95,7 +87,7 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public List<Appointment> showAllAppointments() {
+    public List<Appointment> showAllAppointments() throws NoAppointmentsFoundException {
         List<Appointment> appointments = new ArrayList<Appointment>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -127,7 +119,37 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public void showAllDoctors() {
+    public List<Doctor> showAllDoctors() throws NoDoctorsFoundException{
+
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) throws DoctorAlreadyExistsException {
+
+    }
+
+    @Override
+    public void removeDoctor(int doctorID) throws DoctorNotFoundException {
+
+    }
+
+    @Override
+    public List<User> showAllUsers() throws NoUsersFoundException {
+        return List.of();
+    }
+
+    @Override
+    public void removeUser(int userID) throws UserNotFoundException {
+
+    }
+
+    @Override
+    public void addUser(User user) throws UserAlreadyExistsException {
+
+    }
+
+    @Override
+    public void importDoctors(List<Doctor> doctors) throws DoctorAlreadyExistsException {
 
     }
 
@@ -135,13 +157,13 @@ public class AdminDaoImpl implements AdminDao {
     public static void main(String[] args) {
         AdminDaoImpl adminDao = new AdminDaoImpl();
         /*try {
-            adminDao.cancelAppointments(5);
+            adminDao.cancelAppointment(5);
         } catch (AppointmentNotFoundException e) {
             System.out.println(e.getMessage());
         }*/
 
         //System.out.println(adminDao.showAllpatients());
 
-        System.out.println(adminDao.showAllAppointments());
+//        System.out.println(adminDao.showAllAppointments());
     }
 }
