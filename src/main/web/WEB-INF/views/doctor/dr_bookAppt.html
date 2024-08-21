@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment UI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./css/dr_bookAppt.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h4>Doctor Panel</h4>
+        <ul>
+            <li><a href="#"><i class="fas fa-calendar-plus"></i> Book Appointment</a></li>
+            <li><a href="#"><i class="fas fa-edit"></i> Add/Update Schedule</a></li>
+            <li><a href="#"><i class="fas fa-calendar-check"></i> View Appointments</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>Book an Appointment</h1>
+            <form id="appointmentForm" onsubmit="return bookAppointment()">
+                <div class="form-group">
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientId">Patient ID:</label>
+                    <input type="text" id="patientId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="doctorType">Doctor Type:</label>
+                    <select id="doctorType" class="form-control" required>
+                        <option value="" disabled selected>Select Doctor Type</option>
+                        <option value="general">General Practitioner</option>
+                        <option value="pediatrician">Pediatrician</option>
+                        <option value="cardiologist">Cardiologist</option>
+                        <option value="dermatologist">Dermatologist</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Date of Appointment:</label>
+                    <input type="date" id="appointmentDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="shiftNumber">Shift Number:</label>
+                    <select id="shiftNumber" class="form-control" required onchange="updateAvailableSlots()">
+                        <option value="" disabled selected>Select Shift Number</option>
+                        <option value="1">Shift 1 (9:00 AM - 12:00 PM)</option>
+                        <option value="2">Shift 2 (1:00 PM - 4:00 PM)</option>
+                        <option value="3">Shift 3 (5:00 PM - 8:00 PM)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="slotNumber">Slot Number:</label>
+                    <select id="slotNumber" class="form-control" required>
+                        <!-- Available slots will be dynamically populated here -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const shiftSlots = {
+            1: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM'],
+            2: ['1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM'],
+            3: ['5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM']
+        };
+
+        function updateAvailableSlots() {
+            const shiftNumber = document.getElementById('shiftNumber').value;
+            const slotNumberSelect = document.getElementById('slotNumber');
+            slotNumberSelect.innerHTML = ''; // Clear existing options
+
+            if (shiftSlots[shiftNumber]) {
+                shiftSlots[shiftNumber].forEach((time, index) => {
+                    const option = document.createElement('option');
+                    option.value = index + 1;
+                    option.textContent = `Slot ${index + 1} (${time})`;
+                    slotNumberSelect.appendChild(option);
+                });
+            }
+        }
+
+        function bookAppointment() {
+            const userId = document.getElementById('userId').value;
+            const patientId = document.getElementById('patientId').value;
+            const doctorType = document.getElementById('doctorType').value;
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const shiftNumber = document.getElementById('shiftNumber').value;
+            const slotNumber = document.getElementById('slotNumber').value;
+            const time = shiftSlots[shiftNumber][slotNumber - 1];
+
+            // You can now save this data (e.g., send it to the backend)
+            alert(`Appointment booked!\n\nUser ID: ${userId}\nPatient ID: ${patientId}\nDoctor Type: ${doctorType}\nDate: ${appointmentDate}\nShift: ${shiftNumber}\nSlot: ${slotNumber} (${time})`);
+
+            return false; // Prevent actual form submission for this demo
+        }
+    </script>
+</body>
+
+</html>

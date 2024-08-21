@@ -1,0 +1,72 @@
+body {
+    background-image: url('../images/dots.png');
+    background-size: cover;
+    background-position: center;
+    background-color: aliceblue;
+    color: white;
+}
+
+.navbar .header .footer {
+    background-color: #278cb4;
+}
+
+.navbar a {
+    color: white;
+}
+.navbar_side{
+    margin-top: 0;
+}
+.welcome-section {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.container {
+    background: rgba(73, 103, 236, 0.4);
+    padding: 20px;
+    border-radius: 10px;
+}
+about{
+    background-color: #140b64;
+}
+.table {
+    background-color: white;
+    color: black;
+}
+.mainPage{
+    margin-left: 20px;
+}
+aside header{
+    position: sticky;
+  top: 0; 
+}
+.sidebar {
+    width: 200px;
+    background-color: #140b64;
+    padding-top: 20px;
+    height: 100vh;
+    position: relative;
+    bottom: 0;
+    z-index: 2;
+  height: 1460px;
+}
+
+.sidebar .list-group-item {
+    background-color: #140b64;
+    color: white;
+    border: none;
+}
+
+.sidebar .list-group-item a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar .list-group-item:hover {
+    background-color: #495057;
+}
+
+.content-container {
+    flex-grow: 1;
+    padding: 20px;
+}

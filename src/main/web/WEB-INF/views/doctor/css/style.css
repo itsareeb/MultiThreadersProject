@@ -1294,8 +1294,6 @@ footer {
 #mySidebar{
   background-attachment:fixed;
       background-color: #1480c9;
-      
-    z-index: 10;
 }
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
