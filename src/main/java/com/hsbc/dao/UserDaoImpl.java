@@ -1,5 +1,6 @@
 package com.hsbc.dao;
 
+import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.exceptions.*;
 import com.hsbc.utils.DBUtils;
 import com.hsbc.models.Patient;
@@ -22,7 +23,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void registerPatient(int uid, Patient patient) throws PatientAlreadyExistsException {
+    public void registerPatient(int uid, Patient patient) throws PatientAlreadyExistsException, UserNotFoundException {
+
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
+        try {
+            if (!employeeDao.isEmployee(uid, EmployeeEnums.Role.user.toString())) {
+                throw new UserNotFoundException("User not found");
+            }
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         String sql = "insert into patient values(?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -105,7 +115,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(2, schedule.getDid());
+            ps.setInt(2, schedule.getDoctorId());
             ps.setDate(6, schedule.getDate());
             ps.setInt(3, pid);
             ps.setInt(1, uid);

@@ -1,6 +1,8 @@
 package com.hsbc.dao;
 
 
+import com.hsbc.exceptions.AppointmentNotFoundException;
+import com.hsbc.exceptions.NoAppointmentsFoundException;
 import com.hsbc.models.Appointment;
 import com.hsbc.utils.DBUtils;
 
@@ -21,11 +23,21 @@ public class DoctorDaoImpl implements DoctorDao {
 
     public static void main(String[] args) {
         DoctorDaoImpl dao = new DoctorDaoImpl();
-        dao.suggestMedications(6, "Dolo", "250mg", "after food");
-        dao.suggestMedicalTest(5, "MRI Scan");
+        try{
+            dao.suggestMedications(6, "Dolo", "250mg", "after food");
+        } catch (AppointmentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try{
+            dao.suggestMedicalTest(5, "MRI Scan");
+        } catch (AppointmentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    public List<Appointment> viewAppointments(int id) {
+    public List<Appointment> viewAppointments(int id) throws NoAppointmentsFoundException {
         List<Appointment> appointments = new ArrayList<Appointment>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -35,6 +47,11 @@ public class DoctorDaoImpl implements DoctorDao {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
+
+            if(!rs.next()) {
+                throw new NoAppointmentsFoundException("No appointments found");
+            }
+
             while (rs.next()) {
                 Appointment appointment = new Appointment();
                 appointment.setAppId(rs.getInt("appointmentID"));
@@ -42,8 +59,6 @@ public class DoctorDaoImpl implements DoctorDao {
                 appointment.setDid(rs.getInt("doctorID"));
                 appointment.setUid(rs.getInt("userID"));
                 appointments.add(appointment);
-
-                //System.out.println(appointment);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,11 +67,16 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     //Function to suggest medicines
-    public void suggestMedications(int appointmentID, String medicineName, String dosage, String instruction) {
+    public void suggestMedications(int appointmentID, String medicineName, String dosage, String instruction) throws AppointmentNotFoundException {
+
+        AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
+        if(!appointmentDao.isAppointmentExist(appointmentID)) {
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
+
         String sql = "INSERT INTO Medications (appointmentID, name, dosage, instructions) VALUES(?,?,?,?)";
         try {
-            Statement stmt = conn.createStatement();
-            //ResultSet rs =stmt.executeQuery(sql);
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.setString(2, medicineName);
@@ -69,7 +89,11 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-    public void suggestMedicalTest(int appointmentID, String testName) {
+    public void suggestMedicalTest(int appointmentID, String testName) throws AppointmentNotFoundException {
+        AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
+        if(!appointmentDao.isAppointmentExist(appointmentID)) {
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
         String sql = "INSERT INTO tests (appointmentID, name) VALUES(?,?)";
         try {
             Statement stmt = conn.createStatement();

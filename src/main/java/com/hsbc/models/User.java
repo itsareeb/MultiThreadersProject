@@ -17,6 +17,10 @@ public class User extends Employee{
         this.shift = shift;
     }
 
+    public User() {
+
+    }
+
 
     public EmployeeEnums.Department getDept() {
         return dept;
