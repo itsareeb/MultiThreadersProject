@@ -32,6 +32,11 @@ function loadScheduleAndAppointments() {
             const row = `
                 <tr>
                     <td>Appointment details for ${dateString}</td>
+                    <td >
+                        <button style="background-color:  rgb(145, 255, 172);" class="btn btn-sm">started</button>
+                        <button style="background-color:  rgb(145, 255, 172);" class="btn btn-sm">ongoing</button>
+                        <button style="background-color:  rgb(145, 255, 172);" class="btn  btn-sm">Completed</button>
+                    </td>
                     <td>
                         <button class="btn btn-success btn-sm">Suggest Medical Tests</button>
                         <button class="btn btn-warning btn-sm">Suggest Medicines</button>

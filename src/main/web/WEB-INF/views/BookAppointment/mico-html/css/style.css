@@ -1292,10 +1292,12 @@ footer {
 
 /*------------------------SideBar-------------------- */
 #mySidebar{
-  background-attachment:fixed;
-      background-color: #1480c9;
-      
+    background-attachment:fixed;
+    background-color: #1480c9;
     z-index: 10;
+    position: fixed;
+    height: 600px;
+    top: 0;
 }
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
