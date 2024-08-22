@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AdminDaoImpl implements AdminDao {
 
-    Connection conn;
+    public Connection conn;
 
     public AdminDaoImpl() {
         conn = DBUtils.getConnection();

@@ -21,6 +21,9 @@ public class User extends Employee{
 
     }
 
+    public User(int i, String johnDoe, EmployeeEnums.Role role, String number, String mail, boolean b) {
+    }
+
 
     public EmployeeEnums.Department getDept() {
         return dept;

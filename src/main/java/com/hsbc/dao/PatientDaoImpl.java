@@ -21,7 +21,7 @@ public class PatientDaoImpl implements PatientDao {
 
     @Override
     public Boolean isRegisteredPatient(int id) throws SQLException{
-        String query = "SELECT * FROM Patient WHERE pid=?";
+        String query = "SELECT * FROM Patient WHERE patientID=?";
 
         try {
             ps = conn.prepareStatement(query);
@@ -46,20 +46,22 @@ public class PatientDaoImpl implements PatientDao {
     }
 
     @Override
-    public Patient getPatient(String pname, String contact) throws PatientNotFoundException, SQLException {
-        String query = "SELECT * FROM Patient WHERE pname=? AND contact=?";
+    public Patient getPatient(String name, String contact) throws PatientNotFoundException, SQLException {
+        String query = "SELECT * FROM Patient WHERE name=? AND contact=?";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, pname);
+            ps.setString(1, name);
             ps.setString(2, contact);
             rs = ps.executeQuery();
             if (rs.next()) {
                 Patient patient = new Patient();
-                patient.setPid(rs.getInt("pid"));
-                patient.setPname(rs.getString("pname"));
+                patient.setPid(rs.getInt("patientID"));
+                patient.setPname(rs.getString("name"));
                 patient.setContact(rs.getString("contact"));
                 patient.setGender(PatientEnums.Gender.valueOf(rs.getString("gender")));
                 patient.setAge(rs.getInt("age"));
+                patient.setEmail(rs.getString("email"));
+                patient.setUid(rs.getInt("userID"));
                 return patient;
             }
             else{

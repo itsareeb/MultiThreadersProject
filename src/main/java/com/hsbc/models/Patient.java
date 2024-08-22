@@ -80,7 +80,7 @@ public class Patient {
     }
 
     public void setUid(int uId) {
-        this.uid = uid;
+        this.uid = uId;
     }
 
     public String getEmail() {

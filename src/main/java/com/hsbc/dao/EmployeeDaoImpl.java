@@ -31,11 +31,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
             if (rs.next()) {
                 Employee employee = new Employee();
                 employee.setEmail(rs.getString("email"));
-                employee.setEmpId(rs.getInt("emp_id"));
-                employee.setEmpName(rs.getString("emp_name"));
+                employee.setEmpId(rs.getInt("empID"));
+                employee.setEmpName(rs.getString("name"));
                 employee.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
                 employee.setActive(rs.getBoolean("isActive"));
                 employee.setContact(rs.getString("contact"));
+                System.out.println(employee);
                 return employee;
             }
             else{
@@ -55,7 +56,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Boolean isEmployee(int id, String role){
-        String query = "SELECT * FROM Employee WHERE emp_id = ? AND role = ?";
+        String query = "SELECT * FROM Employee WHERE empID = ? AND role = ?";
 
         try {
             ps = conn.prepareStatement(query);
@@ -65,8 +66,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
             if (rs.next()) {
                 Employee employee = new Employee();
                 employee.setEmail(rs.getString("email"));
-                employee.setEmpId(rs.getInt("emp_id"));
-                employee.setEmpName(rs.getString("emp_name"));
+                employee.setEmpId(rs.getInt("empID"));
+                employee.setEmpName(rs.getString("name"));
                 employee.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
                 employee.setActive(rs.getBoolean("isActive"));
                 employee.setContact(rs.getString("contact"));
@@ -85,6 +86,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        EmployeeDaoImpl dao = new EmployeeDaoImpl();
+        try {
+            dao.employeeLogin("user1@gmail.com","p1234");
+        } catch (EmployeeNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }
