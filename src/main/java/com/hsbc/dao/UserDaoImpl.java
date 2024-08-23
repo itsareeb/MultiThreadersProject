@@ -2,6 +2,7 @@ package com.hsbc.dao;
 
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.exceptions.*;
+import com.hsbc.models.Appointment;
 import com.hsbc.utils.DBUtils;
 import com.hsbc.models.Patient;
 import com.hsbc.models.DoctorSchedule;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -18,8 +20,8 @@ public class UserDaoImpl implements UserDao {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public UserDaoImpl(Connection conn) {
-        conn = DBUtils.getConnection();
+    public UserDaoImpl() {
+        this.conn = DBUtils.getConnection();
     }
 
     @Override
@@ -158,14 +160,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void viewAppointments() throws NoAppointmentsFoundException {
+    public List<Appointment> viewAppointments() throws NoAppointmentsFoundException {
         String sql = "select * from appointments";
+        List<Appointment> appointments = null;
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getInt(1) + " : " + rs.getDate(2) + " : " + rs.getInt(3) + " : " + rs.getInt(4));
+//                System.out.println(rs.getInt(1) + " : " + rs.getDate(2) + " : " + rs.getInt(3) + " : " + rs.getInt(4));
+//                appointments.add(new Appointment(rs.getInt(1), rs.getDate(2), rs.getInt(3), rs.getInt(4)));
             }
+
         } catch (Exception e) {
             throw new NoAppointmentsFoundException("No appointments found");
         } finally {
@@ -176,6 +181,8 @@ public class UserDaoImpl implements UserDao {
                 System.out.println(e.getMessage());
             }
         }
+
+        return appointments;
 
     }
 

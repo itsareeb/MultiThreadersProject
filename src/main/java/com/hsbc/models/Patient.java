@@ -16,8 +16,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(int pid, String pname, PatientEnums.Gender gender, int age, String contact, int uid) {
-        this.pid = pid;
+    public Patient(String pname, PatientEnums.Gender gender, int age, String contact, int uid) {
         this.pname = pname;
         this.gender = gender;
         this.age = age;
@@ -25,8 +24,7 @@ public class Patient {
         this.uid = uid;
     }
 
-    public Patient(int pid, String pname, PatientEnums.Gender gender, int age, String contact, String email, int uid) {
-        this.pid = pid;
+    public Patient( String pname, PatientEnums.Gender gender, int age, String contact, String email, int uid) {
         this.pname = pname;
         this.gender = gender;
         this.age = age;

@@ -16,13 +16,12 @@ public class AppointmentDaoImpl implements AppointmentDao {
         conn = DBUtils.getConnection();
     }
 
-
     @Override
-    public boolean isAppointmentExist(int appointmentID) {
-        String sql = "select count(*) from appointments where appointmentID = ?";
+    public boolean isAppointmentExist(int appointmentId) {
+        String sql = "select count(*) from appointments where appointmentId = ?";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, appointmentID);
+            ps.setInt(1, appointmentId);
             rs = ps.executeQuery();
             if(rs.next()) {
                 return true;

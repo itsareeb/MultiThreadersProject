@@ -161,11 +161,11 @@ public class AdminDaoImpl implements AdminDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Appointment appointment = new Appointment();
-                appointment.setAppId(rs.getInt("appointmentID"));
-                appointment.setPid(rs.getInt("patientID"));
+                appointment.setAppointmentId(rs.getInt("appointmentID"));
+                appointment.setPatientId(rs.getInt("patientID"));
                 appointment.setDate(rs.getDate("date"));
                 appointment.setDid(rs.getInt("doctorID"));
-                appointment.setUid(rs.getInt("userID"));
+                appointment.setUserId(rs.getInt("userID"));
                 appointment.setShiftNumber(rs.getInt("shift_number"));
                 appointment.setSlotNumber(rs.getInt("slot_number"));
                 appointment.setStatus(AppointmentEnums.Status.valueOf(rs.getString("status")));
@@ -245,9 +245,9 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public void removeDoctor(int doctorID) throws DoctorNotFoundException {
+    public void removeDoctor(int doctorId) throws DoctorNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(!employeeDao.isEmployee(doctorID, EmployeeEnums.Role.doctor.toString())){
+        if(!employeeDao.isEmployee(doctorId, EmployeeEnums.Role.doctor.toString())){
             throw new DoctorNotFoundException("Doctor not found");
         }
 
@@ -255,7 +255,7 @@ public class AdminDaoImpl implements AdminDao {
         try {
             Statement stmt = conn.createStatement();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, doctorID);
+            ps.setInt(1, doctorId);
             ps.executeUpdate();
             System.out.println("Doctor Removed");
         } catch (SQLException e) {
@@ -293,9 +293,9 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public void removeUser(int userID) throws UserNotFoundException {
+    public void removeUser(int userId) throws UserNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(!employeeDao.isEmployee(userID, EmployeeEnums.Role.user.toString())){
+        if(!employeeDao.isEmployee(userId, EmployeeEnums.Role.user.toString())){
             throw new UserNotFoundException("User not found");
         }
         PreparedStatement ps = null;
@@ -303,7 +303,7 @@ public class AdminDaoImpl implements AdminDao {
         String sql = "UPDATE user SET isActive=false WHERE emp_id=?";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, userID);
+            ps.setInt(1, userId);
             ps.executeUpdate();
             System.out.println("User Removed");
         } catch (SQLException e) {

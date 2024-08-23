@@ -27,16 +27,6 @@ public class Employee {
     }
 
 
-    public Employee(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email) {
-        this.empId = empId;
-        this.role = role;
-        this.empName = empName;
-        this.password = password;
-        this.isActive = isActive;
-        this.contact = contact;
-        this.email = email;
-    }
-
     public int getEmpId() {
         return empId;
     }
