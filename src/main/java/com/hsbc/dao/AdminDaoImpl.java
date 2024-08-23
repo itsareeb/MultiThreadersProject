@@ -53,7 +53,7 @@ public class AdminDaoImpl implements AdminDao {
                 DoctorSchedule schedule = new DoctorSchedule();
                 schedule.setDoctorId(rs.getInt("doctorID"));
                 schedule.setShiftNumber(rs.getInt("shift_number"));
-                schedule.setDate(rs.getDate("date"));
+                schedule.setDate(rs.getDate("date").toLocalDate());
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -83,12 +83,12 @@ public class AdminDaoImpl implements AdminDao {
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, doctorID);
-            ps.setDate(2, schedule.getDate());
+            ps.setString(2, schedule.getDate().toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 String update_sql = "UPDATE doctor_schedule SET date = ? WHERE doctorID = ? and shift_number = ? ";
                 PreparedStatement ps1 = conn.prepareStatement(update_sql);
-                ps1.setDate(1, schedule.getDate());
+                ps1.setString(1, schedule.getDate().toString());
                 ps1.setInt(2, doctorID);
                 ps1.setInt(3, schedule.getShiftNumber());
                 ps1.executeUpdate();

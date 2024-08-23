@@ -1,0 +1,202 @@
+package com.hsbc.dao;
+
+import com.hsbc.exceptions.ActionNotAllowedException;
+import com.hsbc.exceptions.InvalidScheduleDataException;
+import com.hsbc.exceptions.ScheduleNotFoundException;
+import com.hsbc.models.DoctorSchedule;
+import com.hsbc.models.DoctorSchedules;
+import com.hsbc.utils.DBUtils;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ScheduleDaoImpl implements ScheduleDao {
+    Connection conn;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    public ScheduleDaoImpl() {
+        this.conn = DBUtils.getConnection();
+    }
+
+    public static void main(String[] args) {
+        ScheduleDaoImpl scheduleDao = new ScheduleDaoImpl();
+        List<DoctorSchedules> docSchedules = new ArrayList<>();
+        docSchedules.add(
+                new DoctorSchedules(101,  LocalDate.of(2024, 8, 24), Arrays.asList(1,3))
+                );
+
+        docSchedules.add(
+                new DoctorSchedules(101, LocalDate.of(2024, 8, 25), Arrays.asList(2,3))
+                );
+        docSchedules.add(
+                new DoctorSchedules(101, LocalDate.of(2024, 8, 26), Arrays.asList(3,4))
+                );
+        try {
+            scheduleDao.addDoctorSchedule(docSchedules);
+        } catch (ActionNotAllowedException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidScheduleDataException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+//        LocalDate date = LocalDate.of(2024, 8, 24);
+//        try {
+//            scheduleDao.getDoctorSchedule(101, date);
+//        } catch (ScheduleNotFoundException e) {
+//            System.out.println(e.getMessage());
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());;
+//        }
+    }
+
+    @Override
+    public List<DoctorSchedule> getDoctorSchedule(int did, LocalDate date) throws ScheduleNotFoundException, SQLException {
+        System.out.println(date.toString());
+        String query = "SELECT * FROM Schedule WHERE did = ? AND date = ?";
+
+        List<DoctorSchedule> schedule = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, did);
+            ps.setString(2, date.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DoctorSchedule doctorSchedule = new DoctorSchedule();
+                    doctorSchedule.setSid(rs.getInt("sid"));
+                    doctorSchedule.setDoctorId(rs.getInt("did"));
+                    doctorSchedule.setAvailable(rs.getBoolean("isAvailable"));
+                    doctorSchedule.setShiftNumber(rs.getInt("shiftno")); // Assuming shiftno is an integer
+                    doctorSchedule.setDate(rs.getDate("date").toLocalDate()); // Assuming you want LocalDate here
+                    schedule.add(doctorSchedule);
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Database access error occurred.", e);
+        }
+
+        if (schedule.isEmpty()) {
+            throw new ScheduleNotFoundException("No schedule found for the given data");
+        }
+
+        schedule.forEach(System.out::println);
+        return schedule;
+    }
+
+
+    @Override
+    public Boolean addDoctorSchedule(List<DoctorSchedules> dsList) throws ActionNotAllowedException, InvalidScheduleDataException, SQLException {
+        if (isValidSchedule(dsList)) {
+            String insertIntoSchedule = "Insert into Schedule (did, shiftno, date, isAvailable) values (?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(insertIntoSchedule, Statement.RETURN_GENERATED_KEYS);
+            conn.setAutoCommit(false);
+            for (DoctorSchedules ds : dsList) {
+                for (DoctorSchedule schedule: ds.getSchedules()){
+                    try {
+                        ps.setInt(1, schedule.getDoctorId());
+                        ps.setInt(2, schedule.getShiftNumber());
+                        ps.setString(3, schedule.getDate().toString());
+                        ps.setBoolean(4, schedule.isAvailable());
+                        int rows = ps.executeUpdate();
+
+                        if (schedule.isAvailable() && rows>0){
+                            ResultSet rs = ps.getGeneratedKeys();
+                            if (rs.next()) {
+                                int sid = rs.getInt(1);
+                                System.out.println(sid);
+                                createSlots(sid, schedule.getShiftNumber());
+
+                            }
+                        }
+                    } catch (SQLException e) {
+                        try {
+                            conn.rollback();
+                            throw new SQLException("Database access error occurred.", e);
+                        } catch (SQLException ex) {
+                            throw new SQLException("DB ERROR, " + e);
+                        }
+
+                    }
+                }
+            }
+            conn.commit();
+        }
+        return false;
+    }
+
+    private void createSlots(int sid, int shiftno) throws SQLException {
+        try(
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO Slots (sid, slotno, slottime) VALUES (?, ?, ?)")
+                ){
+            LocalTime localTime = LocalTime.of(0, 0);
+            switch (shiftno){
+                case 1:
+                    localTime = LocalTime.of(0, 0);
+                    break;
+                case 2:
+                    localTime = LocalTime.of(6, 0);
+                    break;
+                case 3:
+                    localTime = LocalTime.of(12, 0);
+                    break;
+                case 4:
+                    localTime = LocalTime.of(18, 0);
+                    break;
+            }
+
+            for (int i = 1; i<=12; i++){
+                ps.setInt(1, sid);
+                ps.setInt(2, i);
+                ps.setString(3, localTime.toString());
+                ps.executeUpdate();
+                localTime =  localTime.plusMinutes(30);
+            }
+//            ps.executeBatch();
+        } catch (SQLException e) {
+            throw new SQLException("db error", e);
+        }
+
+    }
+
+    private Boolean isValidSchedule(List<DoctorSchedules> dsList) throws ActionNotAllowedException, InvalidScheduleDataException, SQLException{
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        if (dsList.size()!=3) {
+            throw new InvalidScheduleDataException("Schedules must be added for exactly 3 days");
+        }
+        for(DoctorSchedules ds : dsList) {
+            LocalDate scheduleDate = ds.getDate();
+            System.out.println(scheduleDate);
+            if (scheduleDate.isBefore(tomorrow) || scheduleDate.isAfter(tomorrow.plusDays(2))) {
+                throw new InvalidScheduleDataException("Schedules must be added for 3 days starting tomorrow");
+            }
+
+        };
+        String query = "SELECT * FROM Schedule WHERE did = ? AND date = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, dsList.get(0).getDid());
+            ps.setString(2, tomorrow.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    throw new ActionNotAllowedException("Schedules can only be added at intervals of 3 days. Schedule already exists");
+                }
+                else{
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Database access error occurred.", e);
+        }
+    }
+
+    @Override
+    public DoctorSchedule updateDoctorSchedule(DoctorSchedule ds) {
+        String query = "UPDATE Schedule SET isAvailable = ? WHERE sid = ?";
+        return null;
+    }
+}
