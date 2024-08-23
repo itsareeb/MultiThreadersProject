@@ -118,7 +118,7 @@ public class UserDaoImpl implements UserDao {
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(2, schedule.getDoctorId());
-            ps.setDate(6, schedule.getDate());
+            ps.setString(6, schedule.getDate().toString());
             ps.setInt(3, pid);
             ps.setInt(1, uid);
             ps.setInt(4, shiftNumber);
