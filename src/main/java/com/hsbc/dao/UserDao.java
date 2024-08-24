@@ -22,5 +22,4 @@ public interface UserDao {
     public List<Appointment> viewAppointments() throws NoAppointmentsFoundException;
 
     public void showAllDoctors() throws NoDoctorsFoundException;
-
 }

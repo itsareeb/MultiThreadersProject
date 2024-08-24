@@ -8,10 +8,7 @@ import com.hsbc.models.Patient;
 import com.hsbc.models.DoctorSchedule;
 import com.hsbc.models.ShiftSlot;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Date;
+import java.sql.*;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -29,11 +26,13 @@ public class UserDaoImpl implements UserDao {
 
         EmployeeDao employeeDao = new EmployeeDaoImpl();
         try {
-            if (!employeeDao.isEmployee(uid, EmployeeEnums.Role.user.toString())) {
+            if (!employeeDao.isValidEmployee(uid, EmployeeEnums.Role.user)) {
                 throw new UserNotFoundException("User not found");
             }
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         String sql = "insert into patient values(?, ?, ?, ?, ?, ?, ?)";
