@@ -56,7 +56,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 Appointment appointment = new Appointment();
                 appointment.setAppointmentId(rs.getInt("appointmentID"));
                 appointment.setDate(rs.getDate("date"));
-                appointment.setDid(rs.getInt("doctorID"));
+                appointment.setScheduleId(rs.getInt("doctorID"));
                 appointment.setUserId(rs.getInt("userID"));
                 appointments.add(appointment);
             }

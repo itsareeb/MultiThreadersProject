@@ -25,26 +25,33 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     public static void main(String[] args) {
         ScheduleDaoImpl scheduleDao = new ScheduleDaoImpl();
-        List<DoctorSchedules> docSchedules = new ArrayList<>();
-        docSchedules.add(
-                new DoctorSchedules(101,  LocalDate.of(2024, 8, 24), Arrays.asList(1,3))
-                );
-
-        docSchedules.add(
-                new DoctorSchedules(101, LocalDate.of(2024, 8, 25), Arrays.asList(2,3))
-                );
-        docSchedules.add(
-                new DoctorSchedules(101, LocalDate.of(2024, 8, 26), Arrays.asList(3,4))
-                );
         try {
-            scheduleDao.addDoctorSchedule(docSchedules);
-        } catch (ActionNotAllowedException e) {
-            System.out.println(e.getMessage());
-        } catch (InvalidScheduleDataException e) {
-            System.out.println(e.getMessage());
+            scheduleDao.updateDoctorSchedule(78, false);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch (ScheduleNotFoundException e) {
+            System.out.println(e.getMessage());
         }
+//        List<DoctorSchedules> docSchedules = new ArrayList<>();
+//        docSchedules.add(
+//                new DoctorSchedules(101,  LocalDate.of(2024, 8, 24), Arrays.asList(1,3))
+//                );
+//
+//        docSchedules.add(
+//                new DoctorSchedules(101, LocalDate.of(2024, 8, 25), Arrays.asList(2,3))
+//                );
+//        docSchedules.add(
+//                new DoctorSchedules(101, LocalDate.of(2024, 8, 26), Arrays.asList(3,4))
+//                );
+//        try {
+//            scheduleDao.addDoctorSchedule(docSchedules);
+//        } catch (ActionNotAllowedException e) {
+//            System.out.println(e.getMessage());
+//        } catch (InvalidScheduleDataException e) {
+//            System.out.println(e.getMessage());
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
 
 
 //        LocalDate date = LocalDate.of(2024, 8, 24);
@@ -58,13 +65,13 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     @Override
-    public List<DoctorSchedule> getDoctorSchedule(int did, LocalDate date) throws ScheduleNotFoundException, SQLException {
+    public List<DoctorSchedule> getDoctorSchedule(int doctorId, LocalDate date) throws ScheduleNotFoundException, SQLException {
         System.out.println(date.toString());
-        String query = "SELECT * FROM Schedule WHERE did = ? AND date = ?";
+        String query = "SELECT * FROM Schedule WHERE doctorId = ? AND date = ?";
 
         List<DoctorSchedule> schedule = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, did);
+            ps.setInt(1, doctorId);
             ps.setString(2, date.toString());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -194,9 +201,69 @@ public class ScheduleDaoImpl implements ScheduleDao {
         }
     }
 
+    private void deleteSlotsAndAppointmentsForSid(int sid) throws SQLException {
+        try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Slots WHERE sid = ?");
+        PreparedStatement deleteAppointmentPs = conn.prepareStatement("UPDATE Appointments SET status='cancelled' WHERE sid=?;");){
+            ps.setInt(1, sid);
+            deleteAppointmentPs.setInt(1, sid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Db error", e);
+        }
+    }
+
+    private DoctorSchedule getDoctorSchedule(int sid) throws SQLException, ScheduleNotFoundException {
+        String query = "SELECT * FROM Schedule WHERE sid = ?";
+        DoctorSchedule doctorSchedule = new DoctorSchedule();
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, sid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    doctorSchedule.setSid(rs.getInt("sid"));
+                    doctorSchedule.setDoctorId(rs.getInt("did"));
+                    doctorSchedule.setAvailable(rs.getBoolean("isAvailable"));
+                    doctorSchedule.setShiftNumber(rs.getInt("shiftno"));
+                    doctorSchedule.setDate(rs.getDate("date").toLocalDate());
+                }
+                else{
+                    throw new ScheduleNotFoundException("Invalid sid");
+                }
+            }
+        }
+        return doctorSchedule;
+    }
+
     @Override
-    public DoctorSchedule updateDoctorSchedule(DoctorSchedule ds) {
+    public void updateDoctorSchedule(int sid, boolean isAvailable) throws SQLException, ScheduleNotFoundException {
         String query = "UPDATE Schedule SET isAvailable = ? WHERE sid = ?";
-        return null;
+        try(
+                PreparedStatement ps = conn.prepareStatement(query);
+                ){
+            conn.setAutoCommit(false);
+            DoctorSchedule schedule = getDoctorSchedule(sid);
+            System.out.println(schedule);
+            ps.setBoolean(1, isAvailable);
+            ps.setInt(2, sid);
+            if (schedule.isAvailable() == isAvailable) {
+                System.out.println("No change required");
+                return;
+            } else if (isAvailable) {
+                System.out.println("Schedule seting to available");
+                ps.executeUpdate();
+                createSlots(sid, schedule.getShiftNumber());
+                conn.commit();
+                System.out.println("success");
+            }
+            else {
+                System.out.println("Schedule set to not available");
+                ps.executeUpdate();
+                deleteSlotsAndAppointmentsForSid(sid);
+                conn.commit();
+                System.out.println("success");
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("DB error", e);
+        }
     }
 }

@@ -5,5 +5,7 @@ import com.hsbc.models.Employee;
 
 public interface EmployeeDao {
     public Employee employeeLogin(String empId, String password) throws EmployeeNotFoundException;
-    public Boolean isEmployee(int id, String role);
+    public Boolean isEmployee(int empId, String role);
+
+
 }

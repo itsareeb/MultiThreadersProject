@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ScheduleDao {
-    public List<DoctorSchedule> getDoctorSchedule(int did, LocalDate date) throws ScheduleNotFoundException, SQLException;
+    public List<DoctorSchedule> getDoctorSchedule(int doctorId, LocalDate date) throws ScheduleNotFoundException, SQLException;
     public Boolean addDoctorSchedule(List<DoctorSchedules> dsList) throws ActionNotAllowedException, InvalidScheduleDataException, SQLException;
-    public DoctorSchedule updateDoctorSchedule(DoctorSchedule ds);
+    public void updateDoctorSchedule(int scheduleId, boolean isAvailable) throws SQLException, ScheduleNotFoundException;
 }
