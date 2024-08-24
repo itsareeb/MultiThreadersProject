@@ -1,7 +1,10 @@
 package com.hsbc.dao;
 
+import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.Enums.PatientEnums;
+import com.hsbc.exceptions.PatientAlreadyExistsException;
 import com.hsbc.exceptions.PatientNotFoundException;
+import com.hsbc.exceptions.UserNotFoundException;
 import com.hsbc.models.Patient;
 import com.hsbc.utils.DBUtils;
 import java.sql.Connection;
@@ -45,9 +48,35 @@ public class PatientDaoImpl implements PatientDao {
         }
     }
 
+    public Boolean isRegisteredPatient(String name, String contact) throws SQLException{
+        String query = "SELECT * FROM Patient WHERE patientName=? AND contact=?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setString(2, contact);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+        finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     @Override
     public Patient getPatient(String name, String contact) throws PatientNotFoundException, SQLException {
-        String query = "SELECT * FROM Patient WHERE name=? AND contact=?";
+        String query = "SELECT * FROM Patient WHERE patientName=? AND contact=?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
@@ -72,14 +101,56 @@ public class PatientDaoImpl implements PatientDao {
         }
     }
 
+
+    @Override
+    public void addPatient(Patient patient) throws PatientAlreadyExistsException,  SQLException {
+        if (isRegisteredPatient(patient.getPname(), patient.getContact())){
+            throw new PatientAlreadyExistsException("Patient already exists");
+        }
+        System.out.println(patient);
+        String sql = "insert into patient (patientName, gender, age, contact, email, userId) values(?, ?, ?, ?, ?, ?)";
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, patient.getPname());
+            ps.setString(2, String.valueOf(patient.getGender()));
+            ps.setInt(3, patient.getAge());
+            ps.setString(4, patient.getContact());
+            ps.setString(5, patient.getEmail());
+            ps.setInt(6, patient.getUid());
+            ps.executeUpdate();
+            System.out.println("Patient registered successfully");
+        }
+
+    }
+
+
+    @Override
+    public boolean updatePatient(Patient patient) throws SQLException, PatientNotFoundException {
+        if (!isRegisteredPatient(patient.getPname(), patient.getContact())){
+            throw new PatientNotFoundException("Patient doesn't exist");
+        }
+        String updateQuery = "UPDATE Patient SET patientName = ?, age = ?, contact = ?, email = ? WHERE patientName=? AND contact = ?";
+        try(PreparedStatement ps = conn.prepareStatement(updateQuery)) {
+            ps.setString(1, patient.getPname());
+            ps.setInt(2, patient.getAge());
+            ps.setString(3, patient.getContact());
+            ps.setString(4, patient.getEmail());
+            ps.setString(5, patient.getPname());
+            ps.setString(6, patient.getContact());
+            ps.executeUpdate();
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
         PatientDao patientDao = new PatientDaoImpl();
         try {
-            System.out.println(patientDao.getPatient("Aquib", "9898989898"));
-        } catch (PatientNotFoundException e) {
-            System.out.println(e.getMessage());
+                    patientDao.updatePatient(
+                    new Patient("Kabir", PatientEnums.Gender.male, 22, "8909890989",  21));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch (PatientNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
