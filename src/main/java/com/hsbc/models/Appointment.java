@@ -3,6 +3,7 @@ import com.hsbc.Enums.AppointmentEnums.Status;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class Appointment {
     private int appointmentId;
@@ -15,6 +16,25 @@ public class Appointment {
     private Status status = Status.pending;
     private LocalDate date;
     private int doctorId;
+    private List<Medication> medications;
+    private List<Test> tests;
+
+
+    public List<Medication> getMedications() {
+        return medications;
+    }
+
+    public void setMedications(List<Medication> medications) {
+        this.medications = medications;
+    }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
+    }
 
     public Appointment() {
     }
