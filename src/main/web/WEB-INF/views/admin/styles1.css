@@ -1,0 +1,75 @@
+/* Custom table styles */
+.table-custom {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-custom td.actions {
+    width: 140px; /* Adjust width as needed */
+}
+
+.table-custom .btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-custom .btn-container .btn {
+    flex: 1;
+    margin-right: 5px;
+    padding: 5px 10px; /* Adjust padding for better alignment */
+}
+
+.table-custom .btn-container .btn:last-child {
+    margin-right: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.header_area {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.table {
+    overflow-x: scroll;
+}
+
+.table-custom {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-custom th, .table-custom td {
+    border-bottom: 1px solid #ddd; /* thin line for each row */
+    padding: 10px 15px;
+}
+
+.table-custom th {
+    background-color: #278CB4;
+    color: #fff;
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #278CB4;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+.btn-red {
+    background-color: #cd3948;
+}
+
+.add-button {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
+}

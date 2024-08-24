@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>TechMed HealthCare- Booking APPOINTMENT</title>
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../BookAppointment/mico-html/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="../BookAppointment/mico-html/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="../BookAppointment/mico-html/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../BookAppointment/mico-html/css/responsive.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles1.css"/>
+</head>
+
+<body>
+
+<div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="header_top">
+            <div class="container">
+                <div class="contact_nav">
+                    <a href="">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <span>
+                Call : +01 123455678990
+              </span>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span>
+                Email : @TechMed.HealthCare.com
+              </span>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <span>
+                Location
+              </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="header_bottom">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="../BookAppointment/mico-html/images/logo.png" alt=""  >
+                    </a>
+
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="../MainPage/webcode.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#about"> About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#treatment">Treatment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#doctors">Doctors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#testimonial">Testimonial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="quote_btn-container">
+                            <a href="">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span>
+                    <a href="./webcode.html">Logout</a>
+                  </span>
+                            </a>
+
+                            <form class="form-inline">
+                                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- end header section -->
+    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+        <a href="./webcode.html" class="w3-bar-item w3-button">Home</a>
+        <a href="../BookAppointment/mico-html/PatientModule.html" class="w3-bar-item w3-button">Check User/ <br> Register User</a>
+        <a href="#" class="w3-bar-item w3-button">Logout</a>
+    </div>
+
+    <!-- slider section -->
+    <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+    <!--        <section class="slider_section ">-->
+    <!--            <div class="dot_design">-->
+
+    <!--                <img src="../BookAppointment/mico-html/images/dots.png" alt="">-->
+    <!--            </div>-->
+    <!--            <div id="customCarousel1" class="carousel slide" data-ride="carousel">-->
+    <!--                <div class="carousel-inner">-->
+    <!--                    <div class="carousel-item active">-->
+    <!--                        <div class="container ">-->
+    <!--                            <div class="row">-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="detail-box">-->
+    <!--                                        <div class="play_btn">-->
+    <!--                                            <button>-->
+    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
+    <!--                                            </button>-->
+    <!--                                        </div>-->
+    <!--                                        <h1>-->
+    <!--                                            TechMed <br>-->
+    <!--                                            <span>-->
+    <!--                            HealthCare-->
+    <!--                          </span>-->
+    <!--                                        </h1>-->
+    <!--                                        <p>-->
+    <!--                                            TechMed. HealthCare & Research Centre is a multispecialty tertiary care hospital in Pune, providing the highest standard of clinical expertise and nursing care by offering the latest technology, and state-of-the-art hospital facilities. The Hospital focuses on rapid assessment, intervention and treatment for numerous common and complex conditions.-->
+    <!--                                        </p>-->
+    <!--                                        <a href="">-->
+    <!--                                            Contact Us-->
+    <!--                                        </a>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="img-box">-->
+    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="carousel-item">-->
+    <!--                        <div class="container ">-->
+    <!--                            <div class="row">-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="detail-box">-->
+    <!--                                        <div class="play_btn">-->
+    <!--                                            <button>-->
+    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
+    <!--                                            </button>-->
+    <!--                                        </div>-->
+    <!--                                        <h1>-->
+    <!--                                            TechMed <br>-->
+    <!--                                            <span>-->
+    <!--                            HealthCare-->
+    <!--                          </span>-->
+    <!--                                        </h1>-->
+    <!--                                        <p>-->
+    <!--                                            TechMed. HealthCare & Research Centre presently has 300 beds and is situated in a central location, with easy access to the City. In addition to providing quality health care the focus is also on preventive health programmes, medical education and clinical research.                     </p>-->
+    <!--                                        <a href="">-->
+    <!--                                            Contact Us-->
+    <!--                                        </a>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="img-box">-->
+    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="carousel-item">-->
+    <!--                        <div class="container ">-->
+    <!--                            <div class="row">-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="detail-box">-->
+    <!--                                        <div class="play_btn">-->
+    <!--                                            <button>-->
+    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
+    <!--                                            </button>-->
+    <!--                                        </div>-->
+    <!--                                        <h1>-->
+    <!--                                            TechMed <br>-->
+    <!--                                            <span>-->
+    <!--                            HealthCare-->
+    <!--                          </span>-->
+    <!--                                        </h1>-->
+    <!--                                        <p>-->
+    <!--                                            The Hospital focuses on rapid assessment intervention and treatment for numerous common and complex conditions. Devotion to the art and science of healing reinforces every aspect of our mission.-->
+    <!--                                        </p>-->
+    <!--                                        <a href="">-->
+    <!--                                            Contact Us-->
+    <!--                                        </a>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <div class="col-md-6">-->
+    <!--                                    <div class="img-box">-->
+    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="carousel_btn-box">-->
+    <!--                    <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">-->
+    <!--                        <img src="../BookAppointment/mico-html/images/prev.png" alt="">-->
+    <!--                        <span class="sr-only">Previous</span>-->
+    <!--                    </a>-->
+    <!--                    <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">-->
+    <!--                        <img src="../BookAppointment/mico-html/images/next.png" alt="">-->
+    <!--                        <span class="sr-only">Next</span>-->
+    <!--                    </a>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--        </section>-->
+    <!-- end slider section -->
+</div>
+
+
+<!-- book section -->
+
+<div class="container mt-1">
+    <!-- Header Area -->
+    <!--        <div class="header_area">-->
+    <!--            <h1 class="text-center">All Doctors</h1>-->
+    <!--        </div>-->
+
+    <div class="container mt-5">
+        <h2>Doctor's Information</h2>
+        <div id="doctorInfoContainer" class="mb-4">
+            <!-- Doctor's Info will be inserted here by JavaScript -->
+        </div>
+        <h2>Doctor's Schedule</h2>
+        <div id="scheduleContainer">
+            <!-- Schedule Table will be inserted here by JavaScript -->
+        </div>
+        <button class="btn btn-primary mt-3" onclick="saveSchedule()">Save Changes</button>
+    </div>
+
+</div>
+
+<script>
+    // Function to get query parameter from the URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Function to format date as 'YYYY-MM-DD'
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        return `${year}-${month}-${day}`;
+    }
+
+    // Function to render the schedule table
+    function renderScheduleTable(doctorId) {
+        const container = document.getElementById('scheduleContainer');
+        const today = new Date();
+        const schedule = [];
+
+        // Generate next 3 days schedule from tomorrow
+        for (let i = 1; i <= 3; i++) {
+            const nextDate = new Date(today);
+            nextDate.setDate(today.getDate() + i);
+
+            schedule.push({
+                date: formatDate(nextDate),
+                shiftNo: i, // Example shift numbers; can be customized
+                slotNo: `A${i}`, // Example slot numbers; can be customized
+                isAvailable: true // Default to available; can be customized
+            });
+        }
+
+        let tableHTML = `
+            <table class="table table-custom">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Shift No</th>
+                        <th>Slot No</th>
+                        <th>Is Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        schedule.forEach((slot, index) => {
+            tableHTML += `
+                <tr>
+                    <td><input type="date" class="form-control" value="${slot.date}" id="date-${index}"></td>
+                    <td><input type="number" class="form-control" value="${slot.shiftNo}" id="shiftNo-${index}"></td>
+                    <td><input type="text" class="form-control" value="${slot.slotNo}" id="slotNo-${index}"></td>
+                    <td><input type="checkbox" ${slot.isAvailable ? "checked" : ""} id="isAvailable-${index}"></td>
+                </tr>
+            `;
+        });
+
+        tableHTML += `
+                </tbody>
+            </table>
+        `;
+
+        container.innerHTML = tableHTML;
+    }
+
+    // Function to save the edited schedule
+    function saveSchedule() {
+        const doctorId = getQueryParam("doctorId");
+        const schedule = [];
+
+        // Collect updated schedule data
+        for (let i = 0; i < 3; i++) {
+            schedule.push({
+                date: document.getElementById(`date-${i}`).value,
+                shiftNo: document.getElementById(`shiftNo-${i}`).value,
+                slotNo: document.getElementById(`slotNo-${i}`).value,
+                isAvailable: document.getElementById(`isAvailable-${i}`).checked
+            });
+        }
+
+        console.log("Updated Schedule:", schedule);
+        alert("Schedule updated successfully!");
+        // Here you would typically send the updated schedule to the server
+    }
+
+    // Load the schedule on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        const doctorId = getQueryParam("doctorId");
+        renderScheduleTable(doctorId);
+    });
+</script>
+
+
+
+<!--<script>-->
+
+<!--    // Example schedule data - in a real application, this would be fetched from a server-->
+<!--    const scheduleData = {-->
+<!--        "301": [-->
+<!--            { date: "2024-08-23", shiftNo: 1, slotNo: "A1", isAvailable: true },-->
+<!--            { date: "2024-08-24", shiftNo: 2, slotNo: "B2", isAvailable: false },-->
+<!--            { date: "2024-08-25", shiftNo: 3, slotNo: "C1", isAvailable: true }-->
+<!--        ],-->
+<!--        "302": [-->
+<!--            { date: "2024-08-23", shiftNo: 1, slotNo: "A3", isAvailable: true },-->
+<!--            { date: "2024-08-24", shiftNo: 3, slotNo: "C1", isAvailable: true },-->
+<!--            { date: "2024-08-25", shiftNo: 2, slotNo: "B2", isAvailable: false }-->
+<!--        ],-->
+<!--        // Add more schedules for other doctors as needed-->
+<!--    };-->
+
+<!--    // Function to get query parameter from the URL-->
+<!--    function getQueryParam(param) {-->
+<!--        const urlParams = new URLSearchParams(window.location.search);-->
+<!--        return urlParams.get(param);-->
+<!--    }-->
+
+<!--    // Function to render the schedule table-->
+<!--    function renderScheduleTable(doctorId) {-->
+<!--        const container = document.getElementById('scheduleContainer');-->
+<!--        const schedule = scheduleData[doctorId];-->
+
+<!--        if (!schedule) {-->
+<!--            container.innerHTML = "<p>No schedule data available for this doctor.</p>";-->
+<!--            return;-->
+<!--        }-->
+
+<!--        let tableHTML = `-->
+<!--                <table class="table table-custom">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Date</th>-->
+<!--                            <th>Shift No</th>-->
+<!--                            <th>Slot No</th>-->
+<!--                            <th>Is Available</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--            `;-->
+
+<!--        schedule.forEach((slot, index) => {-->
+<!--            tableHTML += `-->
+<!--                    <tr>-->
+<!--                        <td><input type="date" class="form-control" value="${slot.date}" id="date-${index}"></td>-->
+<!--                        <td><input type="number" class="form-control" value="${slot.shiftNo}" id="shiftNo-${index}"></td>-->
+<!--                        <td><input type="text" class="form-control" value="${slot.slotNo}" id="slotNo-${index}"></td>-->
+<!--                        <td><input type="checkbox" ${slot.isAvailable ? "checked" : ""} id="isAvailable-${index}"></td>-->
+<!--                    </tr>-->
+<!--                `;-->
+<!--        });-->
+
+<!--        tableHTML += `-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            `;-->
+
+<!--        container.innerHTML = tableHTML;-->
+<!--    }-->
+
+<!--    // Function to save the edited schedule-->
+<!--    function saveSchedule() {-->
+<!--        const doctorId = getQueryParam("doctorId");-->
+<!--        const schedule = scheduleData[doctorId];-->
+
+<!--        if (!schedule) return;-->
+
+<!--        schedule.forEach((slot, index) => {-->
+<!--            slot.date = document.getElementById(`date-${index}`).value;-->
+<!--            slot.shiftNo = document.getElementById(`shiftNo-${index}`).value;-->
+<!--            slot.slotNo = document.getElementById(`slotNo-${index}`).value;-->
+<!--            slot.isAvailable = document.getElementById(`isAvailable-${index}`).checked;-->
+<!--        });-->
+
+<!--        alert("Schedule updated successfully!");-->
+<!--        // Here you would typically send the updated schedule to the server-->
+<!--    }-->
+
+<!--    // Load the schedule on page load-->
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--        const doctorId = getQueryParam("doctorId");-->
+<!--        renderScheduleTable(doctorId);-->
+<!--    });-->
+<!--</script>-->
+
+
+<!-- end book section -->
+
+
+
+
+<!--JS-->
+
+<!--&lt;!&ndash; Add Doctor Modal &ndash;&gt;-->
+<!--<div id="addDoctorModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">-->
+<!--    <h3>Add Doctor</h3>-->
+<!--    <form id="addDoctorForm">-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorId">Doctor ID</label>-->
+<!--            <input type="text" id="doctorId" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorName">Name</label>-->
+<!--            <input type="text" id="doctorName" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorEmail">Email</label>-->
+<!--            <input type="email" id="doctorEmail" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorContact">Contact</label>-->
+<!--            <input type="text" id="doctorContact" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorQualification">Qualification</label>-->
+<!--            <input type="text" id="doctorQualification" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorSpecialization">Specialization</label>-->
+<!--            <input type="text" id="doctorSpecialization" class="form-control" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="doctorDepartment">Department</label>-->
+<!--            <select id="doctorDepartment" class="form-control">-->
+<!--                <option>General</option>-->
+<!--                <option>Emergency</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Add Doctor</button>-->
+<!--        <button type="button" onclick="closeModal()" class="btn btn-secondary">Cancel</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Background overlay for modal &ndash;&gt;-->
+<!--<div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:500;"></div>-->
+
+
+
+
+
+<!-- about section -->
+
+<section class="about_section" id="about">
+    <div class="container  ">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="img-box">
+                    <img src="../BookAppointment/mico-html/images/about-img.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                            About <span>Hospital</span>
+                        </h2>
+                    </div>
+                    <p>
+                        TechMed Healthcare
+                        Is a multispecialty tertiary care hospital in Pune, providing the highest standard of clinical expertise and nursing care by offering the latest technology, and state-of-the-art hospital facilities. The Hospital focuses on rapid assessment intervention and treatment for numerous common and complex conditions. Devotion to the art and science of healing reinforces every aspect of our mission.
+                        In addition to providing quality health care the focus is also on preventive health programmes, . . .            </p>
+                    <a href="">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end about section -->
+
+
+<!-- treatment section -->
+
+<section class="treatment_section layout_padding" id="treatment">
+    <div class="side_img">
+        <img src="../BookAppointment/mico-html/images/treatment-side-img.jpg" alt="">
+    </div>
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Hospital <span>Treatment</span>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="box ">
+                    <div class="img-box">
+                        <img src="../BookAppointment/mico-html/images/t1.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                        <h4>
+                            Nephrologist Care
+                        </h4>
+                        <p>
+                            alteration in some form, by injected humour, or randomised words which don't look even slightly e sure there isn't anything
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="box ">
+                    <div class="img-box">
+                        <img src="../BookAppointment/mico-html/images/t2.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                        <h4>
+                            Eye Care
+                        </h4>
+                        <p>
+                            alteration in some form, by injected humour, or randomised words which don't look even slightly e sure there isn't anything
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="box ">
+                    <div class="img-box">
+                        <img src="../BookAppointment/mico-html/images/t3.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                        <h4>
+                            Pediatrician Clinic
+                        </h4>
+                        <p>
+                            alteration in some form, by injected humour, or randomised words which don't look even slightly e sure there isn't anything
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="box ">
+                    <div class="img-box">
+                        <img src="../BookAppointment/mico-html/images/t4.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                        <h4>
+                            Parental Care
+                        </h4>
+                        <p>
+                            alteration in some form, by injected humour, or randomised words which don't look even slightly e sure there isn't anything
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end treatment section -->
+
+<!-- team section -->
+
+<section class="team_section layout_padding" id="doctors">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Our <span>Doctors</span>
+            </h2>
+        </div>
+        <div class="carousel-wrap ">
+            <div class="owl-carousel team_carousel">
+                <div class="item">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="../BookAppointment/mico-html/images/team1.jpg" alt="" />
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Hennry
+                            </h5>
+                            <h6>
+                                MBBS
+                            </h6>
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="../BookAppointment/mico-html/images/team2.jpg" alt="" />
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Jenni
+                            </h5>
+                            <h6>
+                                MBBS
+                            </h6>
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="../BookAppointment/mico-html/images/team3.jpg" alt="" />
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Morco
+                            </h5>
+                            <h6>
+                                MBBS
+                            </h6>
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end team section -->
+
+
+
+
+<!-- info section -->
+<section class="info_section " id="contact">
+    <div class="container">
+        <div class="info_top">
+            <div class="info_logo">
+                <a href="">
+                    <img src="../BookAppointment/mico-html/images/logo.png" alt="">
+                </a>
+            </div>
+            <div class="info_form">
+                <form action="">
+                    <input type="email" placeholder="Your email">
+                    <button>
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="info_bottom layout_padding2">
+            <div class="row info_main_row">
+                <div class="col-md-6 col-lg-3">
+                    <h5>
+                        Address
+                    </h5>
+                    <div class="info_contact">
+                        <a href="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>
+                  Location
+                </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span>
+                  Call +01 1234567890
+                </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-envelope"></i>
+                            <span>
+                  demo@gmail.com
+                </span>
+                        </a>
+                    </div>
+                    <div class="social_box">
+                        <a href="">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info_links">
+                        <h5>
+                            Useful link
+                        </h5>
+                        <div class="info_links_menu">
+                            <a class="active" href="../MainPage/webcode.html">
+                                Home
+                            </a>
+                            <a href="#about">
+                                About
+                            </a>
+                            <a href="#treatment">
+                                Treatment
+                            </a>
+                            <a href="#doctors">
+                                Doctors
+                            </a>
+                            <a href="#testimonial">
+                                Testimonial
+                            </a>
+                            <a href="#contact">
+                                Contact us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info_post">
+                        <h5>
+                            LATEST POSTS
+                        </h5>
+                        <div class="post_box">
+                            <div class="img-box">
+                                <img src="../BookAppointment/mico-html/images/post1.jpg" alt="">
+                            </div>
+                            <p>
+                                Normal
+                                distribution
+                            </p>
+                        </div>
+                        <div class="post_box">
+                            <div class="img-box">
+                                <img src="../BookAppointment/mico-html/images/post2.jpg" alt="">
+                            </div>
+                            <p>
+                                Normal
+                                distribution
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info_post">
+                        <h5>
+                            News
+                        </h5>
+                        <div class="post_box">
+                            <div class="img-box">
+                                <img src="../BookAppointment/mico-html/images/post3.jpg" alt="">
+                            </div>
+                            <p>
+                                Normal
+                                distribution
+                            </p>
+                        </div>
+                        <div class="post_box">
+                            <div class="img-box">
+                                <img src="../BookAppointment/mico-html/images/post4.png" alt="">
+                            </div>
+                            <p>
+                                Normal
+                                distribution
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end info_section -->
+
+
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <p>
+            &copy; <span id="displayYear"></span> All Rights Reserved By
+            <a href="./webcode.html">MultiThreaders</a>
+        </p>
+    </div>
+</footer>
+<!-- footer section -->
+
+<!-- jQery -->
+<script src="../BookAppointment/mico-html/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap js -->
+<script src="../BookAppointment/mico-html/js/bootstrap.js"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="../BookAppointment/mico-html/js/custom.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

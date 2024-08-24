@@ -1,0 +1,191 @@
+.form-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.form-card {
+    width: 45%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-card h3 {
+    margin-bottom: 20px;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #278CB4;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.form-card button:hover {
+    background-color: #1e6d88;
+}
+
+.file-upload-container {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background-color: #fafafa;
+}
+
+.file-upload-container p {
+    margin-bottom: 20px;
+}
+
+.file-upload-container input[type="file"] {
+    display: none;
+}
+
+.file-upload-container label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #278CB4;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-container button {
+    width: 48%;
+    padding: 10px;
+    background-color: white; /* Initial background color is white */
+    color: black;
+    border: 2px solid #278CB4; /* Border color is blue */
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none; /* Remove default focus outline */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* Selected/Active state */
+.btn-container button.active {
+    /*background-color: #d0e9f6;*/
+    /* Light blue background when selected */
+    background-color: #278CB4;
+    color: black; /* Keep text color blue */
+}
+
+/* Hover state */
+.btn-container button:hover {
+    background-color: #278CB4;
+    border-color: #278CB4; /* Keep the border color blue */
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #278CB4; /* Bootstrap-like primary color */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color:  #1e6d88;
+    color: white;
+
+}
+
+/* Custom table styles */
+/*.table-custom {*/
+/*    width: 100%;*/
+/*    overflow-x: auto;*/
+/*}*/
+
+/*.table-custom td.actions {*/
+/*    width: 140px; !* Adjust width as needed *!*/
+/*}*/
+
+/*.table-custom .btn-container {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.table-custom .btn-container .btn {*/
+/*    flex: 1;*/
+/*    margin-right: 5px;*/
+/*    padding: 5px 10px; !* Adjust padding for better alignment *!*/
+/*}*/
+
+/*.table-custom .btn-container .btn:last-child {*/
+/*    margin-right: 0;*/
+/*}*/
+
+/*body {*/
+/*    font-family: 'Roboto', sans-serif;*/
+/*    background-color: #f4f4f4;*/
+/*}*/
+
+/*.header_area {*/
+/*    background: #333;*/
+/*    color: #fff;*/
+/*    padding: 10px 0;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.table {*/
+/*    overflow-x: scroll;*/
+/*}*/
+
+/*.table-custom {*/
+/*    background: #fff;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.table-custom th, .table-custom td {*/
+/*    border-bottom: 1px solid #ddd; !* thin line for each row *!*/
+/*    padding: 10px 15px;*/
+/*}*/
+
+/*.table-custom th {*/
+/*    background-color: #278CB4;*/
+/*    color: #fff;*/
+/*}*/
+
+/*.btn-custom {*/
+/*    color: #fff;*/
+/*    background-color: #278CB4;*/
+/*    border-radius: 20px;*/
+/*    padding: 5px 15px;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*.btn-red {*/
+/*    background-color: #cd3948;*/
+/*}*/
+
+/*.add-button {*/
+/*    text-align: right;*/
+/*    display: flex;*/
+/*    justify-content: flex-end; !* Align button to the right *!*/
+/*}*/
