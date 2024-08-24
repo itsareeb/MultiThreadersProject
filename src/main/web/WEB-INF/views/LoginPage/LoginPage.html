@@ -200,7 +200,7 @@
    class="text-center p-3"
    style="background-color: rgba(0, 0, 0, 0.2)"
    >
-© 2020 Copyright:
+© 2024 Copyright:
 <a class="text-white" href="#"
    >MultiThreaders.com</a
   >
@@ -209,6 +209,42 @@
 </footer>
     <script>
         // JavaScript here
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        let role = null;
+
+        // Sending a request to backend for logging in
+
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        }).then(response => {
+            if (response.status === 200) {
+            role = response.json().role;
+            if (role === 'admin') {
+                window.location.href = 'admin/admin.html';
+            } else if (role === 'doctor') {
+                window.location.href = 'doctor/doctor.html';
+            } else if (role === 'patient') {
+                window.location.href = 'patient/patient.html';
+            } else {
+                alert('Invalid role');
+            }
+            } else {
+                alert('Invalid username or password');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+
+
+
     </script>
 </body>
 
