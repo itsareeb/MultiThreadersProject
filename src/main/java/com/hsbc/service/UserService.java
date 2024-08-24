@@ -52,5 +52,9 @@ public class UserService {
 
         File file = new File(filepath);
         AdminDao dao = new AdminDaoImpl();
+
+        // Parse this file, validate file json format or xml format, and then store it in a List<User> then call Dao method
+
+
     }
 }

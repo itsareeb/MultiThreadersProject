@@ -41,19 +41,6 @@ public class AppointmentService {
 //        dao.cancelAppointment(appointmentId);
     }
 
-    public void viewAppointments() {
-        UserDao dao = new UserDaoImpl();
 
-        List<Appointment> appointments;
-
-        try {
-            appointments = dao.viewAppointments();
-            for (Appointment appointment : appointments) {
-                System.out.println(appointment);
-            }
-        } catch (NoAppointmentsFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
 }

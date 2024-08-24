@@ -68,4 +68,13 @@ public class DoctorService {
             }
         }
 
+        public void suggestMedications(){
+
+        }
+
+        public void suggestMedicalTests(){
+
+        }
+
+
 }

@@ -87,7 +87,7 @@ public class UI {
                     //showAllPatients();
                     break;
                 case 12:
-                    //showAllAppointments();
+                    //getAllAppointments();
                     break;
                 case 13:
                     //cancelAppointment();
@@ -157,6 +157,7 @@ public class UI {
             System.out.println("5. Cancel Appointment");
             System.out.println("6. View all doctors");
             System.out.println("7. View Profile");
+            System.out.println("8. Get Patient Details");
             System.out.println("8. Exit");
 
             System.out.print("\nEnter your choice: ");
@@ -185,6 +186,9 @@ public class UI {
                     //viewProfile();
                     break;
                 case 8:
+                    //getPatientDetails();
+                    break;
+                case 9:
                     System.exit(0);
                     break;
                 default:
