@@ -98,7 +98,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee addEmployee(Doctor doctor) throws SQLException {
+    public Employee addDoctor(Doctor doctor) throws SQLException {
         String query = "INSERT INTO Employee (empName, role, password, contact, email) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             conn.setAutoCommit(false);
@@ -137,7 +137,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee addEmployee(User user) throws SQLException {
+    public Employee addUser(User user) throws SQLException {
         String query = "INSERT INTO Employee (empName, role, password, contact, email) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             conn.setAutoCommit(false);
@@ -175,7 +175,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee updateEmployee(Doctor doctor) throws SQLException, EmployeeNotFoundException {
+    public Employee updateDoctor(Doctor doctor) throws SQLException, EmployeeNotFoundException {
         Employee emp = getEmployee(doctor.getEmail());
         String updateEmpQuery = "UPDATE Employee SET empName = ?, password = ?, isActive = ?, contact = ? WHERE email = ?";
         String updateDocQuery = "UPDATE Doctor SET qualification = ?, specialization = ?, department = ? WHERE doctorId = ?";
@@ -205,7 +205,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee updateEmployee(User user) throws SQLException, EmployeeNotFoundException {
+    public Employee updateUser(User user) throws SQLException, EmployeeNotFoundException {
         Employee emp = getEmployee(user.getEmail());
         String updateEmpQuery = "UPDATE Employee SET empName = ?, password = ?, isActive = ?, contact = ? WHERE email = ?";
         String updateDocQuery = "UPDATE User SET department = ?, shift = ? WHERE userId = ?";
@@ -265,6 +265,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
         }
         return false;
+    }
+
+    @Override
+    public void addDoctors(List<Doctor> doctors) throws SQLException {
+        for (Doctor doctor : doctors) {
+            addDoctor(doctor);
+        }
+    }
+
+    @Override
+    public void addUsers(List<User> users) throws SQLException {
+        for (User user : users) {
+            addUser(user);
+        }
     }
 
     @Override

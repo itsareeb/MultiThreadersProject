@@ -171,7 +171,7 @@ public class PatientDaoImpl implements PatientDao {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
 
 

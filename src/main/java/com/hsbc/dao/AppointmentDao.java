@@ -16,5 +16,4 @@ public interface AppointmentDao {
     public List<Appointment> getAllAppointments(LocalDate date) throws SQLException;
     public List<Appointment> getAllAppointments(int doctotId, LocalDate date) throws SQLException;
     public List<Appointment> getAllAppointments() throws SQLException;
-
 }
