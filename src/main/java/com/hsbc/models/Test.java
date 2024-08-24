@@ -6,8 +6,7 @@ public class Test {
     private int appId;
     private String name;
 
-    public Test(int tid, int appId, String name) {
-        this.tid = tid;
+    public Test( int appId, String name) {
         this.appId = appId;
         this.name = name;
     }

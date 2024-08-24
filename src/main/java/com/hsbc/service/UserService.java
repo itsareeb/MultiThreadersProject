@@ -1,8 +1,6 @@
 package com.hsbc.service;
 
 import com.hsbc.Enums.EmployeeEnums;
-import com.hsbc.dao.AdminDao;
-import com.hsbc.dao.AdminDaoImpl;
 import com.hsbc.exceptions.NoUsersFoundException;
 import com.hsbc.exceptions.UserAlreadyExistsException;
 import com.hsbc.exceptions.UserNotFoundException;

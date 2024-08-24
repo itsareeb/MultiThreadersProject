@@ -8,8 +8,7 @@ public class Medication {
     private String dosage;
     private String instructions;
 
-    public Medication(int mid, int appId, String name, String dosage, String instructions) {
-        this.mid = mid;
+    public Medication(int appId, String name, String dosage, String instructions) {
         this.appId = appId;
         this.name = name;
         this.dosage = dosage;

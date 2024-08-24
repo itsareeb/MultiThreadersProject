@@ -1,8 +1,6 @@
 package com.hsbc.service;
 
 import com.hsbc.Enums.EmployeeEnums;
-import com.hsbc.dao.AdminDao;
-import com.hsbc.dao.AdminDaoImpl;
 import com.hsbc.exceptions.DoctorAlreadyExistsException;
 import com.hsbc.exceptions.DoctorNotFoundException;
 import com.hsbc.exceptions.NoDoctorsFoundException;

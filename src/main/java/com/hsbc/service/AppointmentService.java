@@ -1,9 +1,5 @@
 package com.hsbc.service;
 
-import com.hsbc.dao.AdminDao;
-import com.hsbc.dao.AdminDaoImpl;
-import com.hsbc.dao.UserDao;
-import com.hsbc.dao.UserDaoImpl;
 import com.hsbc.exceptions.NoAppointmentsFoundException;
 import com.hsbc.models.Appointment;
 
@@ -28,9 +24,9 @@ public class AppointmentService {
     }
 
     public void bookAppointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date){
-        Appointment appointment = new Appointment(userId, scheduleId, patientId, shiftNumber, slotNumber, date);
-
-        UserDao dao = new UserDaoImpl();
+//        Appointment appointment = new Appointment(userId, scheduleId, patientId, shiftNumber, slotNumber, date);
+//
+//        UserDao dao = new UserDaoImpl();
 
 //        dao.bookAppointment(appointment);
 
