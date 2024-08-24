@@ -100,7 +100,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
     @Override
     public Boolean addDoctorSchedule(List<DoctorSchedules> dsList) throws ActionNotAllowedException, InvalidScheduleDataException, SQLException {
         if (isValidSchedule(dsList)) {
-            String insertIntoSchedule = "Insert into Schedule (did, shiftno, date, isAvailable) values (?,?,?,?)";
+            String insertIntoSchedule = "Insert into Schedule (doctorId, shiftno, date, isAvailable) values (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insertIntoSchedule, Statement.RETURN_GENERATED_KEYS);
             conn.setAutoCommit(false);
             for (DoctorSchedules ds : dsList) {
@@ -140,7 +140,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     private void createSlots(int sid, int shiftno) throws SQLException {
         try(
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO Slots (sid, slotno, slottime) VALUES (?, ?, ?)")
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO Slots (scheduleId, slotno, slotTime) VALUES (?, ?, ?)")
                 ){
             LocalTime localTime = LocalTime.of(0, 0);
             switch (shiftno){
@@ -203,8 +203,8 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     private void deleteSlotsAndAppointmentsForSid(int sid) throws SQLException {
-        try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Slots WHERE sid = ?");
-        PreparedStatement deleteAppointmentPs = conn.prepareStatement("UPDATE Appointments SET status='cancelled' WHERE sid=?;");){
+        try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Slots WHERE scheduleId = ?");
+        PreparedStatement deleteAppointmentPs = conn.prepareStatement("UPDATE Appointments SET status='cancelled' WHERE scheduleId=?;");){
             ps.setInt(1, sid);
             deleteAppointmentPs.setInt(1, sid);
             ps.executeUpdate();
@@ -214,7 +214,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     private DoctorSchedule getDoctorSchedule(int sid) throws SQLException, ScheduleNotFoundException {
-        String query = "SELECT * FROM Schedule WHERE sid = ?";
+        String query = "SELECT * FROM Schedule WHERE scheduleId = ?";
         DoctorSchedule doctorSchedule = new DoctorSchedule();
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, sid);
@@ -236,7 +236,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     @Override
     public void updateDoctorSchedule(int sid, boolean isAvailable) throws SQLException, ScheduleNotFoundException {
-        String query = "UPDATE Schedule SET isAvailable = ? WHERE sid = ?";
+        String query = "UPDATE Schedule SET isAvailable = ? WHERE scheduleId = ?";
         try(
                 PreparedStatement ps = conn.prepareStatement(query);
                 ){
