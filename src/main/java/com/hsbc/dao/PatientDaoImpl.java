@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PatientDaoImpl implements PatientDao {
@@ -141,17 +143,35 @@ public class PatientDaoImpl implements PatientDao {
         }
     }
 
+    @Override
+    public List<Patient> getAllPatients() throws SQLException {
+        String query = "SELECT * FROM Patient";
+        List<Patient> patientList = new ArrayList<>();
+        try(PreparedStatement ps = conn.prepareStatement(query)) {
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Patient patient = new Patient();
+                patient.setPid(rs.getInt("patientId"));
+                patient.setPname(rs.getString("patientName"));
+                patient.setGender(PatientEnums.Gender.valueOf(rs.getString("gender")));
+                patient.setAge(rs.getInt("age"));
+                patient.setContact(rs.getString("contact"));
+                patient.setEmail(rs.getString("email"));
+                patient.setUid(rs.getInt("userId"));
+                patientList.add(patient);
+            }
+            return patientList;
+        }
+    }
+
     public static void main(String[] args) {
         PatientDao patientDao = new PatientDaoImpl();
         try {
-                    patientDao.updatePatient(
-                    new Patient("Kabir", PatientEnums.Gender.male, 22, "8909890989",  21));
+            patientDao.getAllPatients().forEach(System.out::println);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } catch (PatientNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        } 
     }
 
 

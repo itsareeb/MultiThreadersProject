@@ -5,10 +5,12 @@ import com.hsbc.exceptions.PatientNotFoundException;
 import com.hsbc.models.Patient;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface PatientDao {
     public Boolean isRegisteredPatient(int patientId) throws SQLException;
     public Patient getPatient(String patientName, String contact) throws PatientNotFoundException, SQLException;
     public void addPatient(Patient patient) throws SQLException, PatientAlreadyExistsException;
     public boolean updatePatient(Patient patient) throws SQLException, PatientNotFoundException;
+    public List<Patient> getAllPatients() throws SQLException;
 }
