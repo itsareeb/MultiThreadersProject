@@ -26,16 +26,17 @@ public class Employee {
         this.email = email;
     }
 
-
-    public Employee(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email) {
-        this.empId = empId;
-        this.role = role;
-        this.empName = empName;
-        this.password = password;
-        this.isActive = isActive;
-        this.contact = contact;
-        this.email = email;
+    public static void main(String[] args) {
+        Employee employee = new Employee(
+                EmployeeEnums.Role.doctor,
+                "Areeb",
+                "Password",
+                true,
+                "6789098767",
+                "mdareeb176@dfg.fref"
+        );
     }
+
 
     public int getEmpId() {
         return empId;

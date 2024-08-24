@@ -54,10 +54,10 @@ public class DoctorDaoImpl implements DoctorDao {
 
             while (rs.next()) {
                 Appointment appointment = new Appointment();
-                appointment.setAppId(rs.getInt("appointmentID"));
+                appointment.setAppointmentId(rs.getInt("appointmentID"));
                 appointment.setDate(rs.getDate("date"));
-                appointment.setDid(rs.getInt("doctorID"));
-                appointment.setUid(rs.getInt("userID"));
+                appointment.setScheduleId(rs.getInt("doctorID"));
+                appointment.setUserId(rs.getInt("userID"));
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
@@ -67,18 +67,18 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     //Function to suggest medicines
-    public void suggestMedications(int appointmentID, String medicineName, String dosage, String instruction) throws AppointmentNotFoundException {
+    public void suggestMedications(int appointmentId, String medicineName, String dosage, String instruction) throws AppointmentNotFoundException {
 
         AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
-        if(!appointmentDao.isAppointmentExist(appointmentID)) {
+        if(!appointmentDao.isAppointmentExist(appointmentId)) {
             throw new AppointmentNotFoundException("Appointment not found");
         }
 
-        String sql = "INSERT INTO Medications (appointmentID, name, dosage, instructions) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO Medications (appointmentId, name, dosage, instructions) VALUES(?,?,?,?)";
         try {
 
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, appointmentID);
+            ps.setInt(1, appointmentId);
             ps.setString(2, medicineName);
             ps.setString(3, dosage);
             ps.setString(4, instruction);
@@ -89,16 +89,16 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-    public void suggestMedicalTest(int appointmentID, String testName) throws AppointmentNotFoundException {
+    public void suggestMedicalTest(int appointmentId, String testName) throws AppointmentNotFoundException {
         AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
-        if(!appointmentDao.isAppointmentExist(appointmentID)) {
+        if(!appointmentDao.isAppointmentExist(appointmentId)) {
             throw new AppointmentNotFoundException("Appointment not found");
         }
-        String sql = "INSERT INTO tests (appointmentID, name) VALUES(?,?)";
+        String sql = "INSERT INTO tests (appointmentId, name) VALUES(?,?)";
         try {
             Statement stmt = conn.createStatement();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, appointmentID);
+            ps.setInt(1, appointmentId);
             ps.setString(2, testName);
             ps.executeUpdate();
             System.out.println("Medical Test Suggested");
@@ -108,6 +108,7 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     public void addSchedule() {
+
     }
 
     public void updateSchedule() {

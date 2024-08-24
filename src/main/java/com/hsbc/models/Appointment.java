@@ -3,10 +3,10 @@ import com.hsbc.Enums.AppointmentEnums.Status;
 import java.util.Date;
 
 public class Appointment {
-    private int appId;
-    private int uid;
-    private int did;
-    private int pid;
+    private int appointmentId;
+    private int userId;
+    private int scheduleId;
+    private int patientId;
     private int shiftNumber;
     private int slotNumber;
     private Date date;
@@ -15,56 +15,46 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int uid, int did, int pid, int shiftNumber, int slotNumber, Date date) {
-        this.uid = uid;
-        this.did = did;
-        this.pid = pid;
+    public Appointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date) {
+        this.userId = userId;
+        this.scheduleId = scheduleId;
+        this.patientId = patientId;
         this.shiftNumber = shiftNumber;
         this.slotNumber = slotNumber;
         this.date = date;
     }
 
-    public Appointment(int appId, int uid, int did, int pid, int shiftNumber, int slotNumber, Date date, Status status) {
-        this.appId = appId;
-        this.uid = uid;
-        this.did = did;
-        this.pid = pid;
-        this.shiftNumber = shiftNumber;
-        this.slotNumber = slotNumber;
-        this.date = date;
-        this.status = status;
+
+    public int getAppointmentId() {
+        return appointmentId;
     }
 
-    public int getAppId() {
-        return appId;
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
-    public void setAppId(int appId) {
-        this.appId = appId;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getUid() {
-        return uid;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public int getDid() {
-        return did;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public void setDid(int did) {
-        this.did = did;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public int getPid() {
-        return pid;
-    }
-
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
     public int getShiftNumber() {
@@ -102,10 +92,10 @@ public class Appointment {
     @Override
     public String toString() {
         return "Appointment{" +
-                "appId=" + appId +
-                ", uid=" + uid +
-                ", did=" + did +
-                ", pid=" + pid +
+                "appointmentId=" + appointmentId +
+                ", userId=" + userId +
+                ", scheduleId=" + scheduleId +
+                ", patientId=" + patientId +
                 ", shiftNumber=" + shiftNumber +
                 ", slotNumber=" + slotNumber +
                 ", date=" + date +

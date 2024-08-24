@@ -15,9 +15,9 @@ public interface AdminDao {
     public List<Appointment> showAllAppointments() throws NoAppointmentsFoundException;
     public List<Doctor> showAllDoctors() throws NoDoctorsFoundException;
     public void addDoctor(Doctor doctor) throws DoctorAlreadyExistsException;
-    public void removeDoctor(int doctorID) throws DoctorNotFoundException;
+    public void removeDoctor(int doctorId) throws DoctorNotFoundException;
     public List<User> showAllUsers() throws NoUsersFoundException;
-    public void removeUser(int userID) throws UserNotFoundException;
+    public void removeUser(int userId) throws UserNotFoundException;
     public void addUser(User user) throws UserAlreadyExistsException;
     public void importDoctors(List<Doctor> doctors) throws DoctorAlreadyExistsException;
 }

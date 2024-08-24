@@ -11,14 +11,14 @@ public class Doctor extends Employee {
     public Doctor() {
     }
 
-    public Doctor(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
-        super(empId, role, empName, password, isActive, contact, email);
+    public Doctor( EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
+        super( role, empName, password, isActive, contact, email);
         this.qualifications = qualifications;
         this.specialization = specialization;
     }
 
-    public Doctor(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization, EmployeeEnums.Department dept) {
-        super(empId, role, empName, password, isActive, contact, email);
+    public Doctor( EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization, EmployeeEnums.Department dept) {
+        super(role, empName, password, isActive, contact, email);
         this.qualifications = qualifications;
         this.specialization = specialization;
         this.dept = dept;

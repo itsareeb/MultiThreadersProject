@@ -6,19 +6,22 @@ public class User extends Employee{
     private EmployeeEnums.Department dept = EmployeeEnums.Department.general;
     private EmployeeEnums.Shift shift;
 
-    public User(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, EmployeeEnums.Department dept, EmployeeEnums.Shift shift) {
-        super(empId, role, empName, password, isActive, contact, email);
+    public User(EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, EmployeeEnums.Department dept, EmployeeEnums.Shift shift) {
+        super(role, empName, password, isActive, contact, email);
         this.dept = dept;
         this.shift = shift;
     }
 
-    public User(int empId, EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, EmployeeEnums.Shift shift) {
-        super(empId, role, empName, password, isActive, contact, email);
+    public User(EmployeeEnums.Role role, String empName, String password, boolean isActive, String contact, String email, EmployeeEnums.Shift shift) {
+        super( role, empName, password, isActive, contact, email);
         this.shift = shift;
     }
 
     public User() {
 
+    }
+
+    public User(int i, String johnDoe, EmployeeEnums.Role role, String number, String mail, boolean b) {
     }
 
 
