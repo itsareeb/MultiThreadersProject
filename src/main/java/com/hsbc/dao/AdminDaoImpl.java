@@ -36,7 +36,7 @@ public class AdminDaoImpl implements AdminDao {
 
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
 
-        if(!employeeDao.isEmployee(doctorID, EmployeeEnums.Role.doctor.toString())){
+        if(!employeeDao.isValidEmployee(doctorID, EmployeeEnums.Role.doctor)){
             throw new DoctorNotFoundException("Doctor not found");
         }
 
@@ -72,7 +72,7 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public void updateDoctorSchedule(DoctorSchedule schedule, int doctorID) throws DoctorNotFoundException, ScheduleNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(!employeeDao.isEmployee(doctorID, EmployeeEnums.Role.doctor.toString())){
+        if(!employeeDao.isValidEmployee(doctorID, EmployeeEnums.Role.doctor)){
             throw new DoctorNotFoundException("Doctor not found");
         }
 
@@ -247,7 +247,7 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public void removeDoctor(int doctorId) throws DoctorNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(!employeeDao.isEmployee(doctorId, EmployeeEnums.Role.doctor.toString())){
+        if(!employeeDao.isValidEmployee(doctorId, EmployeeEnums.Role.doctor)){
             throw new DoctorNotFoundException("Doctor not found");
         }
 
@@ -295,7 +295,7 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public void removeUser(int userId) throws UserNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(!employeeDao.isEmployee(userId, EmployeeEnums.Role.user.toString())){
+        if(!employeeDao.isValidEmployee(userId, EmployeeEnums.Role.user)){
             throw new UserNotFoundException("User not found");
         }
         PreparedStatement ps = null;
@@ -320,7 +320,7 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public void addUser(User user) throws UserAlreadyExistsException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        if(employeeDao.isEmployee(user.getEmpId(), EmployeeEnums.Role.user.toString())){
+        if(employeeDao.isValidEmployee(user.getEmpId(), EmployeeEnums.Role.user)){
             throw new UserAlreadyExistsException("User already exists");
         }
 

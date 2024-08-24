@@ -26,6 +26,17 @@ public class Employee {
         this.email = email;
     }
 
+    public static void main(String[] args) {
+        Employee employee = new Employee(
+                EmployeeEnums.Role.doctor,
+                "Areeb",
+                "Password",
+                true,
+                "6789098767",
+                "mdareeb176@dfg.fref"
+        );
+    }
+
 
     public int getEmpId() {
         return empId;

@@ -133,6 +133,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 }
             }
             conn.commit();
+            conn.setAutoCommit(true);
         }
         return false;
     }
