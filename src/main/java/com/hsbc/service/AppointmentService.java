@@ -1,9 +1,5 @@
 package com.hsbc.service;
 
-import com.hsbc.dao.AdminDao;
-import com.hsbc.dao.AdminDaoImpl;
-import com.hsbc.dao.UserDao;
-import com.hsbc.dao.UserDaoImpl;
 import com.hsbc.exceptions.NoAppointmentsFoundException;
 import com.hsbc.models.Appointment;
 

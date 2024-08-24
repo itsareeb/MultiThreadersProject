@@ -1,5 +1,6 @@
 package com.hsbc.dao;
 
+import com.hsbc.Enums.AppointmentEnums;
 import com.hsbc.exceptions.AppointmentNotFoundException;
 import com.hsbc.exceptions.SlotAlreadyBookedException;
 import com.hsbc.exceptions.SlotNotAvailableException;
@@ -16,7 +17,7 @@ public interface AppointmentDao {
     public boolean isAppointmentExist(int appointmentId);
     public Appointment getAppointment(int appointmentId) throws SQLException, AppointmentNotFoundException;
     public void bookAppointment(Appointment appointment) throws SQLException, SlotAlreadyBookedException;
-    public void updateAppointment(Appointment appointment) throws SQLException, SlotNotAvailableException;
+    public void updateAppointment(int appId, AppointmentEnums.Status status) throws SQLException, SlotNotAvailableException;
     public void cancelAppointment(int appointmentId) throws SQLException;
     public List<Appointment> getAllAppointments(LocalDate date) throws SQLException;
     public List<Appointment> getAllAppointments(int doctotId, LocalDate date) throws SQLException;

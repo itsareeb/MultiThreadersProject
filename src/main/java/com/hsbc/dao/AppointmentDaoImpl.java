@@ -73,7 +73,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public void bookAppointment(Appointment appointment) throws SQLException, SlotAlreadyBookedException {
+    public synchronized void bookAppointment(Appointment appointment) throws SQLException, SlotAlreadyBookedException {
         if (!isSlotAvailable(appointment.getScheduleId(), appointment.getSlotNumber())) {
             throw new SlotAlreadyBookedException("appointment cant be booked since this slot is already booked.");
         }
@@ -107,16 +107,11 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public void updateAppointment(Appointment appointment) throws SQLException, SlotNotAvailableException {
-        if (!isSlotAvailable(appointment.getScheduleId(), appointment.getSlotNumber())){
-            throw new SlotNotAvailableException("Appointment cant be updated since these slots are not available");
-        }
-        String sql = "update Appointments set scheduleId = ?, slotno = ?, status = ? where appId = ?";
+    public void updateAppointment(int appId, AppointmentEnums.Status status) throws SQLException, SlotNotAvailableException {
+        String sql = "update Appointments set status = ? where appId = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setInt(1, appointment.getScheduleId());
-            ps.setInt(2, appointment.getSlotNumber());
-            ps.setString(3, appointment.getStatus().toString());
-            ps.setInt(4, appointment.getAppointmentId());
+            ps.setString(1, status.toString());
+            ps.setInt(2, appId);
             ps.executeUpdate();
         }
     }
@@ -126,7 +121,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, scheduleId);
             ps.setInt(2, slotno);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             return rs.next();
         }
     }
