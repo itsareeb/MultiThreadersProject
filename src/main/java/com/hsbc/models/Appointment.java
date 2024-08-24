@@ -1,5 +1,7 @@
 package com.hsbc.models;
 import com.hsbc.Enums.AppointmentEnums.Status;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Appointment {
@@ -7,23 +9,55 @@ public class Appointment {
     private int userId;
     private int scheduleId;
     private int patientId;
-    private int shiftNumber;
     private int slotNumber;
-    private Date date;
+    private String slotTime;
+    private String patientName;
     private Status status = Status.pending;
+    private LocalDate date;
+    private int doctorId;
 
     public Appointment() {
     }
 
-    public Appointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date) {
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Appointment(int userId, int scheduleId, int patientId, int slotNumber) {
         this.userId = userId;
         this.scheduleId = scheduleId;
         this.patientId = patientId;
-        this.shiftNumber = shiftNumber;
         this.slotNumber = slotNumber;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
+    public String getSlotTime() {
+        return slotTime;
+    }
+
+    public void setSlotTime(String slotTime) {
+        this.slotTime = slotTime;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
 
     public int getAppointmentId() {
         return appointmentId;
@@ -57,28 +91,12 @@ public class Appointment {
         this.patientId = patientId;
     }
 
-    public int getShiftNumber() {
-        return shiftNumber;
-    }
-
-    public void setShiftNumber(int shiftNumber) {
-        this.shiftNumber = shiftNumber;
-    }
-
     public int getSlotNumber() {
         return slotNumber;
     }
 
     public void setSlotNumber(int slotNumber) {
         this.slotNumber = slotNumber;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Status getStatus() {
@@ -96,10 +114,12 @@ public class Appointment {
                 ", userId=" + userId +
                 ", scheduleId=" + scheduleId +
                 ", patientId=" + patientId +
-                ", shiftNumber=" + shiftNumber +
                 ", slotNumber=" + slotNumber +
-                ", date=" + date +
+                ", slotTime='" + slotTime + '\'' +
+                ", patientName='" + patientName + '\'' +
                 ", status=" + status +
+                ", date=" + date +
+                ", doctorId=" + doctorId +
                 '}';
     }
 }

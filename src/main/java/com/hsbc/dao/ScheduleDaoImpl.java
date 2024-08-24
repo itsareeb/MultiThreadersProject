@@ -25,33 +25,33 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     public static void main(String[] args) {
         ScheduleDaoImpl scheduleDao = new ScheduleDaoImpl();
-        try {
-            scheduleDao.updateDoctorSchedule(78, false);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (ScheduleNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-//        List<DoctorSchedules> docSchedules = new ArrayList<>();
-//        docSchedules.add(
-//                new DoctorSchedules(101,  LocalDate.of(2024, 8, 24), Arrays.asList(1,3))
-//                );
-//
-//        docSchedules.add(
-//                new DoctorSchedules(101, LocalDate.of(2024, 8, 25), Arrays.asList(2,3))
-//                );
-//        docSchedules.add(
-//                new DoctorSchedules(101, LocalDate.of(2024, 8, 26), Arrays.asList(3,4))
-//                );
 //        try {
-//            scheduleDao.addDoctorSchedule(docSchedules);
-//        } catch (ActionNotAllowedException e) {
-//            System.out.println(e.getMessage());
-//        } catch (InvalidScheduleDataException e) {
-//            System.out.println(e.getMessage());
+//            scheduleDao.updateDoctorSchedule(78, false);
 //        } catch (SQLException e) {
 //            System.out.println(e.getMessage());
+//        } catch (ScheduleNotFoundException e) {
+//            System.out.println(e.getMessage());
 //        }
+        List<DoctorSchedules> docSchedules = new ArrayList<>();
+        docSchedules.add(
+                new DoctorSchedules(16,  LocalDate.of(2024, 8, 25), Arrays.asList(1,3))
+                );
+
+        docSchedules.add(
+                new DoctorSchedules(16, LocalDate.of(2024, 8, 26), Arrays.asList(2,3))
+                );
+        docSchedules.add(
+                new DoctorSchedules(16, LocalDate.of(2024, 8, 27), Arrays.asList(3,4))
+                );
+        try {
+            scheduleDao.addDoctorSchedule(docSchedules);
+        } catch (ActionNotAllowedException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidScheduleDataException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
 
 //        LocalDate date = LocalDate.of(2024, 8, 24);
@@ -124,7 +124,8 @@ public class ScheduleDaoImpl implements ScheduleDao {
                     } catch (SQLException e) {
                         try {
                             conn.rollback();
-                            throw new SQLException("Database access error occurred.", e);
+                            System.out.println(e.getMessage());
+                            throw new SQLException("Database access error occurred."+ e.getMessage());
                         } catch (SQLException ex) {
                             throw new SQLException("DB ERROR, " + e);
                         }
@@ -185,7 +186,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
             }
 
         };
-        String query = "SELECT * FROM Schedule WHERE did = ? AND date = ?";
+        String query = "SELECT * FROM Schedule WHERE doctorId = ? AND date = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, dsList.get(0).getDid());
             ps.setString(2, tomorrow.toString());

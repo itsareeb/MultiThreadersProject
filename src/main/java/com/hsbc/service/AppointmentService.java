@@ -28,9 +28,9 @@ public class AppointmentService {
     }
 
     public void bookAppointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date){
-        Appointment appointment = new Appointment(userId, scheduleId, patientId, shiftNumber, slotNumber, date);
-
-        UserDao dao = new UserDaoImpl();
+//        Appointment appointment = new Appointment(userId, scheduleId, patientId, shiftNumber, slotNumber, date);
+//
+//        UserDao dao = new UserDaoImpl();
 
 //        dao.bookAppointment(appointment);
 

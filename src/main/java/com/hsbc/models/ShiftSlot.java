@@ -1,42 +1,60 @@
 package com.hsbc.models;
 
 public class ShiftSlot {
-    int shiftno, slotno;
-    String shiftTime;
+    int scheduleId, slotno;
+    String slotTime;
+    boolean isBooked;
 
     public ShiftSlot() {
     }
 
-    public ShiftSlot(int shiftno, int slotno, String shiftTime) {
-        this.shiftno = shiftno;
+    public ShiftSlot(int scheduleId, int slotno, String slotTime, boolean isBooked) {
+        this.scheduleId = scheduleId;
         this.slotno = slotno;
-        this.shiftTime = shiftTime;
+        this.slotTime = slotTime;
+        this.isBooked = isBooked;
     }
-    public int getShiftno() {
-        return shiftno;
+
+    public int getScheduleId() {
+        return scheduleId;
     }
-    public void setShiftno(int shiftno) {
-        this.shiftno = shiftno;
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
+
     public int getSlotno() {
         return slotno;
     }
+
     public void setSlotno(int slotno) {
         this.slotno = slotno;
     }
-    public String getShiftTime() {
-        return shiftTime;
+
+    public String getSlotTime() {
+        return slotTime;
     }
-    public void setShiftTime(String shiftTime) {
-        this.shiftTime = shiftTime;
+
+    public void setSlotTime(String slotTime) {
+        this.slotTime = slotTime;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
     }
 
     @Override
     public String toString() {
         return "ShiftSlot{" +
-                "shiftno=" + shiftno +
+                "scheduleId=" + scheduleId +
                 ", slotno=" + slotno +
-                ", shiftTime='" + shiftTime + '\'' +
+                ", slotTime='" + slotTime + '\'' +
+                ", isBooked=" + isBooked +
                 '}';
     }
 }
+

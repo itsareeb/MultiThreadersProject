@@ -163,13 +163,13 @@ public class AdminDaoImpl implements AdminDao {
                 Appointment appointment = new Appointment();
                 appointment.setAppointmentId(rs.getInt("appointmentID"));
                 appointment.setPatientId(rs.getInt("patientID"));
-                appointment.setDate(rs.getDate("date"));
+//                appointment.setDate(rs.getDate("date"));
                 appointment.setScheduleId(rs.getInt("scheduleId"));
                 appointment.setUserId(rs.getInt("userID"));
-                appointment.setShiftNumber(rs.getInt("shift_number"));
+//                appointment.setShiftNumber(rs.getInt("shift_number"));
                 appointment.setSlotNumber(rs.getInt("slot_number"));
                 appointment.setStatus(AppointmentEnums.Status.valueOf(rs.getString("status")));
-                appointment.setDate(rs.getDate("date"));
+//                appointment.setDate(rs.getDate("date"));
 
                 appointments.add(appointment);
 
