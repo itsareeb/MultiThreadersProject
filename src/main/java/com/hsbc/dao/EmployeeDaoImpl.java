@@ -418,7 +418,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 EmployeeEnums.Department.emergency
         );
         try {
-            dao.updateEmployee(doctor);
+            dao.updateDoctor(doctor);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
