@@ -203,18 +203,18 @@ public class PatientDaoImpl implements PatientDao {
 
     }
 
-    public static void main(String[] args) {
-        PatientDao patientDao = new PatientDaoImpl();
-        try {
-//            patientDao.getAllPatients().forEach(System.out::println);
-            patientDao.getPatientReport(1).getReports().forEach(System.out::println);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (PatientNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public static void main(String[] args) {
+//        PatientDao patientDao = new PatientDaoImpl();
+//        try {
+////            patientDao.getAllPatients().forEach(System.out::println);
+//            patientDao.getPatientReport(1).getReports().forEach(System.out::println);
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        } catch (PatientNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 
 }

@@ -21,7 +21,6 @@ import java.util.List;
 public class AppointmentService {
 
     public void bookAppointment(Appointment appointment){
-
         AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             dao.bookAppointment(appointment);
@@ -41,10 +40,10 @@ public class AppointmentService {
         }
     }
 
-    public void updateAppointment(int appointmentId, String status) {
+    public void updateAppointment(int appointmentId, AppointmentEnums.Status status) {
         AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
-            dao.updateAppointment(appointmentId, AppointmentEnums.Status.valueOf(status));
+            dao.updateAppointment(appointmentId, status);
         } catch (SQLException | AppointmentNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -111,8 +110,6 @@ public class AppointmentService {
 
     public void suggestTests(Test test){
         AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
-
-
         try {
             dao.suggestTests(test);
         } catch (SQLException | AppointmentNotFoundException e) {

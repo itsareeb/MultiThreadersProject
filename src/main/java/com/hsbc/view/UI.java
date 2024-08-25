@@ -1,5 +1,6 @@
 package com.hsbc.view;
 
+import com.hsbc.Enums.AppointmentEnums;
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.Enums.PatientEnums;
 import com.hsbc.models.*;
@@ -110,7 +111,7 @@ public class UI {
                     employeeService.updateDoctor(doctor);
                     break;
                 case 11:
-                    scheduleService.getDoctorSchedule(1,  null);
+                    scheduleService.getDoctorSchedule(1,  LocalDate.of(2024,8,26));
                     break;
                 case 12:
                     scheduleService.updateDoctorSchedule(1, true);
@@ -125,13 +126,13 @@ public class UI {
                     appointmentService.cancelAppointment(1);
                     break;
                 case 16:
-                    //generateDoctorReport();
+                    employeeService.getDoctorReport(1);
                     break;
                 case 17:
-                    //generatePatientReport();
+                    patientService.getPatientReport(1);
                     break;
                 case 18:
-                    //generateUserReport();
+                    employeeService.getUserReport(1);
                     break;
                 case 19:
                     System.exit(0);
@@ -157,6 +158,7 @@ public class UI {
             System.out.println("5. Add Schedule");
             System.out.println("6. Update Schedule");
             System.out.println("7. View Profile");
+            System.out.println("8. Get Medications");
             System.out.println("8. Exit");
 
             System.out.print("\nEnter your choice: ");
@@ -192,6 +194,9 @@ public class UI {
                     emp.getDoctorDetails(1);
                     break;
                 case 8:
+                    appointmentService.getMedications(1);
+                    break;
+                case 9:
                     System.exit(0);
                     break;
                 default:
@@ -216,7 +221,10 @@ public class UI {
             System.out.println("6. View all doctors");
             System.out.println("7. View Profile");
             System.out.println("8. Get Patient Details");
-            System.out.println("8. Exit");
+            System.out.println("9. Get Available Slots");
+            System.out.println("10. Get Appointment Details");
+            System.out.println("11. Update appointment status");
+            System.out.println("12. Exit");
 
             System.out.print("\nEnter your choice: ");
             int ch = sc.nextInt();
@@ -248,6 +256,15 @@ public class UI {
                     patientService.getPatientDetails("John Doe", "1234567890");
                     break;
                 case 9:
+                    appointmentService.getAvailableSlots(1, LocalDate.of(2024,8,26));
+                    break;
+                case 10:
+                    appointmentService.getAppointment(1);
+                    break;
+                case 11:
+                    appointmentService.updateAppointment(1, AppointmentEnums.Status.completed);
+                    break;
+                case 12:
                     System.exit(0);
                     break;
                 default:

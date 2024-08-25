@@ -546,28 +546,28 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
 
-    public static void main(String[] args) {
-        EmployeeDaoImpl dao = new EmployeeDaoImpl();
-        Doctor doctor = new Doctor(
-                EmployeeEnums.Role.doctor,
-                "Dr Aimon",
-                "Password123",
-                true,
-                "9098909890",
-                "mdareeb176@gmil.com",
-                "MBBS, MS",
-                "Neurosurgeon",
-                EmployeeEnums.Department.emergency
-        );
-        try {
-            System.out.println(
-            dao.getUserReport(21));
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (EmployeeNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (NoRecordFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public static void main(String[] args) {
+//        EmployeeDaoImpl dao = new EmployeeDaoImpl();
+//        Doctor doctor = new Doctor(
+//                EmployeeEnums.Role.doctor,
+//                "Dr Aimon",
+//                "Password123",
+//                true,
+//                "9098909890",
+//                "mdareeb176@gmil.com",
+//                "MBBS, MS",
+//                "Neurosurgeon",
+//                EmployeeEnums.Department.emergency
+//        );
+//        try {
+//            System.out.println(
+//            dao.getUserReport(21));
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        } catch (EmployeeNotFoundException e) {
+//            System.out.println(e.getMessage());
+//        } catch (NoRecordFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

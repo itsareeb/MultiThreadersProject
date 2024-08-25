@@ -144,7 +144,6 @@ public class EmployeeService {
     }
 
     public void importUsers(List<User> users) {
-
         EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
 
         try {
@@ -195,14 +194,6 @@ public class EmployeeService {
         }
     }
 
-    public void addUsers(List<User> users) {
-        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
-        try {
-            dao.addUsers(users);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void importDoctors(List<Doctor> doctors) {
         EmployeeDao dao = new EmployeeFactory().getEmployeeDao();

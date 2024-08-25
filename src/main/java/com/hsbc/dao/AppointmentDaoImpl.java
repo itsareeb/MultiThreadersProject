@@ -328,33 +328,4 @@ public class AppointmentDaoImpl implements AppointmentDao {
         }
     }
 
-    public static void main(String[] args) {
-        Appointment appt = new Appointment(21, 1, 1, 2);
-
-        AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
-        try {
-            appointmentDao.getTests(2).forEach(System.out::println);
-//            System.out.println(appointmentDao.getAppointment(2));
-//            appointmentDao.suggestTests(new Test(1, "Bluribin"));
-//            appointmentDao.suggestMedicines(new Medication(1, "Azithromycin 500", "2x5", "After meal"));
-
-//            appointmentDao.getAllAppointments(16, LocalDate.of(2024, 8, 25)).forEach(System.out::println);
-//            System.out.println(
-//                    appointmentDao.isSlotAvailable(1,1)
-//            );
-//            appointmentDao.bookAppointment(appt);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (AppointmentNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-//        catch (SlotAlreadyBookedException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        try {
-//            appointmentDao.getAvailableSlots(16, LocalDate.of(2024, 8, 25)).forEach(System.out::println);
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-    }
 }
