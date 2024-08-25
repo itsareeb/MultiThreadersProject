@@ -72,14 +72,6 @@ public class EmployeeService {
         }
     }
 
-    public void removeDoctor(String email) {
-        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
-        try {
-            dao.deleteEmployee(email);
-        } catch (SQLException | EmployeeNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void updateDoctor(Doctor doctor) {
         EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
@@ -112,24 +104,6 @@ public class EmployeeService {
             }
 
         } catch (SQLException | NoUsersFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void removeUser(int userId) {
-        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
-        try {
-            dao.deleteEmployee(userId);
-        } catch (SQLException | EmployeeNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void removeUser(String email) {
-        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
-        try {
-            dao.deleteEmployee(email);
-        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

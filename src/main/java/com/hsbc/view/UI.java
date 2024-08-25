@@ -59,6 +59,7 @@ public class UI {
             System.out.println("16. Generate Doctor Report");
             System.out.println("17. Generate Patient Report");
             System.out.println("18. Generate User Report");
+
             System.out.println("19. Exit");
 
             System.out.print("\nEnter your choice: ");
@@ -144,7 +145,6 @@ public class UI {
     }
 
     public static void doctorMenu(Scanner sc){
-
         AppointmentService appointmentService = new AppointmentService();
         ScheduleService scheduleService = new ScheduleService();
         EmployeeService emp = new EmployeeService();
