@@ -114,78 +114,63 @@
 
 }
 
-/* Custom table styles */
-/*.table-custom {*/
-/*    width: 100%;*/
-/*    overflow-x: auto;*/
-/*}*/
+.btn-container {
+    margin-bottom: 20px;
+}
 
-/*.table-custom td.actions {*/
-/*    width: 140px; !* Adjust width as needed *!*/
-/*}*/
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-/*.table-custom .btn-container {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*}*/
+.btn:hover {
+    background-color: #0056b3;
+}
 
-/*.table-custom .btn-container .btn {*/
-/*    flex: 1;*/
-/*    margin-right: 5px;*/
-/*    padding: 5px 10px; !* Adjust padding for better alignment *!*/
-/*}*/
+.file-upload-container {
+    text-align: center;
+    margin-top: 20px;
+}
 
-/*.table-custom .btn-container .btn:last-child {*/
-/*    margin-right: 0;*/
-/*}*/
+.file-upload-container p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 
-/*body {*/
-/*    font-family: 'Roboto', sans-serif;*/
-/*    background-color: #f4f4f4;*/
-/*}*/
+.file-upload-container label {
+    background-color: #17a2b8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-/*.header_area {*/
-/*    background: #333;*/
-/*    color: #fff;*/
-/*    padding: 10px 0;*/
-/*    text-align: center;*/
-/*}*/
+.file-upload-container label:hover {
+    background-color: #138496;
+}
 
-/*.table {*/
-/*    overflow-x: scroll;*/
-/*}*/
+.file-upload-container span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
 
-/*.table-custom {*/
-/*    background: #fff;*/
-/*    border-radius: 5px;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
+.file-upload-container button {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-/*.table-custom th, .table-custom td {*/
-/*    border-bottom: 1px solid #ddd; !* thin line for each row *!*/
-/*    padding: 10px 15px;*/
-/*}*/
-
-/*.table-custom th {*/
-/*    background-color: #278CB4;*/
-/*    color: #fff;*/
-/*}*/
-
-/*.btn-custom {*/
-/*    color: #fff;*/
-/*    background-color: #278CB4;*/
-/*    border-radius: 20px;*/
-/*    padding: 5px 15px;*/
-/*    font-size: 14px;*/
-/*}*/
-
-/*.btn-red {*/
-/*    background-color: #cd3948;*/
-/*}*/
-
-/*.add-button {*/
-/*    text-align: right;*/
-/*    display: flex;*/
-/*    justify-content: flex-end; !* Align button to the right *!*/
-/*}*/
+.file-upload-container button:hover {
+    background-color: #218838;
+}

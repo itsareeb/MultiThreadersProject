@@ -1,3 +1,65 @@
+/* Enhanced UI for Add New Patient */
+.form-group label {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+/* Modal Styles */
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background-color: #28a745;
+}
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.form-group label {
+    flex: 0 0 30%;
+    max-width: 30%;
+    margin-bottom: 0;
+}
+
+.form-group .form-control {
+    flex: 1;
+}
+
+.action-btns button {
+    margin-right: 5px;
+}
+
+/* Custom style for better gender field alignment */
+#gender {
+    max-width: 70%;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
 /* Custom table styles */
 .table-container {
     padding-right: 20px; /* Add padding to the right of the table's container */
