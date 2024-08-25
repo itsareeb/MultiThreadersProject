@@ -8,6 +8,7 @@ import com.hsbc.exceptions.PatientNotFoundException;
 import com.hsbc.factory.PatientFactory;
 
 import com.hsbc.models.Patient;
+import com.hsbc.models.PatientReport;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,7 +27,6 @@ public class PatientService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void registerPatient(String patientName, PatientEnums.Gender gender, int age, String contact, int userId) {
@@ -67,6 +67,16 @@ public class PatientService {
                 System.out.println(patient);
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getPatientReport(int patientId){
+        PatientDao dao = new PatientFactory().getPatientDao();
+        try {
+            PatientReport report = dao.getPatientReport(patientId);
+            System.out.println(report);
+        } catch (SQLException | PatientNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
