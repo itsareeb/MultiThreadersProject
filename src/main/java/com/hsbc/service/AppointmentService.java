@@ -1,24 +1,29 @@
 package com.hsbc.service;
 
+import com.hsbc.dao.AppointmentDao;
+import com.hsbc.dao.AppointmentDaoImpl;
 import com.hsbc.exceptions.NoAppointmentsFoundException;
 import com.hsbc.models.Appointment;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 public class AppointmentService {
 
     public void getAllAppointments(){
-        AdminDao dao = new AdminDaoImpl();
+        AppointmentDao dao = new AppointmentDaoImpl();
+
+
 
         List<Appointment> appointments ;
 
         try {
-            appointments = dao.showAllAppointments();
+            appointments = dao.getAllAppointments();
             for(Appointment appointment: appointments) {
                 System.out.println(appointment);
             }
-        } catch(NoAppointmentsFoundException e){
+        } catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
@@ -33,8 +38,12 @@ public class AppointmentService {
     }
 
     public void cancelAppointment(int appointmentId) {
-        UserDao dao = new UserDaoImpl();
-//        dao.cancelAppointment(appointmentId);
+          AppointmentDao dao = new AppointmentDaoImpl();
+        try {
+            dao.cancelAppointment(appointmentId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

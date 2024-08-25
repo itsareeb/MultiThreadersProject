@@ -1,11 +1,14 @@
 package com.hsbc.service;
 
 import com.hsbc.Enums.EmployeeEnums;
+import com.hsbc.dao.EmployeeDao;
+import com.hsbc.dao.EmployeeDaoImpl;
 import com.hsbc.exceptions.DoctorAlreadyExistsException;
 import com.hsbc.exceptions.DoctorNotFoundException;
 import com.hsbc.exceptions.NoDoctorsFoundException;
 import com.hsbc.models.Doctor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class DoctorService {
@@ -17,15 +20,15 @@ public class DoctorService {
         }
 
         public void getAllDoctors(){
-            AdminDao dao = new AdminDaoImpl();
+            EmployeeDao dao = new EmployeeDaoImpl();
              List<Doctor> doctors =  null;
 
                 try {
-                    doctors = dao.showAllDoctors();
+                    doctors = dao.getAllDoctors();
                     for(Doctor doctor: doctors) {
                         System.out.println(doctor);
                     }
-                } catch(NoDoctorsFoundException e){
+                } catch(SQLException e){
                     System.out.println(e.getMessage());
                 }
 
@@ -35,11 +38,11 @@ public class DoctorService {
 
             Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email, qualifications, specialization);
 
-             AdminDao dao = new AdminDaoImpl();
+            EmployeeDao dao = new EmployeeDaoImpl();
 
              try{
                  dao.addDoctor(doctor);
-             } catch(DoctorAlreadyExistsException e){
+             } catch(SQLException e){
                     System.out.println(e.getMessage());
              }
         }
@@ -48,20 +51,20 @@ public class DoctorService {
 
         Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email, qualifications, specialization, dept);
 
-        AdminDao dao = new AdminDaoImpl();
+        EmployeeDao dao = new EmployeeDaoImpl();
 
         try{
             dao.addDoctor(doctor);
-        } catch(DoctorAlreadyExistsException e){
+        } catch(SQLException e){
             System.out.println(e.getMessage());
         }
         }
 
         public void removeDoctor(int doctorId){
-            AdminDao dao = new AdminDaoImpl();
+            EmployeeDao dao = new EmployeeDaoImpl();
             try {
-                dao.removeDoctor(doctorId);
-            } catch(DoctorNotFoundException e){
+                dao.deleteEmployee(doctorId);
+            } catch(SQLException e){
                 System.out.println(e.getMessage());
             }
         }

@@ -161,11 +161,11 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public List<Appointment> getAllAppointments(int doctotId, LocalDate date) throws SQLException {
+    public List<Appointment> getAllAppointments(int doctorId, LocalDate date) throws SQLException {
         String sql = "SELECT Appointments.appId, Schedule.doctorId, Appointments.userId, Appointments.patientId, Appointments.scheduleId, Appointments.slotno, Appointments.status, Appointments.createdAt, Appointments.updatedAt, Patient.patientName, Schedule.date, Slots.slotTime FROM Appointments LEFT JOIN Patient ON Appointments.patientId = Patient.patientId LEFT JOIN Schedule ON Appointments.scheduleId = Schedule.scheduleId LEFT JOIN Slots ON Appointments.scheduleId = Slots.scheduleId AND Appointments.slotno = Slots.slotno WHERE Schedule.date = ? AND Schedule.doctorId = ?;";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, date.toString());
-            ps.setInt(2, doctotId);
+            ps.setInt(2, doctorId);
             rs = ps.executeQuery();
             List<Appointment> appointments = new ArrayList<>();
             while (rs.next()) {

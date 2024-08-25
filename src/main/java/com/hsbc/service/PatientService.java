@@ -15,14 +15,14 @@ public class PatientService {
 
     public void registerPatient(String patientName, PatientEnums.Gender gender, int age, String contact, String email, int userId) {
         Patient patient = new Patient(patientName, gender, age, contact, email, userId);
-         UserDao userDao = new UserDaoImpl();
+            PatientDao dao = new PatientDaoImpl();
 
             try {
-                userDao.registerPatient(userId, patient);
+                dao.addPatient(patient);
             } catch (PatientAlreadyExistsException e) {
                 System.out.println(e.getMessage());
-            } catch (UserNotFoundException e){
-                System.out.println(e.getMessage());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
     }
@@ -30,15 +30,15 @@ public class PatientService {
     public void registerPatient(String patientName, PatientEnums.Gender gender, int age, String contact, int userId){
         Patient patient = new Patient(patientName, gender,age, contact,userId);
 
-         UserDao userDao = new UserDaoImpl();
+        PatientDao dao = new PatientDaoImpl();
 
-                try {
-                    userDao.registerPatient(userId, patient);
-                } catch (PatientAlreadyExistsException e) {
-                    System.out.println(e.getMessage());
-                } catch (UserNotFoundException e){
-                    System.out.println(e.getMessage());
-                }
+        try {
+            dao.addPatient(patient);
+        } catch (PatientAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getPatientDetails(String pName, String contact) {
@@ -55,16 +55,16 @@ public class PatientService {
     }
 
     public void getAllPatients(){
-        AdminDao dao = new AdminDaoImpl();
+        PatientDao dao = new PatientDaoImpl();
 
         List<Patient> patients ;
 
         try {
-            patients = dao.showAllPatients();
+            patients = dao.getAllPatients();
             for(Patient patient: patients) {
                 System.out.println(patient);
             }
-        } catch (NoPatientsFoundException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
