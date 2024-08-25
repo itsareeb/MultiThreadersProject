@@ -8,6 +8,7 @@ import com.hsbc.exceptions.AppointmentAlreadyExistsException;
 import com.hsbc.exceptions.AppointmentNotFoundException;
 import com.hsbc.exceptions.NoAppointmentsFoundException;
 import com.hsbc.exceptions.SlotAlreadyBookedException;
+import com.hsbc.factory.AppointmentFactory;
 import com.hsbc.models.Appointment;
 import com.hsbc.models.Medication;
 import com.hsbc.models.ShiftSlot;
@@ -22,7 +23,7 @@ public class AppointmentService {
 
     public void bookAppointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date){
         Appointment appointment = new Appointment(userId, scheduleId, patientId, slotNumber);
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             dao.bookAppointment(appointment);
         } catch (SQLException | AppointmentAlreadyExistsException | SlotAlreadyBookedException e) {

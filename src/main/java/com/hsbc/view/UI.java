@@ -226,23 +226,23 @@ public class UI {
 
         EmployeeEnums.Role role = loginMenu(sc);
 
-//        if (role != null) {
-//            switch (role) {
-//                case ADMIN:
-//                    adminMenu(sc);
-//                    break;
-//                case DOCTOR:
-//                    doctorMenu(sc);
-//                    break;
-//                case USER:
-//                    userMenu(sc);
-//                    break;
-//                default:
-//                    System.out.println("Invalid role");
-//                    break;
-//            }
-//        } else {
-//            System.out.println("Invalid credentials");
-//        }
+        if (role != null) {
+            switch (role) {
+                case admin:
+                    adminMenu(sc);
+                    break;
+                case doctor:
+                    doctorMenu(sc);
+                    break;
+                case user:
+                    userMenu(sc);
+                    break;
+                default:
+                    System.out.println("Invalid role");
+                    break;
+            }
+        } else {
+            System.out.println("Invalid credentials");
+        }
     }
 }
