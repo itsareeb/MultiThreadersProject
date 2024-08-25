@@ -155,8 +155,10 @@
                 </div>
 
                 <form id="doctorForm" style="display: none;">
+                    <input type="text" id="doctorRole" name="doctorRole" value="Role: Doctor" readonly>
                     <input type="text" id="doctorName" name="doctorName" placeholder="Name" required>
                     <input type="password" id="doctorPassword" name="doctorPassword" minlength="8" maxlength="20" placeholder="Password" title="Password must be 8-20 characters long, contain at least one number, and one special character." required>
+                    <input type="text" id="doctorIsActive" name="doctorIsActive" value="Active: true" readonly>
                     <input type="email" id="doctorEmail" name="doctorEmail" placeholder="Email" required>
                     <input type="text" id="doctorContact" name="doctorContact" placeholder="Contact" maxlength="10" required>
                     <input type="text" id="doctorQualification" name="doctorQualification" placeholder="Qualification" required>
@@ -165,8 +167,10 @@
                 </form>
 
                 <form id="userForm" style="display: none;">
+                    <input type="text" id="userRole" name="userRole" value="Role: User" readonly>
                     <input type="text" id="userName" name="userName" placeholder="Name" required>
                     <input type="password" id="userPassword" name="userPassword" minlength="8" maxlength="20" placeholder="Password" title="Password must be 8-20 characters long, contain at least one number, and one special character." required>
+                    <input type="text" id="userIsActive" name="userIsActive" value="Active: true" readonly>
                     <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
                     <input type="text" id="userContact" name="userContact" placeholder="Contact" maxlength="10" required>
                     <button type="submit" onclick="addUser(event);">Add User</button>
@@ -195,294 +199,319 @@
 
 <!-- end import users section -->
 
-<script>
+    <script>
+        function showDoctorForm() {
+            const userForm = document.getElementById('userForm');
+            toggleForm('doctorForm', 'doctorFormBtn');
 
-    let selectedFile = null;
-    let selectedFileType = null;
-
-    function handleFileSelect(type) {
-        const fileInput = type === 'doctor' ? document.getElementById('selectDoctorFile') : document.getElementById('selectUserFile');
-        const file = fileInput.files[0];
-
-        if (file) {
-            selectedFile = file;
-            selectedFileType = type;
-            document.getElementById('fileNameDisplay').textContent = `Selected ${type} file: ${file.name}`;
-        }
-    }
-    function addDoctor(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Collect data from the form
-        const name = document.getElementById('doctorName').value.trim();
-        const password = document.getElementById('doctorPassword').value.trim();
-        const email = document.getElementById('doctorEmail').value.trim();
-        const contact = document.getElementById('doctorContact').value.trim();
-        const qualification = document.getElementById('doctorQualification').value.trim();
-        const specialization = document.getElementById('doctorSpecialization').value.trim();
-
-
-
-        // Validate that all fields are filled
-        if (!name || !password || !email || !contact || !qualification || !specialization) {
-            alert("Please fill out all the fields before submitting.");
-            return; // Stop form submission
+            document.getElementById('doctorFormBtn').classList.add('active');
+            document.getElementById('userFormBtn').classList.remove('active');
+            if (userForm.style.display === 'block') {
+                userForm.style.display = 'none'; // Close the User form if open
+            }
         }
 
-        // Validate email format
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
-            return;
+        function showUserForm() {
+            const doctorForm = document.getElementById('doctorForm');
+            toggleForm('userForm', 'userFormBtn');
+            document.getElementById('doctorForm').style.display = 'none'; // Ensure the other form is closed
+            document.getElementById('userFormBtn').classList.add('active');
+            document.getElementById('doctorFormBtn').classList.remove('active');
+            if (doctorForm.style.display === 'block') {
+                doctorForm.style.display = 'none'; // Close the Doctor form if open
+            }
+
         }
 
-        // Validate password: 8-20 characters, at least one number, and one special character
-        const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-        if (!passwordPattern.test(password)) {
-            alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
-            return;
-        }
-
-        // Validate contact number (example: exactly 10 digits)
-        const contactPattern = /^\d{10}$/;
-        if (!contactPattern.test(contact)) {
-            alert("Please enter a valid 10-digit contact number.");
-            return;
-        }
-        // Retrieve existing doctors from localStorage
-        let doctors = JSON.parse(localStorage.getItem('doctors')) || [];
-
-        // Find the maximum existing ID and increment it by 1 for the new doctor
-        let newId = doctors.length > 0 ? Math.max(...doctors.map(doctor => doctor.id)) + 1 : 301;
-
-        // Create a doctor object
-        const newDoctor = {
-            id: newId,
-            name: name,
-            email: email,
-            contact: contact,
-            qualification: qualification,
-            specialization: specialization
-        };
-
-        doctors.push(newDoctor);
-
-        // Save updated list back to localStorage
-        localStorage.setItem('doctors', JSON.stringify(doctors));
-
-        // If all validations pass, show success alert
-        alert("Doctor successfully added! You will be redirected to the 'View All Doctors' page");
-
-        // Clear the form fields after submission
-        document.getElementById('doctorForm').reset();
-
-        // Redirect to ShowAllDoctors.html
-        window.location.href = "ShowAllDoctors.html";
-    }
-
-    // Attach the addDoctor function to the form submission event
-    document.getElementById('doctorForm').addEventListener('submit', addDoctor);
-
-    function addUser(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Collect data from the form
-        const name = document.getElementById('userName').value.trim();
-        const password = document.getElementById('userPassword').value.trim();
-        const email = document.getElementById('userEmail').value.trim();
-        const contact = document.getElementById('userContact').value.trim();
+        function toggleForm(formId, buttonId) {
+            const form = document.getElementById(formId);
 
 
-        // Validate that all fields are filled
-        if (!name || !password || !email || !contact ) {
-            alert("Please fill out all the fields before submitting.");
-            return; // Stop form submission
-        }
-
-        // Validate email format
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        // Validate password: 8-20 characters, at least one number, and one special character
-        const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-        if (!passwordPattern.test(password)) {
-            alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
-            return;
-        }
-
-        // Validate contact number (example: exactly 10 digits)
-        const contactPattern = /^\d{10}$/;
-        if (!contactPattern.test(contact)) {
-            alert("Please enter a valid 10-digit contact number.");
-            return;
-        }
-
-        // Retrieve existing users from localStorage
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Find the maximum existing ID and increment it by 1 for the new user
-        let newId = users.length > 0 ? Math.max(...users.map(user => user.id)) + 1 : 101;
-
-        // Create a user object
-        const newUser = {
-            id: newId,
-            name: name,
-            email: email,
-            contact: contact,
-        };
-
-        users.push(newUser);
-
-        // Save updated list back to localStorage
-        localStorage.setItem('users', JSON.stringify(users));
-
-        // Show success alert
-        alert("User successfully added! You will be redirected to the 'View All Users' page.");
-
-        // Clear the form fields after submission
-        document.getElementById('userForm').reset();
-
-        // Redirect to ShowAllUsers.html
-        window.location.href = "ShowAllUsers.html";
-    }
-
-    function showDoctorForm() {
-        const userForm = document.getElementById('userForm');
-        toggleForm('doctorForm', 'doctorFormBtn');
-
-        document.getElementById('doctorFormBtn').classList.add('active');
-        document.getElementById('userFormBtn').classList.remove('active');
-        if (userForm.style.display === 'block') {
-            userForm.style.display = 'none'; // Close the User form if open
-        }
-    }
-
-    function showUserForm() {
-        const doctorForm = document.getElementById('doctorForm');
-        toggleForm('userForm', 'userFormBtn');
-        document.getElementById('doctorForm').style.display = 'none'; // Ensure the other form is closed
-        document.getElementById('userFormBtn').classList.add('active');
-        document.getElementById('doctorFormBtn').classList.remove('active');
-        if (doctorForm.style.display === 'block') {
-            doctorForm.style.display = 'none'; // Close the Doctor form if open
-        }
-
-    }
-
-    function toggleForm(formId, buttonId) {
-        const form = document.getElementById(formId);
-
-
-        if (form.style.display === 'none' || form.style.display === '') {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
-    function uploadFile() {
-        if (!selectedFile || !selectedFileType) {
-            alert('Please select a file before uploading.');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const fileType = selectedFile.name.split('.').pop().toLowerCase();
-            let data = [];
-
-            if (fileType === 'json') {
-                try {
-                    data = JSON.parse(event.target.result);
-                } catch (e) {
-                    alert('Invalid JSON file.');
-                    return;
-                }
-            } else if (fileType === 'xml') {
-                try {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(event.target.result, "application/xml");
-                    data = Array.from(xmlDoc.getElementsByTagName(selectedFileType)).map(item => {
-                        const fields = {};
-                        Array.from(item.children).forEach(child => {
-                            fields[child.tagName.toLowerCase()] = child.textContent;
-                        });
-                        return fields;
-                    });
-                } catch (e) {
-                    alert('Invalid XML file.');
-                    return;
-                }
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
             } else {
-                alert('Unsupported file type.');
-                return;
+                form.style.display = 'none';
+            }
+        }
+
+        let selectedFile = null;
+        let selectedFileType = null;
+
+        function handleFileSelect(type) {
+            const fileInput = type === 'doctor' ? document.getElementById('selectDoctorFile') : document.getElementById('selectUserFile');
+            const file = fileInput.files[0];
+
+            if (file) {
+                selectedFile = file;
+                selectedFileType = type;
+                document.getElementById('fileNameDisplay').textContent = `Selected ${type} file: ${file.name}`;
+            }
+        }
+
+        function addDoctor(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Collect data from the form
+            const role = 'doctor';
+            const empName = document.getElementById('doctorName').value.trim();
+            const password = document.getElementById('doctorPassword').value.trim();
+            const isActive = true;
+            const email = document.getElementById('doctorEmail').value.trim();
+            const contact = document.getElementById('doctorContact').value.trim();
+            const qualification = document.getElementById('doctorQualification').value.trim();
+            const specialization = document.getElementById('doctorSpecialization').value.trim();
+            const department = document.getElementById('doctorDepartment') ? document.getElementById('doctorDepartment').value.trim() : 'general';
+
+            // Validate that all fields are filled
+            if (!empName || !password || !email || !contact || !qualification || !specialization || !department) {
+                alert("Please fill out all the fields before submitting.");
+                return; // Stop form submission
             }
 
-            validateAndStoreData(data, selectedFileType);
-        };
-
-        reader.readAsText(selectedFile);
-    }
-
-    function validateAndStoreData(data, type) {
-        const key = type === 'doctor' ? 'doctors' : 'users';
-        const storedData = JSON.parse(localStorage.getItem(key)) || [];
-        const existingIds = new Set(storedData.map(item => item.id));
-        let dataAdded = false;
-
-        data.forEach(item => {
-            // Validate the essential fields
-            if (!item.id || !item.name || !item.email || !item.contact || (type === 'doctor' && (!item.qualification || !item.specialization))) {
-                alert(`Invalid ${type} data. All fields must be provided.`);
-                return;
-            }
-
-            // Ensure ID is unique
-            if (existingIds.has(item.id)) {
-                alert(`${type.charAt(0).toUpperCase() + type.slice(1)} with ID ${item.id} already exists.`);
-                return;
-            }
-
-            // Email validation
+            // Validate email format
             const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailPattern.test(item.email)) {
-                alert(`Invalid email address for ${type} with ID ${item.id}.`);
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
                 return;
             }
 
-            // Contact number validation (example: exactly 10 digits)
+            // Validate password: 8-20 characters, at least one number, and one special character
+            const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+            if (!passwordPattern.test(password)) {
+                alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
+                return;
+            }
+
+            // Validate contact number (example: exactly 10 digits)
             const contactPattern = /^\d{10}$/;
-            if (!contactPattern.test(item.contact)) {
-                alert(`Invalid contact number for ${type} with ID ${item.id}.`);
+            if (!contactPattern.test(contact)) {
+                alert("Please enter a valid 10-digit contact number.");
                 return;
             }
 
-            // For doctors, validate qualification and specialization
-            if (type === 'doctor') {
-                if (!item.qualification || !item.specialization) {
-                    alert(`Invalid ${type} data. Qualification and specialization must be provided for doctor with ID ${item.id}.`);
+            // Retrieve existing doctors from localStorage
+            let doctors = JSON.parse(localStorage.getItem('doctors')) || [];
+
+            // Find the maximum existing ID and increment it by 1 for the new doctor
+            let newId = doctors.length > 0 ? Math.max(...doctors.map(doctor => doctor.id)) + 1 : 301;
+
+            // Create a doctor object
+            const newDoctor = {
+                id: newId,
+                role: role,
+                empName: empName,
+                password: password,
+                isActive: isActive,
+                email: email,
+                contact: contact,
+                qualification: qualification,
+                specialization: specialization,
+                department: department
+            };
+
+            doctors.push(newDoctor);
+
+            // Save updated list back to localStorage
+            localStorage.setItem('doctors', JSON.stringify(doctors));
+
+            // If all validations pass, show success alert
+            alert("Doctor successfully added! You will be redirected to the 'View All Doctors' page");
+
+            // Clear the form fields after submission
+            document.getElementById('doctorForm').reset();
+
+            // Redirect to ShowAllDoctors.html
+            window.location.href = "ShowAllDoctors.html";
+        }
+
+        function addUser(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Collect data from the form
+            const role = 'user';
+            const empName = document.getElementById('userName').value.trim();
+            const password = document.getElementById('userPassword').value.trim();
+            const isActive = true;
+            const email = document.getElementById('userEmail').value.trim();
+            const contact = document.getElementById('userContact').value.trim();
+            const department = document.getElementById('userDepartment') ? document.getElementById('userDepartment').value.trim() : 'general';
+            const shift = document.getElementById('userShift') ? document.getElementById('userShift').value.trim() : 'day';
+
+            // Validate that all fields are filled
+            if (!empName || !password || !email || !contact || !department || !shift) {
+                alert("Please fill out all the fields before submitting.");
+                return; // Stop form submission
+            }
+
+            // Validate email format
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Validate password: 8-20 characters, at least one number, and one special character
+            const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+            if (!passwordPattern.test(password)) {
+                alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
+                return;
+            }
+
+            // Validate contact number (example: exactly 10 digits)
+            const contactPattern = /^\d{10}$/;
+            if (!contactPattern.test(contact)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return;
+            }
+
+            // Retrieve existing users from localStorage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Find the maximum existing ID and increment it by 1 for the new user
+            let newId = users.length > 0 ? Math.max(...users.map(user => user.id)) + 1 : 101;
+
+            // Create a user object
+            const newUser = {
+                id: newId,
+                role: role,
+                empName: empName,
+                password: password,
+                isActive: isActive,
+                email: email,
+                contact: contact,
+                department: department,
+                shift: shift
+            };
+
+            users.push(newUser);
+
+            // Save updated list back to localStorage
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Show success alert
+            alert("User successfully added! You will be redirected to the 'View All Users' page.");
+
+            // Clear the form fields after submission
+            document.getElementById('userForm').reset();
+
+            // Redirect to ShowAllUsers.html
+            window.location.href = "ShowAllUsers.html";
+        }
+
+        function validateAndStoreData(data, type) {
+            const key = type === 'doctor' ? 'doctors' : 'users';
+            const storedData = JSON.parse(localStorage.getItem(key)) || [];
+            const existingContacts = new Set(storedData.map(item => item.contact));  // Use contact as unique identifier
+            let dataAdded = false;
+
+            // Determine the next ID to be assigned
+            let newId = storedData.length > 0 ? Math.max(...storedData.map(item => item.id)) + 1 : (type === 'doctor' ? 301 : 101);
+
+            data.forEach(item => {
+                // Validate the essential fields
+                if (!item.role || !item.empName || !item.password || !item.isActive || !item.contact || !item.email || !item.department || (type === 'doctor' && (!item.qualification || !item.specialization))) {
+                    alert(`Invalid ${type} data. All fields must be provided.`);
                     return;
                 }
+
+                // Ensure role matches the type (doctor/user)
+                if ((type === 'doctor' && item.role.toLowerCase() !== 'doctor') || (type === 'user' && item.role.toLowerCase() !== 'user')) {
+                    alert(`Invalid role for ${type}. Role should be 'doctor' for doctors and 'user' for users.`);
+                    return;
+                }
+
+                // Ensure contact number is unique
+                if (existingContacts.has(item.contact)) {
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} with contact ${item.contact} already exists.`);
+                    return;
+                }
+
+                // Validate email format
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailPattern.test(item.email)) {
+                    alert(`Invalid email address for ${type} with contact ${item.contact}.`);
+                    return;
+                }
+
+                // Validate password: 8-20 characters, at least one number, and one special character
+                const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+                if (!passwordPattern.test(item.password)) {
+                    alert(`Password must be 8-20 characters long, contain at least one number, and one special character for ${type} with contact ${item.contact}.`);
+                    return;
+                }
+
+                // Validate contact number (example: exactly 10 digits)
+                const contactPattern = /^\d{10}$/;
+                if (!contactPattern.test(item.contact)) {
+                    alert(`Invalid contact number for ${type} with contact ${item.contact}.`);
+                    return;
+                }
+
+                // Assign a new ID to the item
+                item.id = newId++;
+                item.empName = item.empName;
+
+                // Add the contact to the set to prevent future duplicates
+                existingContacts.add(item.contact);
+                storedData.push(item);
+                dataAdded = true;
+            });
+
+            if (dataAdded) {
+                localStorage.setItem(key, JSON.stringify(storedData));
+                alert(`${type.charAt(0).toUpperCase() + type.slice(1)} data successfully added! You will be redirected.`);
+                const redirectPage = type === 'doctor' ? 'ShowAllDoctors.html' : 'ShowAllUsers.html';
+                window.location.href = redirectPage;
+            } else {
+                alert(`No new ${type} data was added due to errors.`);
             }
-            // Add the ID to the set to prevent future duplicates
-            existingIds.add(item.id);
-            storedData.push(item);
-            dataAdded = true;
-        });
-
-        if (dataAdded) {
-            localStorage.setItem(key, JSON.stringify(storedData));
-            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} data successfully added! You will be redirected.`);
-            const redirectPage = type === 'doctor' ? 'ShowAllDoctors.html' : 'ShowAllUsers.html';
-            window.location.href = redirectPage;
-        } else {
-            alert(`No new ${type} data was added due to errors.`);
         }
-    }
 
-</script>
+        function uploadFile() {
+            if (!selectedFile || !selectedFileType) {
+                alert('Please select a file before uploading.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileType = selectedFile.name.split('.').pop().toLowerCase();
+                let data = [];
+
+                if (fileType === 'json') {
+                    try {
+                        data = JSON.parse(event.target.result);
+                    } catch (e) {
+                        alert('Invalid JSON file.');
+                        return;
+                    }
+                } else if (fileType === 'xml') {
+                    try {
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(event.target.result, "application/xml");
+                        data = Array.from(xmlDoc.getElementsByTagName(selectedFileType === 'doctor' ? 'Doctor' : 'User')).map(item => {
+                            const fields = {};
+                            Array.from(item.children).forEach(child => {
+                                fields[child.tagName] = child.textContent;
+                            });
+                            return fields;
+                        });
+                    } catch (e) {
+                        alert('Invalid XML file.');
+                        return;
+                    }
+                } else {
+                    alert('Unsupported file type.');
+                    return;
+                }
+
+                validateAndStoreData(data, selectedFileType);
+            };
+
+            reader.readAsText(selectedFile);
+        }
+
+    </script>
 
 
 

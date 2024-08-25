@@ -1,9 +1,7 @@
 /* Custom table styles */
 .table-container {
     padding-right: 20px; /* Add padding to the right of the table's container */
-    overflow: auto; /* Enable scrolling in both x and y directions */
-    max-height: 80vh; /* Set a maximum height relative to the viewport height */
-    /* Optional: Adjust max-height based on your layout needs */
+    overflow-x: auto;
 }
 
 .table-custom {
@@ -11,8 +9,6 @@
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    table-layout: auto; /* Allow the table to adjust column width based on content */
-    min-width: 1200px; /* Set a minimum width to ensure horizontal scrolling if necessary */
 }
 
 .table-custom td.actions {
@@ -38,8 +34,6 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
-    margin: 0; /* Ensure no default margins interfere */
-    padding: 0; /* Ensure no default padding interfere */
 }
 
 .header_area {
@@ -49,29 +43,26 @@ body {
     text-align: center;
 }
 
+.table {
+    overflow-x: scroll;
+}
+
 .table-custom th, .table-custom td {
-    border-bottom: 1px solid #ddd; /* Thin line for each row */
+    border-bottom: 1px solid #ddd; /* thin line for each row */
     padding: 10px 15px;
-    text-align: left; /* Optional: Align text to the left */
-    min-width: 100px; /* Ensure each column has a reasonable minimum width */
 }
 
 .table-custom th {
     background-color: #278CB4;
     color: #fff;
-    position: sticky; /* Keeps the header fixed */
-    top: 0; /* Position at the top */
-    z-index: 2; /* Ensure header stays above other content */
 }
 
 .btn-custom {
     color: #fff;
     background-color: #278CB4;
-    border: none; /* Remove default border */
     border-radius: 20px;
     padding: 5px 15px;
     font-size: 14px;
-    cursor: pointer; /* Change cursor on hover */
 }
 
 .btn-red {
@@ -82,5 +73,4 @@ body {
     text-align: right;
     display: flex;
     justify-content: flex-end; /* Align button to the right */
-    margin-bottom: 10px; /* Add some space below the button */
 }

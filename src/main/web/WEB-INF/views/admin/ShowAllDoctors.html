@@ -147,7 +147,7 @@
             <button id="addDoctorBtn" class="btn btn-primary mb-3" onclick="location.href='ImportUsers.html'">Add Doctor</button>
         </div>
 
-        <div class="container mt-1">
+        <div class="table-container mt-1 mb-5">
         <table class="table table-custom">
             <thead>
             <tr>
@@ -207,13 +207,15 @@
 
     <!-- end view dall doctors section -->
 <script>
+
+
     document.addEventListener('DOMContentLoaded', function() {
         const dummyDoctors = [
-            { id: 301, name: 'Dr. John Doe', email: 'john.doe@example.com', contact: '1234567890', qualification: 'MBBS, MD', specialization: 'Cardiology' },
-            { id: 302, name: 'Dr. Jane Smith', email: 'jane.smith@example.com', contact: '1234567891', qualification: 'MBBS, MD', specialization: 'Dermatology' },
-            { id: 303, name: 'Dr. Tom Brown', email: 'tom.brown@example.com', contact: '1234567892', qualification: 'MBBS, MD', specialization: 'Neurology' },
-            { id: 304, name: 'Dr. Rushi Patil', email: 'rushi.patil@example.com', contact: '1234567893', qualification: 'MBBS, MD', specialization: 'Cardiology' },
-            { id: 305, name: 'Dr. Aditya Jain', email: 'aditya.jain@example.com', contact: '1234567894', qualification: 'MBBS, MD', specialization: 'Orthopedics' }
+            { id: 301, empName: 'Dr. John Doe', email: 'john.doe@example.com', contact: '1234567890', qualification: 'MBBS, MD', specialization: 'Cardiology' },
+            { id: 302, empName: 'Dr. Jane Smith', email: 'jane.smith@example.com', contact: '1234567891', qualification: 'MBBS, MD', specialization: 'Dermatology' },
+            { id: 303, empName: 'Dr. Tom Brown', email: 'tom.brown@example.com', contact: '1234567892', qualification: 'MBBS, MD', specialization: 'Neurology' },
+            { id: 304, empName: 'Dr. Rushi Patil', email: 'rushi.patil@example.com', contact: '1234567893', qualification: 'MBBS, MD', specialization: 'Cardiology' },
+            { id: 305, empName: 'Dr. Aditya Jain', email: 'aditya.jain@example.com', contact: '1234567894', qualification: 'MBBS, MD', specialization: 'Orthopedics' }
         ];
 
         // Retrieve doctors from localStorage
@@ -234,7 +236,7 @@
             const row = document.createElement('tr');
             row.innerHTML = `
                     <td>${doctor.id}</td>
-                    <td>${doctor.name}</td>
+                    <td>${doctor.empName}</td>
                     <td>${doctor.email}</td>
                     <td>${doctor.contact}</td>
                     <td>${doctor.qualification}</td>
@@ -283,13 +285,13 @@
 
         // Update the row with new values from the form
         const id = document.getElementById('editDoctorId').value;
-        const name = document.getElementById('editDoctorName').value;
+        const empName = document.getElementById('editDoctorName').value;
         const email = document.getElementById('editDoctorEmail').value;
         const contact = document.getElementById('editDoctorContact').value;
         const qualification = document.getElementById('editDoctorQualification').value;
         const specialization = document.getElementById('editDoctorSpecialization').value;
 
-        currentEditingRow.cells[1].innerText = name;
+        currentEditingRow.cells[1].innerText = empName;
         currentEditingRow.cells[2].innerText = email;
         currentEditingRow.cells[3].innerText = contact;
         currentEditingRow.cells[4].innerText = qualification;
@@ -300,7 +302,7 @@
         const doctorIndex = doctors.findIndex(doctor => doctor.id == id);
 
         if (doctorIndex !== -1) {
-            doctors[doctorIndex].name = name;
+            doctors[doctorIndex].empName = empName;
             doctors[doctorIndex].email = email;
             doctors[doctorIndex].contact = contact;
             doctors[doctorIndex].qualification = qualification;
