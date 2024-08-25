@@ -8,6 +8,9 @@ public class Medication {
     private String dosage;
     private String instructions;
 
+    public Medication() {
+    }
+
     public Medication(int appId, String name, String dosage, String instructions) {
         this.appId = appId;
         this.name = name;

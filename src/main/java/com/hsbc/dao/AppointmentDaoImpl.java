@@ -261,12 +261,57 @@ public class AppointmentDaoImpl implements AppointmentDao {
         }
     }
 
+    @Override
+    public List<Medication> getMedications(int appId) throws SQLException, AppointmentNotFoundException {
+        if (!isAppointmentExist(appId)){
+            throw new AppointmentNotFoundException("No appointment with this id");
+        }
+        String query = "SELECT * FROM Medications WHERE appId = ?";
+        try(PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setInt(1, appId);
+            ResultSet rs = ps.executeQuery();
+            List<Medication> medications = new ArrayList<>();
+            while (rs.next()){
+                Medication medication = new Medication();
+                medication.setAppId(appId);
+                medication.setMid(rs.getInt("medicationId"));
+                medication.setName(rs.getString("name"));
+                medication.setDosage(rs.getString("dosage"));
+                medication.setInstructions(rs.getString("instructions"));
+                medications.add(medication);
+            }
+            return medications;
+        }
+    }
+
+    @Override
+    public List<Test> getTests(int appId) throws SQLException, AppointmentNotFoundException {
+        if (!isAppointmentExist(appId)){
+            throw new AppointmentNotFoundException("No appointment with this id");
+        }
+        String query = "SELECT * FROM Tests WHERE appId = ?";
+        try(PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setInt(1, appId);
+            ResultSet rs = ps.executeQuery();
+            List<Test> tests = new ArrayList<>();
+            while (rs.next()){
+                Test test = new Test();
+                test.setTid(rs.getInt("testId"));
+                test.setAppId(appId);
+                test.setName(rs.getString("name"));
+                tests.add(test);
+            }
+            return tests;
+        }
+    }
+
     public static void main(String[] args) {
         Appointment appt = new Appointment(21, 1, 1, 2);
 
         AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
         try {
-            System.out.println(appointmentDao.getAppointment(2));
+            appointmentDao.getTests(2).forEach(System.out::println);
+//            System.out.println(appointmentDao.getAppointment(2));
 //            appointmentDao.suggestTests(new Test(1, "Bluribin"));
 //            appointmentDao.suggestMedicines(new Medication(1, "Azithromycin 500", "2x5", "After meal"));
 
