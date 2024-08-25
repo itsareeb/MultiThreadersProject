@@ -20,6 +20,51 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public User getUser(int empId) throws SQLException, UserNotFoundException {
+        String query = "SELECT Employee.*, User.department, User.shift FROM Employee LEFT JOIN User ON Employee.empId = User.userId WHERE Employee.empId = ?;";
+        try(PreparedStatement ps = conn.prepareStatement(query  )){
+            ps.setInt(1, empId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                User user = new User();
+                user.setEmpId(rs.getInt("empId"));
+                user.setEmail(rs.getString("email"));
+                user.setEmpName(rs.getString("empName"));
+                user.setContact(rs.getString("contact"));
+                user.setActive(rs.getBoolean("isActive"));
+                user.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
+                user.setDept(EmployeeEnums.Department.valueOf(rs.getString("department")));
+                user.setShift(EmployeeEnums.Shift.valueOf(rs.getString("shift")));
+                return user;
+            }
+            throw new UserNotFoundException("invalid user Id");
+        }
+    }
+
+    @Override
+    public Doctor getDoctor(int empId) throws SQLException, DoctorNotFoundException {
+        String query = "SELECT Employee.*, Doctor.qualification, Doctor.specialization, Doctor.department FROM Employee LEFT JOIN Doctor ON Employee.empId = Doctor.doctorId WHERE Employee.empId = ?;";
+        try(PreparedStatement ps = conn.prepareStatement(query  )){
+            ps.setInt(1, empId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                Doctor doctor = new Doctor();
+                doctor.setEmpId(rs.getInt("empId"));
+                doctor.setEmpName(rs.getString("empName"));
+                doctor.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
+                doctor.setActive(rs.getBoolean("isActive"));
+                doctor.setContact(rs.getString("contact"));
+                doctor.setEmail(rs.getString("email"));
+                doctor.setQualifications(rs.getString("qualification"));
+                doctor.setSpecialization(rs.getString("specialization"));
+                doctor.setDept(EmployeeEnums.Department.valueOf(rs.getString("department")));
+                return doctor;
+            }
+            throw new DoctorNotFoundException("invalid doctor id");
+        }
+    }
+
+    @Override
     public Employee employeeLogin(String email, String password) throws EmployeeNotFoundException, SQLException {
         String query = "SELECT * FROM Employee WHERE email = ? AND password = ? AND isActive=TRUE";
 

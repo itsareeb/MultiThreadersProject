@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface EmployeeDao {
+    public User getUser(int empId) throws SQLException, UserNotFoundException;
+    public Doctor getDoctor(int empId) throws SQLException, DoctorNotFoundException;
     public Employee employeeLogin(String email, String password) throws EmployeeNotFoundException, SQLException;
     public Boolean isValidEmployee(int empId, EmployeeEnums.Role role) throws SQLException;
     public Boolean isValidEmployee(String email, EmployeeEnums.Role role) throws SQLException;
