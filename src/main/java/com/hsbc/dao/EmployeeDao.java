@@ -2,10 +2,8 @@ package com.hsbc.dao;
 
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.exceptions.EmployeeNotFoundException;
-import com.hsbc.models.Doctor;
-import com.hsbc.models.Employee;
-import com.hsbc.models.User;
-import com.hsbc.models.UserReport;
+import com.hsbc.exceptions.NoRecordFoundException;
+import com.hsbc.models.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -29,5 +27,6 @@ public interface EmployeeDao {
     public List<Employee> getAllEmployees() throws SQLException;
     public List<Doctor> getAllDoctors() throws SQLException;
     public List<User> getAllUsers() throws SQLException;
-
+    public DoctorReport getDoctorReport(int doctorId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException;
+    public UserReport getUserReport(int userId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException;
 }

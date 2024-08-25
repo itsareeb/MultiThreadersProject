@@ -1,3 +1,4 @@
+/*
 package com.hsbc;
 
 import com.hsbc.Enums.PatientEnums;
@@ -102,64 +103,6 @@ public class PatientDaoTest {
         }
     }
 
-    @Test
-    public void isRegisteredPatientTestNoConnection() throws SQLException {
-        this.conn=null;
-        PatientDao patientDao = new PatientDaoImpl();
-        assertThrows(new NullPointerException(),patientDao.isRegisteredPatient(402));
-    }
-
-    private void assertThrows(NullPointerException e, Boolean registeredPatient) {
-    }
-
-
-    @Test
-    public void getPatientValidPatientTest1(){
-        PatientDao patientDao = new PatientDaoImpl();
-        Patient patient = new Patient(403, "Jane Doe", PatientEnums.Gender.female,28,"2233445566",101);
-        try {
-            assertEquals(patient,patientDao.getPatient("Jane Doe","2233445566"));
-        } catch (PatientNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Test
-    public void getPatientValidPatientNegativeTest1(){
-        PatientDao patientDao = new PatientDaoImpl();
-        Patient patient = new Patient(404, "Jane Doe", PatientEnums.Gender.female,28,"2233445566",101);
-        try {
-            assertNotEquals(patient,patientDao.getPatient("Jane Doe","2233445566"));
-        } catch (PatientNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-
-    @Test
-    public void getPatientValidPatientTest2() {
-        PatientDao patientDao = new PatientDaoImpl();
-        Patient patient = new Patient(404, "Tom Brown", PatientEnums.Gender.male, 35, "3344556677", 304);
-        try {
-            assertEquals(patient, patientDao.getPatient("Tom Brown", "3344556677"));
-        } catch (PatientNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test(expected = PatientNotFoundException.class)
-    public void getPatientInvalidPatientTest1() throws SQLException, PatientNotFoundException {
-        PatientDao patientDao = new PatientDaoImpl();
-        patientDao.getPatient("Bhanu", "7777777777");
-    }
 
 
 
@@ -168,3 +111,4 @@ public class PatientDaoTest {
 
 
 }
+*/

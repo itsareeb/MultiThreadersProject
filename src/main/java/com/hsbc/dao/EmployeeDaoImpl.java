@@ -2,9 +2,8 @@ package com.hsbc.dao;
 
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.exceptions.EmployeeNotFoundException;
-import com.hsbc.models.Doctor;
-import com.hsbc.models.Employee;
-import com.hsbc.models.User;
+import com.hsbc.exceptions.NoRecordFoundException;
+import com.hsbc.models.*;
 import com.hsbc.utils.DBUtils;
 
 import java.sql.*;
@@ -402,6 +401,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return users;
 
         }
+    }
+
+    @Override
+    public DoctorReport getDoctorReport(int doctorId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException {
+        return null;
+    }
+
+    @Override
+    public UserReport getUserReport(int userId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException {
+        return null;
     }
 
     public static void main(String[] args) {

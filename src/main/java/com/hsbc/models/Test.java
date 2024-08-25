@@ -6,7 +6,10 @@ public class Test {
     private int appId;
     private String name;
 
-    public Test( int appId, String name) {
+    public Test() {
+    }
+
+    public Test(int appId, String name) {
         this.appId = appId;
         this.name = name;
     }

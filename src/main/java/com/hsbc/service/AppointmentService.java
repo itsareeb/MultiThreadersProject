@@ -1,3 +1,4 @@
+/*
 package com.hsbc.service;
 
 import com.hsbc.dao.AppointmentDao;
@@ -49,3 +50,4 @@ public class AppointmentService {
 
 
 }
+*/

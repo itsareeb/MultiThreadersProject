@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>TechMed HealthCare- Add Employee</title>
+    <title>TechMed HealthCare- View All Patients</title>
 
 
     <!-- bootstrap core css -->
@@ -35,7 +35,7 @@
     <!-- responsive style -->
     <link href="../BookAppointment/mico-html/css/responsive.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="styles_import.css"/>
+    <link rel="stylesheet" href="styles_patients.css"/>
 </head>
 
 <body>
@@ -106,7 +106,7 @@
                             <a href="">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>
-                    <a href="./webcode.html">Logout</a>
+                    <a href="../MainPage/webcode.html">Logout</a>
                   </span>
                             </a>
 
@@ -130,365 +130,236 @@
         <a href="../admin/ImportUsers.html" class="w3-bar-item w3-button">Import New User/Doctor</a>
         <a href="../admin/ShowAllPatients.html" class="w3-bar-item w3-button">View All Patients</a>
         <a href="../admin/ViewSchedule.html" class="w3-bar-item w3-button">Cancel Doctor Appointments</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
+        <a href="#logout" class="w3-bar-item w3-button">Logout</a>
     </div>
-
-    <!-- slider section -->
     <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
 
 </div>
 
+<!-- show all patients section -->
 
-<!-- import users section -->
+<div class="container mt-3">
+    <h2 class="text-center mb-4">Patient Management</h2>
 
-<div class="hero_area">
-
-    <div class="container mt-3 mb-5">
-        <!-- Main content area for Add Employee -->
-        <div class="form-container">
-            <!-- Manual Entry Card -->
-            <div class="form-card">
-                <h3>Manual Entry</h3>
-                <div class="btn-container mb-3">
-                    <button id="doctorFormBtn" onclick="showDoctorForm()">Doctor</button>
-                    <button id="userFormBtn" onclick="showUserForm()">User</button>
-                </div>
-
-                <form id="doctorForm" style="display: none;">
-                    <input type="text" id="doctorName" name="doctorName" placeholder="Name" required>
-                    <input type="password" id="doctorPassword" name="doctorPassword" minlength="8" maxlength="20" placeholder="Password" title="Password must be 8-20 characters long, contain at least one number, and one special character." required>
-                    <input type="email" id="doctorEmail" name="doctorEmail" placeholder="Email" required>
-                    <input type="text" id="doctorContact" name="doctorContact" placeholder="Contact" maxlength="10" required>
-                    <input type="text" id="doctorQualification" name="doctorQualification" placeholder="Qualification" required>
-                    <input type="text" id="doctorSpecialization" name="doctorSpecialization" placeholder="Specialization" required>
-                    <button type="submit" onclick="addDoctor(event);">Add Doctor</button>
-                </form>
-
-                <form id="userForm" style="display: none;">
-                    <input type="text" id="userName" name="userName" placeholder="Name" required>
-                    <input type="password" id="userPassword" name="userPassword" minlength="8" maxlength="20" placeholder="Password" title="Password must be 8-20 characters long, contain at least one number, and one special character." required>
-                    <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
-                    <input type="text" id="userContact" name="userContact" placeholder="Contact" maxlength="10" required>
-                    <button type="submit" onclick="addUser(event);">Add User</button>
-                </form>
+    <h2 class="mb-4">Add New Patient</h2>
+    <form id="patientForm">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="patientName">Patient Name</label>
+                <input type="text" class="form-control" id="patientName" name="patientName" placeholder="Enter patient name" required>
             </div>
-
-            <!-- File Upload Card -->
-            <div class="form-card">
-                <h3>File Upload</h3>
-                <div class="file-upload-container">
-                    <p>Upload .xml or .json file</p>
-                    <div class="btn-container">
-                        <label for="selectDoctorFile">Select Doctor File</label>
-                        <input type="file" id="selectDoctorFile" style="display:none;" accept=".xml, .json" onchange="handleFileSelect('doctor')">
-
-                        <label for="selectUserFile">Select User File</label>
-                        <input type="file" id="selectUserFile" style="display:none;" accept=".xml, .json" onchange="handleFileSelect('user')">
-                    </div>
-                    <span id="fileNameDisplay">No file selected</span>
-                    <button type="button" onclick="uploadFile()">Upload File</button>
-                </div>
+            <div class="form-group col-md-6">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
-    </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" placeholder="Enter age" min="1" max="120" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="contact">Contact</label>
+                <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter contact number" pattern="\d{10}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="userId">User ID</label>
+                <input type="number" class="form-control" id="userId" name="userId" placeholder="Enter user ID" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Patient</button>
+    </form>
 
+    <h2 class="mt-5">Patients List</h2>
+    <table class="table table-bordered mt-3 ">
+        <thead class="thead-dark">
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>User ID</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="patientsTable">
+        <!-- Patients data will be dynamically inserted here -->
+        </tbody>
+    </table>
 </div>
 
-<!-- end import users section -->
+<!-- Modal for editing patient -->
+<div class="modal fade" id="editPatientModal" tabindex="-1" role="dialog" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPatientModalLabel">Edit Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editPatientForm">
+                    <input type="hidden" id="editPatientId" name="editPatientId">
+                    <div class="form-group">
+                        <label for="editPatientName">Patient Name</label>
+                        <input type="text" class="form-control" id="editPatientName" name="editPatientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGender">Gender</label>
+                        <select class="form-control" id="editGender" name="editGender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAge">Age</label>
+                        <input type="number" class="form-control" id="editAge" name="editAge" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editContact">Contact</label>
+                        <input type="text" class="form-control" id="editContact" name="editContact" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="editEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserId">User ID</label>
+                        <input type="number" class="form-control" id="editUserId" name="editUserId" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="savePatientChanges">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="../BookAppointment/mico-html/js/jquery-3.4.1.min.js"></script>
+<script src="../BookAppointment/mico-html/js/bootstrap.js"></script>
 
 <script>
+    let patients = JSON.parse(localStorage.getItem('patients')) || [];
 
-    let selectedFile = null;
-    let selectedFileType = null;
-
-    function handleFileSelect(type) {
-        const fileInput = type === 'doctor' ? document.getElementById('selectDoctorFile') : document.getElementById('selectUserFile');
-        const file = fileInput.files[0];
-
-        if (file) {
-            selectedFile = file;
-            selectedFileType = type;
-            document.getElementById('fileNameDisplay').textContent = `Selected ${type} file: ${file.name}`;
-        }
-    }
-    function addDoctor(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Collect data from the form
-        const name = document.getElementById('doctorName').value.trim();
-        const password = document.getElementById('doctorPassword').value.trim();
-        const email = document.getElementById('doctorEmail').value.trim();
-        const contact = document.getElementById('doctorContact').value.trim();
-        const qualification = document.getElementById('doctorQualification').value.trim();
-        const specialization = document.getElementById('doctorSpecialization').value.trim();
-
-
-
-        // Validate that all fields are filled
-        if (!name || !password || !email || !contact || !qualification || !specialization) {
-            alert("Please fill out all the fields before submitting.");
-            return; // Stop form submission
-        }
-
-        // Validate email format
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        // Validate password: 8-20 characters, at least one number, and one special character
-        const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-        if (!passwordPattern.test(password)) {
-            alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
-            return;
-        }
-
-        // Validate contact number (example: exactly 10 digits)
-        const contactPattern = /^\d{10}$/;
-        if (!contactPattern.test(contact)) {
-            alert("Please enter a valid 10-digit contact number.");
-            return;
-        }
-        // Retrieve existing doctors from localStorage
-        let doctors = JSON.parse(localStorage.getItem('doctors')) || [];
-
-        // Find the maximum existing ID and increment it by 1 for the new doctor
-        let newId = doctors.length > 0 ? Math.max(...doctors.map(doctor => doctor.id)) + 1 : 301;
-
-        // Create a doctor object
-        const newDoctor = {
-            id: newId,
-            name: name,
-            email: email,
-            contact: contact,
-            qualification: qualification,
-            specialization: specialization
-        };
-
-        doctors.push(newDoctor);
-
-        // Save updated list back to localStorage
-        localStorage.setItem('doctors', JSON.stringify(doctors));
-
-        // If all validations pass, show success alert
-        alert("Doctor successfully added! You will be redirected to the 'View All Doctors' page");
-
-        // Clear the form fields after submission
-        document.getElementById('doctorForm').reset();
-
-        // Redirect to ShowAllDoctors.html
-        window.location.href = "ShowAllDoctors.html";
-    }
-
-    // Attach the addDoctor function to the form submission event
-    document.getElementById('doctorForm').addEventListener('submit', addDoctor);
-
-    function addUser(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Collect data from the form
-        const name = document.getElementById('userName').value.trim();
-        const password = document.getElementById('userPassword').value.trim();
-        const email = document.getElementById('userEmail').value.trim();
-        const contact = document.getElementById('userContact').value.trim();
-
-
-        // Validate that all fields are filled
-        if (!name || !password || !email || !contact ) {
-            alert("Please fill out all the fields before submitting.");
-            return; // Stop form submission
-        }
-
-        // Validate email format
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        // Validate password: 8-20 characters, at least one number, and one special character
-        const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-        if (!passwordPattern.test(password)) {
-            alert("Password must be 8-20 characters long, contain at least one number, and one special character.");
-            return;
-        }
-
-        // Validate contact number (example: exactly 10 digits)
-        const contactPattern = /^\d{10}$/;
-        if (!contactPattern.test(contact)) {
-            alert("Please enter a valid 10-digit contact number.");
-            return;
-        }
-
-        // Retrieve existing users from localStorage
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Find the maximum existing ID and increment it by 1 for the new user
-        let newId = users.length > 0 ? Math.max(...users.map(user => user.id)) + 1 : 101;
-
-        // Create a user object
-        const newUser = {
-            id: newId,
-            name: name,
-            email: email,
-            contact: contact,
-        };
-
-        users.push(newUser);
-
-        // Save updated list back to localStorage
-        localStorage.setItem('users', JSON.stringify(users));
-
-        // Show success alert
-        alert("User successfully added! You will be redirected to the 'View All Users' page.");
-
-        // Clear the form fields after submission
-        document.getElementById('userForm').reset();
-
-        // Redirect to ShowAllUsers.html
-        window.location.href = "ShowAllUsers.html";
-    }
-
-    function showDoctorForm() {
-        const userForm = document.getElementById('userForm');
-        toggleForm('doctorForm', 'doctorFormBtn');
-
-        document.getElementById('doctorFormBtn').classList.add('active');
-        document.getElementById('userFormBtn').classList.remove('active');
-        if (userForm.style.display === 'block') {
-            userForm.style.display = 'none'; // Close the User form if open
-        }
-    }
-
-    function showUserForm() {
-        const doctorForm = document.getElementById('doctorForm');
-        toggleForm('userForm', 'userFormBtn');
-        document.getElementById('doctorForm').style.display = 'none'; // Ensure the other form is closed
-        document.getElementById('userFormBtn').classList.add('active');
-        document.getElementById('doctorFormBtn').classList.remove('active');
-        if (doctorForm.style.display === 'block') {
-            doctorForm.style.display = 'none'; // Close the Doctor form if open
-        }
-
-    }
-
-    function toggleForm(formId, buttonId) {
-        const form = document.getElementById(formId);
-
-
-        if (form.style.display === 'none' || form.style.display === '') {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
-    function uploadFile() {
-        if (!selectedFile || !selectedFileType) {
-            alert('Please select a file before uploading.');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const fileType = selectedFile.name.split('.').pop().toLowerCase();
-            let data = [];
-
-            if (fileType === 'json') {
-                try {
-                    data = JSON.parse(event.target.result);
-                } catch (e) {
-                    alert('Invalid JSON file.');
-                    return;
-                }
-            } else if (fileType === 'xml') {
-                try {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(event.target.result, "application/xml");
-                    data = Array.from(xmlDoc.getElementsByTagName(selectedFileType)).map(item => {
-                        const fields = {};
-                        Array.from(item.children).forEach(child => {
-                            fields[child.tagName.toLowerCase()] = child.textContent;
-                        });
-                        return fields;
-                    });
-                } catch (e) {
-                    alert('Invalid XML file.');
-                    return;
-                }
-            } else {
-                alert('Unsupported file type.');
-                return;
-            }
-
-            validateAndStoreData(data, selectedFileType);
-        };
-
-        reader.readAsText(selectedFile);
-    }
-
-    function validateAndStoreData(data, type) {
-        const key = type === 'doctor' ? 'doctors' : 'users';
-        const storedData = JSON.parse(localStorage.getItem(key)) || [];
-        const existingIds = new Set(storedData.map(item => item.id));
-        let dataAdded = false;
-
-        data.forEach(item => {
-            // Validate the essential fields
-            if (!item.id || !item.name || !item.email || !item.contact || (type === 'doctor' && (!item.qualification || !item.specialization))) {
-                alert(`Invalid ${type} data. All fields must be provided.`);
-                return;
-            }
-
-            // Ensure ID is unique
-            if (existingIds.has(item.id)) {
-                alert(`${type.charAt(0).toUpperCase() + type.slice(1)} with ID ${item.id} already exists.`);
-                return;
-            }
-
-            // Email validation
-            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailPattern.test(item.email)) {
-                alert(`Invalid email address for ${type} with ID ${item.id}.`);
-                return;
-            }
-
-            // Contact number validation (example: exactly 10 digits)
-            const contactPattern = /^\d{10}$/;
-            if (!contactPattern.test(item.contact)) {
-                alert(`Invalid contact number for ${type} with ID ${item.id}.`);
-                return;
-            }
-
-            // For doctors, validate qualification and specialization
-            if (type === 'doctor') {
-                if (!item.qualification || !item.specialization) {
-                    alert(`Invalid ${type} data. Qualification and specialization must be provided for doctor with ID ${item.id}.`);
-                    return;
-                }
-            }
-            // Add the ID to the set to prevent future duplicates
-            existingIds.add(item.id);
-            storedData.push(item);
-            dataAdded = true;
+    function renderPatientsTable() {
+        const patientsTable = document.getElementById('patientsTable');
+        patientsTable.innerHTML = '';
+        patients.forEach(patient => {
+            const row = `<tr>
+                <td>${patient.patientId}</td>
+                <td>${patient.patientName}</td>
+                <td>${patient.gender}</td>
+                <td>${patient.age}</td>
+                <td>${patient.contact}</td>
+                <td>${patient.email}</td>
+                <td>${patient.userId}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning edit-btn" data-id="${patient.patientId}">Edit</button>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="${patient.patientId}">Delete</button>
+                </td>
+            </tr>`;
+            patientsTable.innerHTML += row;
         });
-
-        if (dataAdded) {
-            localStorage.setItem(key, JSON.stringify(storedData));
-            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} data successfully added! You will be redirected.`);
-            const redirectPage = type === 'doctor' ? 'ShowAllDoctors.html' : 'ShowAllUsers.html';
-            window.location.href = redirectPage;
-        } else {
-            alert(`No new ${type} data was added due to errors.`);
-        }
     }
 
-</script>
+    document.getElementById('patientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
+        const patientName = document.getElementById('patientName').value;
+        const gender = document.getElementById('gender').value;
+        const age = document.getElementById('age').value;
+        const contact = document.getElementById('contact').value;
+        const email = document.getElementById('email').value;
+        const userId = document.getElementById('userId').value;
+
+        const nextPatientId = patients.length > 0 ? Math.max(...patients.map(p => p.patientId)) + 1 : 1;
+
+        const newPatient = {
+            patientId: nextPatientId,
+            patientName,
+            gender,
+            age: parseInt(age),
+            contact,
+            email,
+            userId: parseInt(userId)
+        };
+
+        patients.push(newPatient);
+        localStorage.setItem('patients', JSON.stringify(patients));
+        renderPatientsTable();
+
+        document.getElementById('patientForm').reset();
+        alert('New patient added successfully!');
+    });
+
+    document.getElementById('patientsTable').addEventListener('click', function(e) {
+        if (e.target.classList.contains('edit-btn')) {
+            const patientId = e.target.getAttribute('data-id');
+            const patient = patients.find(p => p.patientId == patientId);
+
+            document.getElementById('editPatientId').value = patient.patientId;
+            document.getElementById('editPatientName').value = patient.patientName;
+            document.getElementById('editGender').value = patient.gender;
+            document.getElementById('editAge').value = patient.age;
+            document.getElementById('editContact').value = patient.contact;
+            document.getElementById('editEmail').value = patient.email;
+            document.getElementById('editUserId').value = patient.userId;
+
+            $('#editPatientModal').modal('show');
+        }
+
+        if (e.target.classList.contains('delete-btn')) {
+            const patientId = e.target.getAttribute('data-id');
+            patients = patients.filter(p => p.patientId != patientId);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            renderPatientsTable();
+            alert('Patient deleted successfully!');
+        }
+    });
+
+    document.getElementById('savePatientChanges').addEventListener('click', function() {
+        const patientId = document.getElementById('editPatientId').value;
+        const patientIndex = patients.findIndex(p => p.patientId == patientId);
+
+        patients[patientIndex] = {
+            patientId: parseInt(patientId),
+            patientName: document.getElementById('editPatientName').value,
+            gender: document.getElementById('editGender').value,
+            age: parseInt(document.getElementById('editAge').value),
+            contact: document.getElementById('editContact').value,
+            email: document.getElementById('editEmail').value,
+            userId: parseInt(document.getElementById('editUserId').value)
+        };
+
+        localStorage.setItem('patients', JSON.stringify(patients));
+        $('#editPatientModal').modal('hide');
+        renderPatientsTable();
+        alert('Patient updated successfully!');
+    });
+
+    document.addEventListener('DOMContentLoaded', renderPatientsTable);
+</script>
+    <!-- slider section -->
 
 
 <!-- about section -->
 
-<section class="about_section" id="about">
+<section class="about_section mt-4" id="about">
     <div class="container  ">
         <div class="row">
             <div class="col-md-6 ">
@@ -866,7 +737,7 @@
     <div class="container">
         <p>
             &copy; <span id="displayYear"></span> All Rights Reserved By
-            <a href="../Mainpage/webcode.html">MultiThreaders</a>
+            <a href="./webcode.html">MultiThreaders</a>
         </p>
     </div>
 </footer>
@@ -884,7 +755,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <!-- custom js -->
 <script src="../BookAppointment/mico-html/js/custom.js"></script>
-
 
 </body>
 

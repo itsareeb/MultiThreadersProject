@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>TechMed HealthCare- Booking APPOINTMENT</title>
+    <title>TechMed HealthCare- View All Doctors</title>
 
 
     <!-- bootstrap core css -->
@@ -124,8 +124,12 @@
     <!-- end header section -->
     <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
         <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-        <a href="./webcode.html" class="w3-bar-item w3-button">Home</a>
-        <a href="../BookAppointment/mico-html/PatientModule.html" class="w3-bar-item w3-button">Check User/ <br> Register User</a>
+        <a href="../Mainpage/webcode.html" class="w3-bar-item w3-button">Home</a>
+        <a href="../admin/ShowAllDoctors.html" class="w3-bar-item w3-button">View All Doctors</a>
+        <a href="../admin/ShowAllUsers.html" class="w3-bar-item w3-button">View All Users</a>
+        <a href="../admin/ImportUsers.html" class="w3-bar-item w3-button">Import New User/Doctor</a>
+        <a href="../admin/ShowAllPatients.html" class="w3-bar-item w3-button">View All Patients</a>
+        <a href="../admin/ViewSchedule.html" class="w3-bar-item w3-button">Cancel Doctor Appointments</a>
         <a href="#" class="w3-bar-item w3-button">Logout</a>
     </div>
 
@@ -136,8 +140,8 @@
 
 
     <!-- view all doctors section -->
-    <div class="container mt-1">
-
+    <div class="container ">
+        <h2 class="text-center mb-1">Doctor Information</h2>
         <!-- Add Doctor Button -->
         <div class="add-button">
             <button id="addDoctorBtn" class="btn btn-primary mb-3" onclick="location.href='ImportUsers.html'">Add Doctor</button>
@@ -717,7 +721,7 @@
         <div class="container">
             <p>
                 &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="./webcode.html">MultiThreaders</a>
+                <a href="../Mainpage/webcode.html">MultiThreaders</a>
             </p>
         </div>
     </footer>

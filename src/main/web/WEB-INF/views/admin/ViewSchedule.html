@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>TechMed HealthCare- Booking APPOINTMENT</title>
+    <title>TechMed HealthCare- Doctor's Schedule/Cancel Appointments</title>
 
 
     <!-- bootstrap core css -->
@@ -35,7 +35,7 @@
     <!-- responsive style -->
     <link href="../BookAppointment/mico-html/css/responsive.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="styles1.css"/>
+    <link rel="stylesheet" href="styles_viewsch.css"/>
 </head>
 
 <body>
@@ -70,7 +70,7 @@
         <div class="header_bottom">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="../MainPage/webcode.html">
                         <img src="../BookAppointment/mico-html/images/logo.png" alt=""  >
                     </a>
 
@@ -106,7 +106,7 @@
                             <a href="">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>
-                    <a href="./webcode.html">Logout</a>
+                    <a href="../Mainpage/webcode.html">Logout</a>
                   </span>
                             </a>
 
@@ -124,390 +124,353 @@
     <!-- end header section -->
     <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
         <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-        <a href="./webcode.html" class="w3-bar-item w3-button">Home</a>
-        <a href="../BookAppointment/mico-html/PatientModule.html" class="w3-bar-item w3-button">Check User/ <br> Register User</a>
+        <a href="../Mainpage/webcode.html" class="w3-bar-item w3-button">Home</a>
+        <a href="../admin/ShowAllDoctors.html" class="w3-bar-item w3-button">View All Doctors</a>
+        <a href="../admin/ShowAllUsers.html" class="w3-bar-item w3-button">View All Users</a>
+        <a href="../admin/ImportUsers.html" class="w3-bar-item w3-button">Import New User/Doctor</a>
+        <a href="../admin/ShowAllPatients.html" class="w3-bar-item w3-button">View All Patients</a>
+        <a href="../admin/ViewSchedule.html" class="w3-bar-item w3-button">Cancel Doctor Appointments</a>
         <a href="#" class="w3-bar-item w3-button">Logout</a>
     </div>
 
     <!-- slider section -->
     <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
-    <!--        <section class="slider_section ">-->
-    <!--            <div class="dot_design">-->
 
-    <!--                <img src="../BookAppointment/mico-html/images/dots.png" alt="">-->
-    <!--            </div>-->
-    <!--            <div id="customCarousel1" class="carousel slide" data-ride="carousel">-->
-    <!--                <div class="carousel-inner">-->
-    <!--                    <div class="carousel-item active">-->
-    <!--                        <div class="container ">-->
-    <!--                            <div class="row">-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="detail-box">-->
-    <!--                                        <div class="play_btn">-->
-    <!--                                            <button>-->
-    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
-    <!--                                            </button>-->
-    <!--                                        </div>-->
-    <!--                                        <h1>-->
-    <!--                                            TechMed <br>-->
-    <!--                                            <span>-->
-    <!--                            HealthCare-->
-    <!--                          </span>-->
-    <!--                                        </h1>-->
-    <!--                                        <p>-->
-    <!--                                            TechMed. HealthCare & Research Centre is a multispecialty tertiary care hospital in Pune, providing the highest standard of clinical expertise and nursing care by offering the latest technology, and state-of-the-art hospital facilities. The Hospital focuses on rapid assessment, intervention and treatment for numerous common and complex conditions.-->
-    <!--                                        </p>-->
-    <!--                                        <a href="">-->
-    <!--                                            Contact Us-->
-    <!--                                        </a>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="img-box">-->
-    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div class="carousel-item">-->
-    <!--                        <div class="container ">-->
-    <!--                            <div class="row">-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="detail-box">-->
-    <!--                                        <div class="play_btn">-->
-    <!--                                            <button>-->
-    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
-    <!--                                            </button>-->
-    <!--                                        </div>-->
-    <!--                                        <h1>-->
-    <!--                                            TechMed <br>-->
-    <!--                                            <span>-->
-    <!--                            HealthCare-->
-    <!--                          </span>-->
-    <!--                                        </h1>-->
-    <!--                                        <p>-->
-    <!--                                            TechMed. HealthCare & Research Centre presently has 300 beds and is situated in a central location, with easy access to the City. In addition to providing quality health care the focus is also on preventive health programmes, medical education and clinical research.                     </p>-->
-    <!--                                        <a href="">-->
-    <!--                                            Contact Us-->
-    <!--                                        </a>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="img-box">-->
-    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div class="carousel-item">-->
-    <!--                        <div class="container ">-->
-    <!--                            <div class="row">-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="detail-box">-->
-    <!--                                        <div class="play_btn">-->
-    <!--                                            <button>-->
-    <!--                                                <i class="fa fa-play" aria-hidden="true"></i>-->
-    <!--                                            </button>-->
-    <!--                                        </div>-->
-    <!--                                        <h1>-->
-    <!--                                            TechMed <br>-->
-    <!--                                            <span>-->
-    <!--                            HealthCare-->
-    <!--                          </span>-->
-    <!--                                        </h1>-->
-    <!--                                        <p>-->
-    <!--                                            The Hospital focuses on rapid assessment intervention and treatment for numerous common and complex conditions. Devotion to the art and science of healing reinforces every aspect of our mission.-->
-    <!--                                        </p>-->
-    <!--                                        <a href="">-->
-    <!--                                            Contact Us-->
-    <!--                                        </a>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <div class="img-box">-->
-    <!--                                        <img src="../BookAppointment/mico-html/images/slider-img.jpg" alt="">-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="carousel_btn-box">-->
-    <!--                    <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">-->
-    <!--                        <img src="../BookAppointment/mico-html/images/prev.png" alt="">-->
-    <!--                        <span class="sr-only">Previous</span>-->
-    <!--                    </a>-->
-    <!--                    <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">-->
-    <!--                        <img src="../BookAppointment/mico-html/images/next.png" alt="">-->
-    <!--                        <span class="sr-only">Next</span>-->
-    <!--                    </a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-
-    <!--        </section>-->
-    <!-- end slider section -->
 </div>
 
-
-<!-- book section -->
-
-<div class="container mt-1">
-    <!-- Header Area -->
-    <!--        <div class="header_area">-->
-    <!--            <h1 class="text-center">All Doctors</h1>-->
-    <!--        </div>-->
-
-    <div class="container mt-5">
+<div class="container mt-3">
+    <!-- Doctor Info Section -->
+    <div id="doctorInfo" class="mb-4">
         <h2>Doctor's Information</h2>
-        <div id="doctorInfoContainer" class="mb-4">
-            <!-- Doctor's Info will be inserted here by JavaScript -->
-        </div>
-        <h2>Doctor's Schedule</h2>
-        <div id="scheduleContainer">
-            <!-- Schedule Table will be inserted here by JavaScript -->
-        </div>
-        <button class="btn btn-primary mt-3" onclick="saveSchedule()">Save Changes</button>
+        <p><strong>Name:</strong> <span id="doctorName"></span></p>
+        <p><strong>Email:</strong> <span id="doctorEmail"></span></p>
+        <p><strong>Contact:</strong> <span id="doctorContact"></span></p>
+        <p><strong>Specialization:</strong> <span id="doctorSpecialization"></span></p>
     </div>
 
+    <!-- Schedule Table Section -->
+    <div id="scheduleContainer">
+        <h2>Doctor's Schedule for the Next 3 Days</h2>
+        <table class="table table-custom">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Shift Number</th>
+                <th>Slot Number</th>
+                <th>Slot Time</th>
+                <th>Is Available</th>
+            </tr>
+            </thead>
+            <tbody id="scheduleBody">
+            <!-- Schedule rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <button class="btn btn-primary mt-3 mb-3" onclick="saveSchedule()">Save Changes</button>
 </div>
 
-<script>
-    // Function to get query parameter from the URL
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
+<!-- Cancel Appointments Section -->
+<div class="container mt-4 mb-5">
+    <h2>Appointments</h2>
+    <div class="table-container" id="appointmentsContainer">
+        <table class="table table-custom">
+            <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Suggested Medicine</th>
+                <th>Suggested Test</th>
+                <th>Cancel Appointment</th>
+            </tr>
+            </thead>
+            <tbody id="appointmentsBody">
+            <!-- Appointment rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-primary mt-3 mb-3" onclick="saveAppointments()">Save Appointment Status</button>
 
-    // Function to format date as 'YYYY-MM-DD'
-    function formatDate(date) {
-        const year = date.getFullYear();
-        const month = ('0' + (date.getMonth() + 1)).slice(-2);
-        const day = ('0' + date.getDate()).slice(-2);
-        return `${year}-${month}-${day}`;
-    }
+</div>
 
-    // Function to render the schedule table
-    function renderScheduleTable(doctorId) {
-        const container = document.getElementById('scheduleContainer');
-        const today = new Date();
-        const schedule = [];
+    <script>
 
-        // Generate next 3 days schedule from tomorrow
-        for (let i = 1; i <= 3; i++) {
-            const nextDate = new Date(today);
-            nextDate.setDate(today.getDate() + i);
+        // Dummy data for slots and appointments based on the provided schema
+        const dummySlots = [
+            { shift_number: 1, slot_number: 1, slot_time: '09:00:00' },
+            { shift_number: 1, slot_number: 2, slot_time: '09:30:00' },
+            { shift_number: 1, slot_number: 3, slot_time: '10:00:00' },
+            { shift_number: 1, slot_number: 4, slot_time: '10:30:00' },
+            { shift_number: 1, slot_number: 5, slot_time: '11:00:00' }
+        ];
 
-            schedule.push({
-                date: formatDate(nextDate),
-                shiftNo: i, // Example shift numbers; can be customized
-                slotNo: `A${i}`, // Example slot numbers; can be customized
-                isAvailable: true // Default to available; can be customized
+        // Helper function to generate a random date starting from the current date
+        function getRandomDate(startDate, daysRange) {
+            const date = new Date(startDate);
+            const randomDays = Math.floor(Math.random() * daysRange);
+            date.setDate(date.getDate() + randomDays);
+            return date.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
+        }
+
+        // Get the current date
+        const currentDate = new Date().toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
+
+        //Generate dummy appointments
+        const dummyAppointments = [
+            {
+                appId: 1,
+                patientId: 1,
+                patientName: 'John Doe',
+                doctorId: 301,
+                doctorName: 'Dr. Smith',
+                userId: 101,
+                userName: 'Admin',
+                date: currentDate,
+                time: '09:00:00',
+                status: 'pending',
+                suggestedMedicine: 'Paracetamol',
+                suggestedTest: 'Blood Test'
+            },
+            {
+                appId: 2,
+                patientId: 2,
+                patientName: 'Jane Smith',
+                doctorId: 305,
+                doctorName: 'Dr. Johnson',
+                userId: 102,
+                userName: 'Admin',
+                date: getRandomDate(currentDate, 10), // Random date within 10 days starting from the current date
+                time: '09:30:00',
+                status: 'pending',
+                suggestedMedicine: 'Ibuprofen',
+                suggestedTest: 'X-ray'
+            },
+            {
+                appId: 3,
+                patientId: 3,
+                patientName: 'Alice Johnson',
+                doctorId: 301,
+                doctorName: 'Dr. Smith',
+                userId: 103,
+                userName: 'Admin',
+                date: getRandomDate(currentDate, 10), // Random date within 10 days starting from the current date
+                time: '10:00:00',
+                status: 'completed',
+                suggestedMedicine: 'Aspirin',
+                suggestedTest: 'MRI'
+            }
+        ];
+
+        // Function to get query parameter from the URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Function to render doctor info
+        function renderDoctorInfo(doctorId) {
+            const doctors = JSON.parse(localStorage.getItem('doctors')) || [];
+            const doctor = doctors.find(doc => doc.id == doctorId);
+
+            if (doctor) {
+                document.getElementById('doctorName').innerText = doctor.name;
+                document.getElementById('doctorEmail').innerText = doctor.email;
+                document.getElementById('doctorContact').innerText = doctor.contact;
+                document.getElementById('doctorSpecialization').innerText = doctor.specialization;
+            } else {
+                alert('Doctor not found! Select Doctor from \'View All Doctors\' Page');
+            }
+        }
+
+        // Function to format date as 'YYYY-MM-DD'
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            return `${year}-${month}-${day}`;
+        }
+
+        // Function to render the schedule table
+        function renderScheduleTable() {
+            const today = new Date();
+            const schedule = [];
+            const scheduleBody = document.getElementById('scheduleBody');
+
+            // Generate next 3 days schedule from tomorrow
+            for (let i = 1; i <= 3; i++) {
+                const nextDate = new Date(today);
+                nextDate.setDate(today.getDate() + i);
+
+                schedule.push({
+                    date: formatDate(nextDate),
+                    shift_number: 1, // Assuming shift 1 as per dummy data
+                    slot_number: dummySlots[i - 1].slot_number,
+                    slot_time: dummySlots[i - 1].slot_time,
+                    isAvailable: true
+                });
+            }
+
+            // Clear existing rows
+            scheduleBody.innerHTML = '';
+
+            schedule.forEach((slot, index) => {
+                scheduleBody.innerHTML += `
+            <tr>
+                <td><input type="date" class="form-control" value="${slot.date}" id="date-${index}"></td>
+                <td><input type="number" class="form-control" value="${slot.shift_number}" id="shiftNumber-${index}" min="1" max="3"></td>
+                <td><input type="number" class="form-control" value="${slot.slot_number}" id="slotNumber-${index}"></td>
+                <td><input type="text" class="form-control" value="${slot.slot_time}" id="slotTime-${index}"></td>
+                <td><input type="checkbox" ${slot.isAvailable ? "checked" : ""} id="isAvailable-${index}"></td>
+            </tr>
+        `;
             });
         }
 
-        let tableHTML = `
-            <table class="table table-custom">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Shift No</th>
-                        <th>Slot No</th>
-                        <th>Is Available</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
+        // Loading schedule from local storage
+        function loadSchedule() {
+            const savedSchedule = JSON.parse(localStorage.getItem('doctorSchedule')) || [];
 
-        schedule.forEach((slot, index) => {
-            tableHTML += `
-                <tr>
-                    <td><input type="date" class="form-control" value="${slot.date}" id="date-${index}"></td>
-                    <td><input type="number" class="form-control" value="${slot.shiftNo}" id="shiftNo-${index}"></td>
-                    <td><input type="text" class="form-control" value="${slot.slotNo}" id="slotNo-${index}"></td>
-                    <td><input type="checkbox" ${slot.isAvailable ? "checked" : ""} id="isAvailable-${index}"></td>
-                </tr>
-            `;
+            if (savedSchedule.length > 0) {
+                savedSchedule.forEach((slot, index) => {
+                    // Check if element exists before trying to set its value
+                    const dateElement = document.getElementById(`date-${index}`);
+                    const shiftNumberElement = document.getElementById(`shiftNumber-${index}`);
+                    const slotNumberElement = document.getElementById(`slotNumber-${index}`);
+                    const slotTimeElement = document.getElementById(`slotTime-${index}`);
+                    const isAvailableElement = document.getElementById(`isAvailable-${index}`);
+
+                    if (dateElement && shiftNumberElement && slotNumberElement && slotTimeElement && isAvailableElement) {
+                        dateElement.value = slot.date;
+                        shiftNumberElement.value = slot.shift_number;
+                        slotNumberElement.value = slot.slot_number;
+                        slotTimeElement.value = slot.slot_time;
+                        isAvailableElement.checked = slot.isAvailable;
+                    } else {
+                        console.error(`Element with index ${index} not found.`);
+                    }
+                });
+            } else {
+                renderScheduleTable(); // If no schedule is saved, render the default schedule
+            }
+        }
+
+        // Saving schedule to local storage
+        function saveSchedule() {
+            const schedule = [];
+
+            // Collect updated schedule data
+            for (let i = 0; i < 3; i++) {
+                const dateValue = document.getElementById(`date-${i}`).value;
+                const shiftNumberValue = document.getElementById(`shiftNumber-${i}`).value;
+                const slotNumberValue = document.getElementById(`slotNumber-${i}`).value;
+                const slotTimeValue = document.getElementById(`slotTime-${i}`).value;
+                const isAvailableValue = document.getElementById(`isAvailable-${i}`).checked;
+
+                schedule.push({
+                    date: dateValue,
+                    shift_number: shiftNumberValue,
+                    slot_number: slotNumberValue,
+                    slot_time: slotTimeValue,
+                    isAvailable: isAvailableValue
+                });
+            }
+
+            // Save the schedule to local storage
+            localStorage.setItem('doctorSchedule', JSON.stringify(schedule));
+            alert("Schedule saved successfully!");
+        }
+
+        // Load the schedule and appointments on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            renderScheduleTable(); // Create the schedule table with input fields
+            loadSchedule(); // Load saved values into the fields
         });
 
-        tableHTML += `
-                </tbody>
-            </table>
-        `;
+        document.addEventListener("DOMContentLoaded", function() {
+            renderScheduleTable(); // Create the schedule table with input fields
+            loadSchedule(); // Load saved values into the fields
+        });
 
-        container.innerHTML = tableHTML;
-    }
 
-    // Function to save the edited schedule
-    function saveSchedule() {
-        const doctorId = getQueryParam("doctorId");
-        const schedule = [];
+        // Function to render today's appointments for cancellation
+        function renderAppointments() {
+            const today = formatDate(new Date());
+            const appointmentsBody = document.getElementById('appointmentsBody');
 
-        // Collect updated schedule data
-        for (let i = 0; i < 3; i++) {
-            schedule.push({
-                date: document.getElementById(`date-${i}`).value,
-                shiftNo: document.getElementById(`shiftNo-${i}`).value,
-                slotNo: document.getElementById(`slotNo-${i}`).value,
-                isAvailable: document.getElementById(`isAvailable-${i}`).checked
+            // Clear existing rows
+            appointmentsBody.innerHTML = '';
+
+            dummyAppointments.forEach((appointment, index) => {
+                // const slotTime = dummySlots.find(slot => slot.slot_number === appointment.slot_number).slot_time;
+                const canCancel = appointment.date === today;
+
+                appointmentsBody.innerHTML += `
+                    <tr>
+                <td>${appointment.appId}</td>
+                <td>${appointment.patientId}</td>
+                <td>${appointment.patientName}</td>
+                <td>${appointment.doctorId}</td>
+                <td>${appointment.doctorName}</td>
+                <td>${appointment.userId}</td>
+                <td>${appointment.userName}</td>
+                <td>${appointment.date}</td>
+                <td>${appointment.time}</td>
+
+                <td>
+                    <select class="form-control" id="status-${index}">
+                        <option value="pending" ${appointment.status === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="completed" ${appointment.status === 'completed' ? 'selected' : ''}>Completed</option>
+                        <option value="cancelled" ${appointment.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                    </select>
+                </td>
+                <td>${appointment.suggestedMedicine}</td>
+                <td>${appointment.suggestedTest}</td>
+                <td>${canCancel ? `<button class="btn btn-danger" onclick="cancelAppointment(${index})">Cancel</button>` : 'Cannot Cancel'}</td>
+            </tr>
+                `;
             });
         }
 
-        console.log("Updated Schedule:", schedule);
-        alert("Schedule updated successfully!");
-        // Here you would typically send the updated schedule to the server
-    }
 
-    // Load the schedule on page load
-    document.addEventListener("DOMContentLoaded", function() {
-        const doctorId = getQueryParam("doctorId");
-        renderScheduleTable(doctorId);
-    });
+
+        // Function to cancel an appointment
+        function cancelAppointment(index) {
+            // Update the status to 'cancelled' directly
+            document.getElementById(`status-${index}`).value = 'cancelled';
+            dummyAppointments[index].status = 'cancelled'; // Update the data model
+            alert('Appointment canceled successfully!');
+            renderAppointments(); // Re-render appointments to reflect changes
+        }
+
+        function saveAppointments() {
+            dummyAppointments.forEach((appointment, index) => {
+                const updatedStatus = document.getElementById(`status-${index}`).value;
+                appointment.status = updatedStatus; // Update the status in the data model
+            });
+            alert('Appointments saved successfully!');
+            console.log("Updated Appointments:", dummyAppointments);
+        }
+
+
+        // Load the schedule and appointments on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            const doctorId = getQueryParam("doctorId");
+            renderDoctorInfo(doctorId);
+            renderScheduleTable();
+            renderAppointments();
+        });
 </script>
 
 
 
-<!--<script>-->
-
-<!--    // Example schedule data - in a real application, this would be fetched from a server-->
-<!--    const scheduleData = {-->
-<!--        "301": [-->
-<!--            { date: "2024-08-23", shiftNo: 1, slotNo: "A1", isAvailable: true },-->
-<!--            { date: "2024-08-24", shiftNo: 2, slotNo: "B2", isAvailable: false },-->
-<!--            { date: "2024-08-25", shiftNo: 3, slotNo: "C1", isAvailable: true }-->
-<!--        ],-->
-<!--        "302": [-->
-<!--            { date: "2024-08-23", shiftNo: 1, slotNo: "A3", isAvailable: true },-->
-<!--            { date: "2024-08-24", shiftNo: 3, slotNo: "C1", isAvailable: true },-->
-<!--            { date: "2024-08-25", shiftNo: 2, slotNo: "B2", isAvailable: false }-->
-<!--        ],-->
-<!--        // Add more schedules for other doctors as needed-->
-<!--    };-->
-
-<!--    // Function to get query parameter from the URL-->
-<!--    function getQueryParam(param) {-->
-<!--        const urlParams = new URLSearchParams(window.location.search);-->
-<!--        return urlParams.get(param);-->
-<!--    }-->
-
-<!--    // Function to render the schedule table-->
-<!--    function renderScheduleTable(doctorId) {-->
-<!--        const container = document.getElementById('scheduleContainer');-->
-<!--        const schedule = scheduleData[doctorId];-->
-
-<!--        if (!schedule) {-->
-<!--            container.innerHTML = "<p>No schedule data available for this doctor.</p>";-->
-<!--            return;-->
-<!--        }-->
-
-<!--        let tableHTML = `-->
-<!--                <table class="table table-custom">-->
-<!--                    <thead>-->
-<!--                        <tr>-->
-<!--                            <th>Date</th>-->
-<!--                            <th>Shift No</th>-->
-<!--                            <th>Slot No</th>-->
-<!--                            <th>Is Available</th>-->
-<!--                        </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--            `;-->
-
-<!--        schedule.forEach((slot, index) => {-->
-<!--            tableHTML += `-->
-<!--                    <tr>-->
-<!--                        <td><input type="date" class="form-control" value="${slot.date}" id="date-${index}"></td>-->
-<!--                        <td><input type="number" class="form-control" value="${slot.shiftNo}" id="shiftNo-${index}"></td>-->
-<!--                        <td><input type="text" class="form-control" value="${slot.slotNo}" id="slotNo-${index}"></td>-->
-<!--                        <td><input type="checkbox" ${slot.isAvailable ? "checked" : ""} id="isAvailable-${index}"></td>-->
-<!--                    </tr>-->
-<!--                `;-->
-<!--        });-->
-
-<!--        tableHTML += `-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            `;-->
-
-<!--        container.innerHTML = tableHTML;-->
-<!--    }-->
-
-<!--    // Function to save the edited schedule-->
-<!--    function saveSchedule() {-->
-<!--        const doctorId = getQueryParam("doctorId");-->
-<!--        const schedule = scheduleData[doctorId];-->
-
-<!--        if (!schedule) return;-->
-
-<!--        schedule.forEach((slot, index) => {-->
-<!--            slot.date = document.getElementById(`date-${index}`).value;-->
-<!--            slot.shiftNo = document.getElementById(`shiftNo-${index}`).value;-->
-<!--            slot.slotNo = document.getElementById(`slotNo-${index}`).value;-->
-<!--            slot.isAvailable = document.getElementById(`isAvailable-${index}`).checked;-->
-<!--        });-->
-
-<!--        alert("Schedule updated successfully!");-->
-<!--        // Here you would typically send the updated schedule to the server-->
-<!--    }-->
-
-<!--    // Load the schedule on page load-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        const doctorId = getQueryParam("doctorId");-->
-<!--        renderScheduleTable(doctorId);-->
-<!--    });-->
-<!--</script>-->
-
-
-<!-- end book section -->
-
-
-
-
-<!--JS-->
-
-<!--&lt;!&ndash; Add Doctor Modal &ndash;&gt;-->
-<!--<div id="addDoctorModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">-->
-<!--    <h3>Add Doctor</h3>-->
-<!--    <form id="addDoctorForm">-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorId">Doctor ID</label>-->
-<!--            <input type="text" id="doctorId" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorName">Name</label>-->
-<!--            <input type="text" id="doctorName" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorEmail">Email</label>-->
-<!--            <input type="email" id="doctorEmail" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorContact">Contact</label>-->
-<!--            <input type="text" id="doctorContact" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorQualification">Qualification</label>-->
-<!--            <input type="text" id="doctorQualification" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorSpecialization">Specialization</label>-->
-<!--            <input type="text" id="doctorSpecialization" class="form-control" required>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="doctorDepartment">Department</label>-->
-<!--            <select id="doctorDepartment" class="form-control">-->
-<!--                <option>General</option>-->
-<!--                <option>Emergency</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-primary">Add Doctor</button>-->
-<!--        <button type="button" onclick="closeModal()" class="btn btn-secondary">Cancel</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Background overlay for modal &ndash;&gt;-->
-<!--<div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:500;"></div>-->
 
 
 
@@ -893,7 +856,7 @@
     <div class="container">
         <p>
             &copy; <span id="displayYear"></span> All Rights Reserved By
-            <a href="./webcode.html">MultiThreaders</a>
+            <a href="../MainPage/webcode.html">MultiThreaders</a>
         </p>
     </div>
 </footer>

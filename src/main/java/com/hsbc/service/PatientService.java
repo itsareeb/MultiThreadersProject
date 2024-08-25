@@ -1,3 +1,4 @@
+/*
 package com.hsbc.service;
 
 import com.hsbc.Enums.PatientEnums;
@@ -69,3 +70,4 @@ public class PatientService {
         }
     }
 }
+*/

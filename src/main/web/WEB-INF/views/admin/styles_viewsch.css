@@ -1,63 +1,77 @@
-.container {
-    margin: 50px auto;
-    max-width: 800px;
+/* Custom table styles */
+.table-container {
+    overflow-x: auto; /* Ensure horizontal scrolling if the content overflows */
+    width: 100%; /* Decrease the width to create space on the right */
+    margin: 0 auto; /* Center the table within its container */
+}
+
+.table-custom {
+    width: 100%; /* Set the table's width larger than the container to force scrolling */
     background: #fff;
-    padding: 20px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+.table-custom td.actions {
+    width: 140px; /* Adjust width as needed */
 }
 
-table.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table.schedule-table th, table.schedule-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-table.schedule-table th {
-    background-color: #278CB4;
-    color: white;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #278CB4;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.btn:disabled {
-    background-color: #ccc;
-}
-
-.form-control {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    box-sizing: border-box;
-}
-
-.checkbox-center {
+.table-custom .btn-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-input[type="checkbox"] {
-    transform: scale(1.5);
+.table-custom .btn-container .btn {
+    flex: 1;
+    margin-right: 5px;
+    padding: 5px 10px; /* Adjust padding for better alignment */
+}
+
+.table-custom .btn-container .btn:last-child {
+    margin-right: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.header_area {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.table {
+    overflow-x: scroll;
+}
+
+.table-custom th, .table-custom td {
+    border-bottom: 1px solid #ddd; /* thin line for each row */
+    padding: 10px 15px;
+}
+
+.table-custom th {
+    background-color: #278CB4;
+    color: #fff;
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #278CB4;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+.btn-red {
+    background-color: #cd3948;
+}
+
+.add-button {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
 }

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
@@ -27,139 +28,285 @@ public class EmployeeDaoTest {
         this.conn = DBUtils.getConnection();
     }
 
-    //Test Cases for isEmployee
+    //Test Cases for isValidEmployee
     @Test
-    public void isEmployeeValidEmpTestUser(){
+    public void isValidEmployeeTestForUser(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(true, employeeDao.isEmployee(101,"user"));
-    }
-
-    @Test
-    public void isEmployeeValidEmpTestDoctor(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(true, employeeDao.isEmployee(301,"doctor"));
+        assertEquals(true, employeeDao.isValidEmployee(3, EmployeeEnums.Role.valueOf("user")));
     }
 
     @Test
-    public void isEmployeeValidEmpTestAdmin(){
+    public void isValidEmployeeTestForAdmin(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(true, employeeDao.isEmployee(201,"admin"));
+        assertEquals(true, employeeDao.isValidEmployee(1, EmployeeEnums.Role.valueOf("doctor")));
     }
 
     @Test
-    public void isEmployeeValidEmpNegativeTestUser(){
+    public void isValidEmployeeTestForDoctor(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotEquals(false, employeeDao.isEmployee(101,"user"));
+        assertEquals(true, employeeDao.isValidEmployee(5, EmployeeEnums.Role.valueOf("admin")));
     }
 
     @Test
-    public void isEmployeeValidEmpNegativeTestAdmin(){
+    public void isValidEmployeeTestForInvalidDoctor(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotEquals(false, employeeDao.isEmployee(201,"admin"));
+        assertEquals(false, employeeDao.isValidEmployee(6, EmployeeEnums.Role.valueOf("doctor")));
     }
 
     @Test
-    public void isEmployeeValidEmpNegativeTestDoctor(){
+    public void isValidEmployeeTestForInvalidUser(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotEquals(false, employeeDao.isEmployee(301,"doctor"));
-    }
-
-
-    @Test
-    public void isEmployeeInValidEmpTestUser(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(false, employeeDao.isEmployee(1888,"user"));
-    }
-    @Test
-    public void isEmployeeInValidEmpTestDoctor(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(false, employeeDao.isEmployee(401,"doctor"));
-    }
-    @Test
-    public void isEmployeeInValidEmpTestAdmin(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(false, employeeDao.isEmployee(301,"admin"));
-    }
-    
-    @Test
-    public void noConnectionTest(){
-        this.conn = null;
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertThrows(new NullPointerException(), employeeDao.isEmployee(301,"admin"));
-    }
-
-    private void assertThrows(NullPointerException e, Boolean admin) {
+        assertEquals(false, employeeDao.isValidEmployee(6, EmployeeEnums.Role.valueOf("user")));
     }
 
     @Test
-    public void notNullTest(){
+    public void isValidEmployeeTestForInvalidAdmin(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotNull(employeeDao);
+        assertEquals(false, employeeDao.isValidEmployee(6, EmployeeEnums.Role.valueOf("admin")));
     }
 
     @Test
-    public void notNullTestForObject(){
+    public void isValidEmployeeFalseTestForDoctor(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotNull(employeeDao.isEmployee(101,"user"));
+        assertFalse(employeeDao.isValidEmployee(6, EmployeeEnums.Role.valueOf("admin")));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSQLInjectionOrCondition() {
+        // Given
+        int empId = 1;
+        String role = "admin' OR '1'='1";
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        employeeDao.isValidEmployee(empId, EmployeeEnums.Role.valueOf(role));
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testSQLInjectionOrConditionOnEmpId() {
+        // Given
+        String empId = "1 OR 1=1";
+        EmployeeEnums.Role role = EmployeeEnums.Role.valueOf("admin");
+
+        // When & Then
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        employeeDao.isValidEmployee(Integer.parseInt(empId),role);
+    }
+
+
+
+    //Tests for employeeLogin
 
     @Test
-    public void testForObjectWithNullArg(){
+    public void employeeLoginTestForValidEmployee(){
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertFalse(employeeDao.isEmployee(101,null));
-    }
-
-
-    @Test
-    public void testForObjectWithEmptyArg(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertFalse(employeeDao.isEmployee(101,""));
-    }
-
-    //TestCases for employeelogin
-
-    @Test
-    public void employeeLoginValidEmpTest1() throws EmployeeNotFoundException {
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertEquals(new Employee(101, EmployeeEnums.Role.user,"user1","null",true,"1122331122","user1@gmail.com"),employeeDao.employeeLogin("user1@gmail.com","p1234"));
-    }
-
-    @Test(expected = EmployeeNotFoundException.class)
-    public void employeeLoginInvalidEmpTest1() throws EmployeeNotFoundException {
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        employeeDao.employeeLogin("meow@gmail.com","Password");
-    }
-
-    @Test(expected = EmployeeNotFoundException.class)
-    public void employeeLoginNullCredentialsEmpTest1() throws EmployeeNotFoundException {
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        employeeDao.employeeLogin("","");
-    }
-
-    @Test
-    public void employeeLoginValidEmpNegativeTest1() throws EmployeeNotFoundException {
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        assertNotEquals(new Employee(104, EmployeeEnums.Role.user,"user1","null",true,"1122331122","user1@gmail.com"),employeeDao.employeeLogin("user1@gmail.com","p1234"));
-    }
-
-    @Test
-    public void employeeLoginNotNullTest(){
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        Employee employee = new Employee(1,EmployeeEnums.Role.doctor, "Dr. John Doe","null",true,"9876543210","john.doe@example.com");
         try {
-            assertNotNull(employeeDao.employeeLogin("doctor2@gmail.com","p1234"));
+            assertEquals(employeeDao.employeeLogin("john.doe@example.com","password123"), employee);
         } catch (EmployeeNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Test
-    public void employeeLoginNullTest(){
+    @Test(expected = EmployeeNotFoundException.class)
+    public void employeeLoginTestForInValidEmail() throws SQLException, EmployeeNotFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
-        try {
-            assertFalse(employeeDao.employeeLogin("dr.bob@example.com","password456")==null);
-        } catch (EmployeeNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        employeeDao.employeeLogin("john.dairy@example.com","password123");
     }
+    @Test(expected = EmployeeNotFoundException.class)
+    public void employeeLoginTestForInvalidPassword() throws SQLException, EmployeeNotFoundException {
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        employeeDao.employeeLogin("john.doe@example.com","password12345");
+    }
+
+    @Test
+    public void testSQLInjectionOrConditionInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' OR '1'='1";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionOrConditionInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345' OR '1'='1";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionCommentInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' --";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionCommentInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345' --";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionAlwaysTrueConditionInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' OR 'a'='a";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionUnionSelectInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' UNION SELECT NULL, NULL, NULL --";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionUnionSelectInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345' UNION SELECT NULL, NULL, NULL --";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionSubqueryInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com'; SELECT * FROM Employee WHERE 'a'='a";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionSubqueryInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345'; SELECT * FROM Employee WHERE 'a'='a";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionInvalidBooleanLogicInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' AND '1'='2";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionInvalidBooleanLogicInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345' AND '1'='2";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionTimingAttackInEmail() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com' AND SLEEP(5) --";
+        String password = "password12345";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+    @Test
+    public void testSQLInjectionTimingAttackInPassword() {
+        // Given
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+        String email = "john.doe@example.com";
+        String password = "password12345' AND SLEEP(5) --";
+
+        // When & Then
+        assertThrows(EmployeeNotFoundException.class, () -> {
+            employeeDao.employeeLogin(email, password);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
