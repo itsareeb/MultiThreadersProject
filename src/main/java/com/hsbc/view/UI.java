@@ -1,34 +1,36 @@
 package com.hsbc.view;
 
-
-import com.hsbc.exceptions.EmployeeNotFoundException;
-import com.hsbc.exceptions.UserNotFoundException;
+import com.hsbc.Enums.EmployeeEnums;
+import com.hsbc.models.Employee;
+import com.hsbc.service.EmployeeService;
 
 import java.util.Scanner;
 
 public class UI {
-    public static String loginMenu(Scanner sc) {
-        System.out.println("\nPlease Login to Continue\n");
-        System.out.print("Email id: ");
-        String email = sc.next();
-        System.out.print("Password: ");
-        String password = sc.next();
+    public static EmployeeEnums.Role loginMenu(Scanner sc) {
+        while(true) {
+            System.out.println("\nPlease Login to Continue\n");
+            System.out.print("Email id: ");
+            String email = sc.next();
+            System.out.print("Password: ");
+            String password = sc.next();
 
-        String role = null;
+            Employee emp;
 
-//        try {
-//            role = LoginService.login(email, password);
-//        } catch (EmployeeNotFoundException e) {
-//            System.out.println(e.getMessage());
-//        }
+            EmployeeService employeeService = new EmployeeService();
 
-        //TODO: If email and password are incorrect ask them to login again
 
-//        if(role == null){
-//
-//        }
+            emp = employeeService.employeeLogin(email, password);
+            EmployeeEnums.Role role = emp.getRole();
+            if(role != null){
+                System.out.println("Logged in as " + role);
+                return role;
+            } else {
+                System.out.println("Invalid credentials");
+            }
+            return null;
+        }
 
-        return role;
     }
 
     public static void adminMenu(Scanner sc){
@@ -38,21 +40,26 @@ public class UI {
             System.out.println("2. Show all Users");
             System.out.println("3. Add User");
             System.out.println("4. Remove User");
-            System.out.println("5. Import Doctors");
-            System.out.println("6. Show all Doctors");
-            System.out.println("7. Add Doctor");
-            System.out.println("8. Remove Doctor");
-            System.out.println("9. Show Doctor Schedule");
-            System.out.println("10. Update Doctor Schedule");
-            System.out.println("11. Show all Patients");
-            System.out.println("12. Show all Appointments");
-            System.out.println("13. Cancel Appointment");
-            System.out.println("14. Exit");
+            System.out.println("5. Update User");
+            System.out.println("6. Import Doctors");
+            System.out.println("7. Show all Doctors");
+            System.out.println("8. Add Doctor");
+            System.out.println("9. Remove Doctor");
+            System.out.println("10. Update Doctor");
+            System.out.println("11. Show Doctor Schedule");
+            System.out.println("12. Update Doctor Schedule");
+            System.out.println("13. Show all Patients");
+            System.out.println("14. Show all Appointments");
+            System.out.println("15. Cancel Appointment");
+            System.out.println("16. Generate Doctor Report");
+            System.out.println("17. Generate Patient Report");
+            System.out.println("18. Generate User Report");
+            System.out.println("19. Exit");
 
             System.out.print("\nEnter your choice: ");
             int ch = sc.nextInt();
 
-            switch (ch) {
+            switch(ch){
                 case 1:
                     //importUsers();
                     break;
@@ -66,33 +73,48 @@ public class UI {
                     //removeUser();
                     break;
                 case 5:
-                    //importDoctors();
+                    //updateUser();
                     break;
                 case 6:
-                    //showAllDoctors();
+                    //importDoctors();
                     break;
                 case 7:
-                    //addDoctor();
+                    //showAllDoctors();
                     break;
                 case 8:
-                    //removeDoctor();
+                    //addDoctor();
                     break;
                 case 9:
-                    //showDoctorSchedule();
+                    //removeDoctor();
                     break;
                 case 10:
-                    //updateDoctorSchedule();
+                    //updateDoctor();
                     break;
                 case 11:
-                    //showAllPatients();
+                    //showDoctorSchedule();
                     break;
                 case 12:
-                    //getAllAppointments();
+                    //updateDoctorSchedule();
                     break;
                 case 13:
-                    //cancelAppointment();
+                    //showAllPatients();
                     break;
                 case 14:
+                    //showAllAppointments();
+                    break;
+                case 15:
+                    //cancelAppointment();
+                    break;
+                case 16:
+                    //generateDoctorReport();
+                    break;
+                case 17:
+                    //generatePatientReport();
+                    break;
+                case 18:
+                    //generateUserReport();
+                    break;
+                case 19:
                     System.exit(0);
                     break;
                 default:
@@ -202,25 +224,25 @@ public class UI {
 
         System.out.println("----------------Welcome to MultiThreaders Hospital----------------");
 
-        String role = loginMenu(sc);
+        EmployeeEnums.Role role = loginMenu(sc);
 
-        if(role != null){
-            switch(role){
-                case "admin":
-                    adminMenu(sc);
-                    break;
-                case "doctor":
-                    doctorMenu(sc);
-                    break;
-                case "user":
-                    userMenu(sc);
-                    break;
-                default:
-                    System.out.println("Invalid role");
-            }
-        } else {
-            System.out.println("Invalid credentials");
-
-        }
+//        if (role != null) {
+//            switch (role) {
+//                case ADMIN:
+//                    adminMenu(sc);
+//                    break;
+//                case DOCTOR:
+//                    doctorMenu(sc);
+//                    break;
+//                case USER:
+//                    userMenu(sc);
+//                    break;
+//                default:
+//                    System.out.println("Invalid role");
+//                    break;
+//            }
+//        } else {
+//            System.out.println("Invalid credentials");
+//        }
     }
 }

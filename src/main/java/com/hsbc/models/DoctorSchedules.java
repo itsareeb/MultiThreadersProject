@@ -63,9 +63,9 @@ public class DoctorSchedules {
         this.shiftno = shiftno;
     }
 
-    public static void main(String[] args) {
-
-        DoctorSchedules schedules = new DoctorSchedules(101, LocalDate.of(2024,11, 13), Arrays.asList(1,5));
-        schedules.getSchedules().forEach(System.out::println);
-    }
+//    public static void main(String[] args) {
+//
+//        DoctorSchedules schedules = new DoctorSchedules(101, LocalDate.of(2024,11, 13), Arrays.asList(1,5));
+//        schedules.getSchedules().forEach(System.out::println);
+//    }
 }

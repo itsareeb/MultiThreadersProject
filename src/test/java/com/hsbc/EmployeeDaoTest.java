@@ -2,8 +2,7 @@ package com.hsbc;
 
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.dao.EmployeeDaoImpl;
-import com.hsbc.exceptions.EmployeeNotFoundException;
-import com.hsbc.exceptions.NoRecordFoundException;
+import com.hsbc.exceptions.*;
 import com.hsbc.models.Doctor;
 import com.hsbc.models.Employee;
 import com.hsbc.models.User;
@@ -302,7 +301,7 @@ public class EmployeeDaoTest {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
         try {
             employeeDao.addDoctor(doctor);
-        } catch (SQLException e) {
+        } catch (SQLException | DoctorAlreadyExistsException e) {
             throw new RuntimeException(e);
         }
         assertNotNull(employeeDao.getEmployee("bhanu@gmail.com"));
@@ -315,14 +314,14 @@ public class EmployeeDaoTest {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
         try {
             employeeDao.addDoctor(doctor);
-        } catch (SQLException e) {
+        } catch (SQLException | DoctorAlreadyExistsException e) {
             throw new RuntimeException(e);
         }
     }
 
     //Test Cases for addUser Function
     @Test
-    public void addUserTest1() throws SQLException, EmployeeNotFoundException {
+    public void addUserTest1() throws SQLException, EmployeeNotFoundException, UserAlreadyExistsException {
         User user = new User(EmployeeEnums.Role.user,"Userxyz","Password@123",true,"999999999","userxyz@example.com", EmployeeEnums.Department.general, EmployeeEnums.Shift.night);
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
         employeeDao.addUser(user);
@@ -331,7 +330,7 @@ public class EmployeeDaoTest {
     }
 
     @Test(expected = SQLException.class)
-    public void addUserDuplicateEntryTest() throws SQLException {
+    public void addUserDuplicateEntryTest() throws SQLException, UserAlreadyExistsException {
         User user = new User(EmployeeEnums.Role.user,"Userxyz","Password@123",true,"999999999","userxyz@example.com", EmployeeEnums.Department.general, EmployeeEnums.Shift.night);
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
         employeeDao.addUser(user);
@@ -420,7 +419,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void getAllDoctorsTestCase1() throws SQLException, EmployeeNotFoundException {
+    public void getAllDoctorsTestCase1() throws SQLException, EmployeeNotFoundException, NoDoctorsFoundException {
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
         List<Doctor> doctors = employeeDao.getAllDoctors();
         assertNotNull(doctors);

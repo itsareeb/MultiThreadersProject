@@ -37,16 +37,16 @@ public class Employee {
     }
 
 
-    public static void main(String[] args) {
-        Employee employee = new Employee(
-                EmployeeEnums.Role.doctor,
-                "Areeb",
-                "Password",
-                true,
-                "6789098767",
-                "mdareeb176@dfg.fref"
-        );
-    }
+//    public static void main(String[] args) {
+//        Employee employee = new Employee(
+//                EmployeeEnums.Role.doctor,
+//                "Areeb",
+//                "Password",
+//                true,
+//                "6789098767",
+//                "mdareeb176@dfg.fref"
+//        );
+//    }
 
 
     public int getEmpId() {
