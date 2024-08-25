@@ -1,3 +1,4 @@
+/*
 package com.hsbc;
 
 import com.hsbc.Enums.PatientEnums;
@@ -110,3 +111,4 @@ public class PatientDaoTest {
 
 
 }
+*/

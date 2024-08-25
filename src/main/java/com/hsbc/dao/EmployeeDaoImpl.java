@@ -53,6 +53,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
             ps.setString(2, String.valueOf(role));
             rs = ps.executeQuery();
             if (rs.next()) {
+                Employee employee = new Employee();
+                employee.setEmail(rs.getString("email"));
+                employee.setEmpId(rs.getInt("empID"));
+                employee.setEmpName(rs.getString("name"));
+                employee.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
+                employee.setActive(rs.getBoolean("isActive"));
+                employee.setContact(rs.getString("contact"));
+                System.out.println(employee);
                 return true;
             } else {
                 return false;
@@ -71,6 +79,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
             ps.setString(2, String.valueOf(role));
             rs = ps.executeQuery();
             if (rs.next()) {
+                Employee employee = new Employee();
+                employee.setEmail(rs.getString("email"));
+                employee.setEmpId(rs.getInt("empID"));
+                employee.setEmpName(rs.getString("name"));
+                employee.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
+                employee.setActive(rs.getBoolean("isActive"));
+                employee.setContact(rs.getString("contact"));
+                System.out.println(employee);
                 return true;
             } else {
                 return false;
@@ -389,61 +405,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public DoctorReport getDoctorReport(int doctorId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException {
-        if(!isValidEmployee(doctorId, EmployeeEnums.Role.doctor)){
-            throw new EmployeeNotFoundException("No doctor with this doctorId");
-        }
-        String query = "SELECT e.empId, e.empName, e.role, e.isActive, e.contact, e.email, d.qualification, d.specialization, d.department, COUNT(a.appId) AS totalAppointments, COUNT(CASE WHEN a.status = 'cancelled' THEN 1 END) AS cancelledAppointments, COUNT(CASE WHEN a.status = 'completed' THEN 1 END) AS completedAppointments, COUNT(CASE WHEN a.status = 'pending' THEN 1 END) AS pendingAppointments FROM Doctor d JOIN Employee e ON d.doctorId = e.empId LEFT JOIN Schedule s ON d.doctorId = s.doctorId LEFT JOIN Appointments a ON s.scheduleId = a.scheduleId WHERE d.doctorId = ? GROUP BY e.empId;";
-        try(PreparedStatement ps =conn.prepareStatement(query)){
-            ps.setInt(1, doctorId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                DoctorReport report = new DoctorReport();
-                report.setEmpId(rs.getInt("empId"));
-                report.setEmpName(rs.getString("empName"));
-                report.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
-                report.setActive(rs.getBoolean("isActive"));
-                report.setContact(rs.getString("contact"));
-                report.setEmail(rs.getString("email"));
-                report.setQualifications(rs.getString("qualification"));
-                report.setSpecialization(rs.getString("specialization"));
-                report.setDept(EmployeeEnums.Department.valueOf(rs.getString("department")));
-                report.setNumTotalAppointments(rs.getInt("totalAppointments"));
-                report.setNumCancelledAppointments(rs.getInt("cancelledAppointments"));
-                report.setNumCompletedAppointments(rs.getInt("completedAppointments"));
-                report.setNumPendingAppointments(rs.getInt("pendingAppointments"));
-                return report;
-            }
-            throw new NoRecordFoundException("No record of this employee is available");
-        }
+        return null;
     }
 
     @Override
     public UserReport getUserReport(int userId) throws SQLException, EmployeeNotFoundException, NoRecordFoundException {
-        if(!isValidEmployee(userId, EmployeeEnums.Role.user)){
-            throw new EmployeeNotFoundException("No doctor with this doctorId");
-        }
-        String query = "SELECT e.empId, e.empName, e.role, e.contact, e.email, e.isActive, u.department, u.shift, COUNT(DISTINCT p.patientId) AS numPatients, COUNT(a.appId) AS numAppointments FROM User u JOIN Employee e ON u.userId = e.empId LEFT JOIN Patient p ON u.userId = p.userId LEFT JOIN Appointments a ON u.userId = a.userId WHERE u.userId = ? GROUP BY e.empId;";
-        try(PreparedStatement ps = conn.prepareStatement(query)){
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                UserReport report = new UserReport();
-                report.setEmpId(rs.getInt("empId"));
-                report.setEmpName(rs.getString("empName"));
-                report.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
-                report.setActive(rs.getBoolean("isActive"));
-                report.setContact(rs.getString("contact"));
-                report.setEmail(rs.getString("email"));
-                report.setDept(EmployeeEnums.Department.valueOf(rs.getString("department")));
-                report.setShift(EmployeeEnums.Shift.valueOf(rs.getString("shift")));
-                report.setNumPatients(rs.getInt("numPatients"));
-                report.setNumAppointments(rs.getInt("numAppointments"));
-                return report;
-            }
-            throw new NoRecordFoundException("No record of this employee is available");
-        }
+        return null;
     }
-
 
     public static void main(String[] args) {
         EmployeeDaoImpl dao = new EmployeeDaoImpl();
@@ -459,14 +427,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 EmployeeEnums.Department.emergency
         );
         try {
-//            dao.updateDoctor(doctor);
-//            System.out.println(dao.getDoctorReport(16));
-            System.out.println(dao.getUserReport(21));
+            dao.updateDoctor(doctor);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (EmployeeNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (NoRecordFoundException e) {
             System.out.println(e.getMessage());
         }
     }
