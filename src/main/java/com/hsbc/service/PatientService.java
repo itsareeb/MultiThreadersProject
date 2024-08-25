@@ -1,12 +1,11 @@
-/*
+
 package com.hsbc.service;
 
 import com.hsbc.Enums.PatientEnums;
 import com.hsbc.dao.*;
-import com.hsbc.exceptions.NoPatientsFoundException;
 import com.hsbc.exceptions.PatientAlreadyExistsException;
 import com.hsbc.exceptions.PatientNotFoundException;
-import com.hsbc.exceptions.UserNotFoundException;
+
 import com.hsbc.models.Patient;
 
 import java.sql.SQLException;
@@ -70,4 +69,4 @@ public class PatientService {
         }
     }
 }
-*/
+

@@ -1,8 +1,7 @@
 package com.hsbc.dao;
 
 import com.hsbc.Enums.EmployeeEnums;
-import com.hsbc.exceptions.EmployeeNotFoundException;
-import com.hsbc.exceptions.NoRecordFoundException;
+import com.hsbc.exceptions.*;
 import com.hsbc.models.*;
 import com.hsbc.utils.DBUtils;
 
@@ -45,7 +44,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Boolean isValidEmployee(int empId, EmployeeEnums.Role role) {
+    public Boolean isValidEmployee(int empId, EmployeeEnums.Role role)  {
         String query = "SELECT * FROM Employee WHERE empId = ? AND role = ? AND isActive=TRUE";
 
         try (PreparedStatement ps = conn.prepareStatement(query)) {
@@ -97,7 +96,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee addDoctor(Doctor doctor) throws SQLException {
+    public Employee addDoctor(Doctor doctor) throws SQLException, DoctorAlreadyExistsException {
+
+        if(isValidEmployee(doctor.getEmail(), EmployeeEnums.Role.doctor)){
+            throw new DoctorAlreadyExistsException("Doctor already exists");
+        }
+
         String query = "INSERT INTO Employee (empName, role, password, contact, email) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             conn.setAutoCommit(false);
@@ -136,7 +140,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee addUser(User user) throws SQLException {
+    public Employee addUser(User user) throws SQLException, UserAlreadyExistsException {
+
+        if(isValidEmployee(user.getEmail(), EmployeeEnums.Role.user)){
+            throw new UserAlreadyExistsException("User already exists");
+        }
 
         String query = "INSERT INTO Employee (empName, role, password, contact, email) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -176,6 +184,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee updateDoctor(Doctor doctor) throws SQLException, EmployeeNotFoundException {
+
+        if(!isValidEmployee(doctor.getEmail(), EmployeeEnums.Role.doctor)){
+            throw new EmployeeNotFoundException("No doctor with this email");
+        }
+
         Employee emp = getEmployee(doctor.getEmail());
         String updateEmpQuery = "UPDATE Employee SET empName = ?, password = ?, isActive = ?, contact = ? WHERE email = ?";
         String updateDocQuery = "UPDATE Doctor SET qualification = ?, specialization = ?, department = ? WHERE doctorId = ?";
@@ -206,6 +219,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee updateUser(User user) throws SQLException, EmployeeNotFoundException {
+
+        if(!isValidEmployee(user.getEmail(), EmployeeEnums.Role.user)){
+            throw new EmployeeNotFoundException("No user with this email");
+        }
+
         Employee emp = getEmployee(user.getEmail());
         String updateEmpQuery = "UPDATE Employee SET empName = ?, password = ?, isActive = ?, contact = ? WHERE email = ?";
         String updateDocQuery = "UPDATE User SET department = ?, shift = ? WHERE userId = ?";
@@ -238,7 +256,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean deleteEmployee(int empId) throws SQLException {
+    public boolean deleteEmployee(int empId) throws SQLException, EmployeeNotFoundException {
+
+        if(!isValidEmployee(empId, EmployeeEnums.Role.doctor) && !isValidEmployee(empId, EmployeeEnums.Role.user)){
+            throw new EmployeeNotFoundException("No employee with this id");
+        }
+
+
         String query = "UPDATE Employee SET isActive=FALSE WHERE empId=?";
         try(
                 PreparedStatement ps = conn.prepareStatement(query)
@@ -253,7 +277,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean deleteEmployee(String email) throws SQLException {
+    public boolean deleteEmployee(String email) throws SQLException, EmployeeNotFoundException {
+
+        if(!isValidEmployee(email, EmployeeEnums.Role.doctor) && !isValidEmployee(email, EmployeeEnums.Role.user)){
+            throw new EmployeeNotFoundException("No employee with this email");
+        }
+
         String query = "UPDATE Employee SET isActive=FALSE WHERE email=?";
         try(
                 PreparedStatement ps = conn.prepareStatement(query)
@@ -269,15 +298,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void addDoctors(List<Doctor> doctors) throws SQLException {
-        for (Doctor doctor : doctors) {
-            addDoctor(doctor);
+
+        try {
+            for (Doctor doctor : doctors) {
+                addDoctor(doctor);
+            }
+        } catch(DoctorAlreadyExistsException e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     @Override
     public void addUsers(List<User> users) throws SQLException {
-        for (User user : users) {
-            addUser(user);
+        try {
+            for (User user : users) {
+                addUser(user);
+            }
+        } catch(UserAlreadyExistsException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -286,7 +325,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String query = "SELECT * FROM Employee WHERE empId = ?";
         try(
                 PreparedStatement ps = conn.prepareStatement(query);
-
         ) {
             ps.setInt(1, empId);
             ResultSet rs = ps.executeQuery();
@@ -359,7 +397,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
     @Override
-    public List<Doctor> getAllDoctors() throws SQLException {
+    public List<Doctor> getAllDoctors() throws SQLException, NoDoctorsFoundException {
         String query = "SELECT * FROM Employee WHERE role = 'doctor'";
         List<Doctor> doctors = new ArrayList<>();
         try(
@@ -375,6 +413,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 doctor.setContact(rs.getString("contact"));
                 doctor.setEmail(rs.getString("email"));
                 doctors.add(doctor);
+            }
+            if(doctors.isEmpty()){
+                throw new NoDoctorsFoundException("No doctors found");
             }
             return doctors;
 

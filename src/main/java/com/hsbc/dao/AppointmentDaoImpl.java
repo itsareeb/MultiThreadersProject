@@ -1,9 +1,7 @@
 package com.hsbc.dao;
 
 import com.hsbc.Enums.AppointmentEnums;
-import com.hsbc.exceptions.AppointmentNotFoundException;
-import com.hsbc.exceptions.SlotAlreadyBookedException;
-import com.hsbc.exceptions.SlotNotAvailableException;
+import com.hsbc.exceptions.*;
 import com.hsbc.models.Appointment;
 import com.hsbc.models.Medication;
 import com.hsbc.models.ShiftSlot;
@@ -73,7 +71,10 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public synchronized void bookAppointment(Appointment appointment) throws SQLException, SlotAlreadyBookedException {
+    public synchronized void bookAppointment(Appointment appointment) throws SQLException, SlotAlreadyBookedException, AppointmentAlreadyExistsException {
+        if(isAppointmentExist(appointment.getAppointmentId())) {
+            throw new AppointmentAlreadyExistsException("Appointment not found");
+        }
         if (!isSlotAvailable(appointment.getScheduleId(), appointment.getSlotNumber())) {
             throw new SlotAlreadyBookedException("appointment cant be booked since this slot is already booked.");
         }
@@ -107,7 +108,10 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public void updateAppointment(int appId, AppointmentEnums.Status status) throws SQLException, SlotNotAvailableException {
+    public void updateAppointment(int appId, AppointmentEnums.Status status) throws SQLException, AppointmentNotFoundException {
+        if (!isAppointmentExist(appId)){
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
         String sql = "update Appointments set status = ? where appId = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, status.toString());
@@ -127,7 +131,10 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public void cancelAppointment(int appointmentId) throws SQLException {
+    public void cancelAppointment(int appointmentId) throws SQLException, AppointmentNotFoundException {
+        if (!isAppointmentExist(appointmentId)){
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
         String sql = "update Appointments set status = 'canceled' where appId = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, appointmentId);
@@ -136,12 +143,14 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public List<Appointment> getAllAppointments(LocalDate date) throws SQLException {
+    public List<Appointment> getAllAppointments(LocalDate date) throws SQLException, NoAppointmentsFoundException {
         String sql = "SELECT Appointments.appId, Schedule.doctorId, Appointments.userId, Appointments.patientId, Appointments.scheduleId, Appointments.slotno, Appointments.status, Appointments.createdAt, Appointments.updatedAt, Patient.patientName, Schedule.date, Slots.slotTime FROM Appointments LEFT JOIN Patient ON Appointments.patientId = Patient.patientId LEFT JOIN Schedule ON Appointments.scheduleId = Schedule.scheduleId LEFT JOIN Slots ON Appointments.scheduleId = Slots.scheduleId AND Appointments.slotno = Slots.slotno WHERE Schedule.date = ?;";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, date.toString());
             rs = ps.executeQuery();
+
             List<Appointment> appointments = new ArrayList<>();
+
             while (rs.next()) {
                 Appointment appointment = new Appointment();
                 appointment.setAppointmentId(rs.getInt("appId"));
@@ -156,12 +165,17 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 appointment.setDoctorId(rs.getInt("doctorId"));
                 appointments.add(appointment);
             }
+
+            if(appointments.isEmpty()) {
+                throw new NoAppointmentsFoundException("No appointments found for this date");
+            }
+
             return appointments;
         }
     }
 
     @Override
-    public List<Appointment> getAllAppointments(int doctorId, LocalDate date) throws SQLException {
+    public List<Appointment> getAllAppointments(int doctorId, LocalDate date) throws SQLException, NoAppointmentsFoundException {
         String sql = "SELECT Appointments.appId, Schedule.doctorId, Appointments.userId, Appointments.patientId, Appointments.scheduleId, Appointments.slotno, Appointments.status, Appointments.createdAt, Appointments.updatedAt, Patient.patientName, Schedule.date, Slots.slotTime FROM Appointments LEFT JOIN Patient ON Appointments.patientId = Patient.patientId LEFT JOIN Schedule ON Appointments.scheduleId = Schedule.scheduleId LEFT JOIN Slots ON Appointments.scheduleId = Slots.scheduleId AND Appointments.slotno = Slots.slotno WHERE Schedule.date = ? AND Schedule.doctorId = ?;";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, date.toString());
@@ -181,6 +195,10 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 appointment.setSlotTime(rs.getString("slotTime"));
                 appointment.setDoctorId(rs.getInt("doctorId"));
                 appointments.add(appointment);
+            }
+
+            if(appointments.isEmpty()) {
+                throw new NoAppointmentsFoundException("No appointments found for this date");
             }
             return appointments;
         }
@@ -206,6 +224,11 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 appointment.setDoctorId(rs.getInt("doctorId"));
                 appointments.add(appointment);
             }
+
+            if(appointments.isEmpty()) {
+                throw new SQLException("No appointments found");
+            }
+
             return appointments;
         }
     }
@@ -215,7 +238,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
     @Override
     public void suggestMedicines(Medication medication) throws SQLException, AppointmentNotFoundException {
         if (!isAppointmentExist(medication.getAppId())){
-            throw new AppointmentNotFoundException("Appointment not found");
+            throw new AppointmentNotFoundException("Appointment id not found, please check the appointment id");
         }
         String sql = "INSERT INTO Medications (appId, name, dosage, instructions) VALUES (?,?,?,?)";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -230,7 +253,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
     @Override
     public void suggestTests(Test test) throws SQLException, AppointmentNotFoundException {
         if (!isAppointmentExist(test.getAppId())){
-            throw new AppointmentNotFoundException("Appointment not found");
+            throw new AppointmentNotFoundException("Appointment id not found, please check the appointment id");
         }
         String sql = "INSERT INTO Tests (appId, testName) VALUES (?,?,?)";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
