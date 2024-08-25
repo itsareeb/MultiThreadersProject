@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DBUtils {
     public static Connection conn = null;
-    static String url = "jdbc:mysql://localhost:3306/hackathondb";
+    static String url = "jdbc:mysql://localhost:3306/codefury";
 
     public static Connection getConnection() {
         if (conn == null) {

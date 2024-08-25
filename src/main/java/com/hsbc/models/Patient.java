@@ -33,6 +33,17 @@ public class Patient {
         this.uid = uid;
     }
 
+    public Patient(int patientId, String pname, PatientEnums.Gender gender, int age, String contact, String email, int uid) {
+        this.pid = patientId;
+        this.pname = pname;
+        this.gender = gender;
+        this.age = age;
+        this.contact = contact;
+        this.email = email;
+        this.uid = uid;
+    }
+
+
     public int getPid() {
         return pid;
     }

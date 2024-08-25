@@ -31,7 +31,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 Employee employee = new Employee();
                 employee.setEmail(rs.getString("email"));
                 employee.setEmpId(rs.getInt("empID"));
-                employee.setEmpName(rs.getString("name"));
+                employee.setEmpName(rs.getString("empName"));
                 employee.setRole(EmployeeEnums.Role.valueOf(rs.getString("role")));
                 employee.setActive(rs.getBoolean("isActive"));
                 employee.setContact(rs.getString("contact"));
