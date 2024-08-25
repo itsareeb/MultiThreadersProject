@@ -3,7 +3,6 @@ package com.hsbc.service;
 
 import com.hsbc.Enums.AppointmentEnums;
 import com.hsbc.dao.AppointmentDao;
-import com.hsbc.dao.AppointmentDaoImpl;
 import com.hsbc.exceptions.AppointmentAlreadyExistsException;
 import com.hsbc.exceptions.AppointmentNotFoundException;
 import com.hsbc.exceptions.NoAppointmentsFoundException;
@@ -21,8 +20,8 @@ import java.util.List;
 
 public class AppointmentService {
 
-    public void bookAppointment(int userId, int scheduleId, int patientId, int shiftNumber, int slotNumber, Date date){
-        Appointment appointment = new Appointment(userId, scheduleId, patientId, slotNumber);
+    public void bookAppointment(Appointment appointment){
+
         AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             dao.bookAppointment(appointment);
@@ -33,7 +32,8 @@ public class AppointmentService {
     }
 
     public void cancelAppointment(int appointmentId) {
-          AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
+
         try {
             dao.cancelAppointment(appointmentId);
         } catch (SQLException | AppointmentNotFoundException e) {
@@ -42,7 +42,7 @@ public class AppointmentService {
     }
 
     public void updateAppointment(int appointmentId, String status) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             dao.updateAppointment(appointmentId, AppointmentEnums.Status.valueOf(status));
         } catch (SQLException | AppointmentNotFoundException e) {
@@ -51,7 +51,7 @@ public class AppointmentService {
     }
 
     public void getAppointment(int appointmentId) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             Appointment appointment = dao.getAppointment(appointmentId);
             System.out.println(appointment);
@@ -61,7 +61,7 @@ public class AppointmentService {
     }
 
     public void getAllAppointments(LocalDate date) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             List<Appointment> appointments = dao.getAllAppointments(date);
             for(Appointment appointment: appointments) {
@@ -73,7 +73,7 @@ public class AppointmentService {
     }
 
     public void getAllAppointments(int doctorId, LocalDate date) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             List<Appointment> appointments = dao.getAllAppointments(doctorId, date);
             for(Appointment appointment: appointments) {
@@ -85,7 +85,7 @@ public class AppointmentService {
     }
 
     public void getAllAppointments(){
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
 
         List<Appointment> appointments ;
 
@@ -99,34 +99,29 @@ public class AppointmentService {
         }
     }
 
-    public void suggestMedications(){
-        AppointmentDao dao = new AppointmentDaoImpl();
-        Medication medication = new Medication();
+    public void suggestMedications(Medication medication){
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
 
         try {
             dao.suggestMedicines(medication);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (AppointmentNotFoundException e) {
+        } catch (SQLException | AppointmentNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void suggestTests(){
-        AppointmentDao dao = new AppointmentDaoImpl();
-        Test test = new Test();
+    public void suggestTests(Test test){
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
+
 
         try {
             dao.suggestTests(test);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (AppointmentNotFoundException e) {
+        } catch (SQLException | AppointmentNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void getAvailableSlots(int doctorId, LocalDate date) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             List<ShiftSlot> slots = dao.getAvailableSlots(doctorId, date);
             for(ShiftSlot slot: slots) {
@@ -138,7 +133,7 @@ public class AppointmentService {
     }
 
     public void getMedications(int appId) {
-        AppointmentDao dao = new AppointmentDaoImpl();
+        AppointmentDao dao = new AppointmentFactory().getAppointmentDao();
         try {
             List<Medication> medications = dao.getMedications(appId);
             for(Medication medication: medications) {

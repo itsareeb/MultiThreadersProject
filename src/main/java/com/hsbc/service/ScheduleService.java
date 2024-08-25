@@ -8,6 +8,8 @@ import com.hsbc.exceptions.ScheduleNotFoundException;
 import com.hsbc.models.DoctorSchedule;
 import com.hsbc.models.DoctorSchedules;
 
+import com.hsbc.factory.ScheduleFactory;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,22 +17,20 @@ import java.util.List;
 public class ScheduleService {
 
     public void getDoctorSchedule(int doctorId, LocalDate date) {
-        ScheduleDao dao = new ScheduleDaoImpl();
+        ScheduleDao dao = new ScheduleFactory().getScheduleDao();
         List<DoctorSchedule> doctorSchedule = null;
         try {
             doctorSchedule = dao.getDoctorSchedule(doctorId, date);
             for (DoctorSchedule ds : doctorSchedule) {
                 System.out.println(ds);
             }
-        } catch (ScheduleNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (SQLException e) {
+        } catch (ScheduleNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void addDoctorSchedule(List<DoctorSchedules> dsList) {
-        ScheduleDao dao = new ScheduleDaoImpl();
+        ScheduleDao dao = new ScheduleFactory().getScheduleDao();
         try {
             dao.addDoctorSchedule(dsList);
         } catch (SQLException | InvalidScheduleDataException | ActionNotAllowedException e) {
@@ -39,7 +39,7 @@ public class ScheduleService {
     }
 
     public void updateDoctorSchedule(int scheduleId, boolean isAvailable) {
-        ScheduleDao dao = new ScheduleDaoImpl();
+        ScheduleDao dao = new ScheduleFactory().getScheduleDao();
         try {
             dao.updateDoctorSchedule(scheduleId, isAvailable);
         } catch (SQLException | ScheduleNotFoundException e) {

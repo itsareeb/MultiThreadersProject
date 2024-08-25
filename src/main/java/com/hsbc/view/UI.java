@@ -1,9 +1,16 @@
 package com.hsbc.view;
 
 import com.hsbc.Enums.EmployeeEnums;
-import com.hsbc.models.Employee;
+import com.hsbc.Enums.PatientEnums;
+import com.hsbc.models.*;
+import com.hsbc.service.AppointmentService;
 import com.hsbc.service.EmployeeService;
+import com.hsbc.service.PatientService;
+import com.hsbc.service.ScheduleService;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -19,7 +26,6 @@ public class UI {
 
             EmployeeService employeeService = new EmployeeService();
 
-
             emp = employeeService.employeeLogin(email, password);
             EmployeeEnums.Role role = emp.getRole();
             if(role != null){
@@ -28,9 +34,7 @@ public class UI {
             } else {
                 System.out.println("Invalid credentials");
             }
-            return null;
         }
-
     }
 
     public static void adminMenu(Scanner sc){
@@ -59,51 +63,66 @@ public class UI {
             System.out.print("\nEnter your choice: ");
             int ch = sc.nextInt();
 
+            EmployeeService employeeService = new EmployeeService();
+            PatientService patientService = new PatientService();
+            AppointmentService appointmentService = new AppointmentService();
+            ScheduleService scheduleService = new ScheduleService();
+
             switch(ch){
                 case 1:
-                    //importUsers();
+                    List<User> users = Arrays.asList(
+                            new User(EmployeeEnums.Role.user, "John Doe", "john@123", true, "1234567890", "john@doe.com", EmployeeEnums.Department.general, EmployeeEnums.Shift.day),
+                            new User(EmployeeEnums.Role.user, "Jane Doe", "jane@123", true, "1234567890", "jane@dae.com", EmployeeEnums.Department.general, EmployeeEnums.Shift.night)
+                    );
+                    employeeService.importUsers(users);
                     break;
                 case 2:
-                    //showAllUsers();
+                    employeeService.getAllUsers();
                     break;
                 case 3:
-                    //addUser();
+                    employeeService.addUser("John Done", "john@1234", "john@done.com", "1234567890", EmployeeEnums.Shift.day, EmployeeEnums.Department.general);
                     break;
                 case 4:
-                    //removeUser();
+                    employeeService.deleteEmployee(1);
                     break;
                 case 5:
-                    //updateUser();
+                    User user = new User(EmployeeEnums.Role.user, "John Doe", "john@12345" , true, "1234567890", "john@doe.com" ,EmployeeEnums.Department.general, EmployeeEnums.Shift.day);
+                    employeeService.updateUser(user);
                     break;
                 case 6:
-                    //importDoctors();
+                    List<Doctor> doctors = Arrays.asList(
+                            new Doctor(EmployeeEnums.Role.doctor, "Dr. John Doe", "john@123", true, "1234567890", "john@drdoe.com" , "MBBS", "Cardiologist", EmployeeEnums.Department.general),
+                            new Doctor(EmployeeEnums.Role.doctor, "Dr. Jane Doe", "jane@123", true, "1234567890", "jane@drdoecom", "MBBS", "Dentist", EmployeeEnums.Department.general)
+                    );
+                    employeeService.importDoctors(doctors);
                     break;
                 case 7:
-                    //showAllDoctors();
+                    employeeService.getAllDoctors();
                     break;
                 case 8:
-                    //addDoctor();
+                    employeeService.addDoctor("Dr. John Done", "john@1234", true, "1234567890", "john@drdone.com", "MBBS", "Cardiologist", EmployeeEnums.Department.general);
                     break;
                 case 9:
-                    //removeDoctor();
+                    employeeService.removeDoctor(1);
                     break;
                 case 10:
-                    //updateDoctor();
+                    Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, "Dr. John Doe", "john@12345", true, "1234567890", "john@drdoe.com", "MBBS", "Cardiologist", EmployeeEnums.Department.general);
+                    employeeService.updateDoctor(doctor);
                     break;
                 case 11:
-                    //showDoctorSchedule();
+                    scheduleService.getDoctorSchedule(1,  null);
                     break;
                 case 12:
-                    //updateDoctorSchedule();
+                    scheduleService.updateDoctorSchedule(1, true);
                     break;
                 case 13:
-                    //showAllPatients();
+                    patientService.getAllPatients();
                     break;
                 case 14:
-                    //showAllAppointments();
+                    appointmentService.getAllAppointments();
                     break;
                 case 15:
-                    //cancelAppointment();
+                    appointmentService.cancelAppointment(1);
                     break;
                 case 16:
                     //generateDoctorReport();
@@ -124,6 +143,11 @@ public class UI {
     }
 
     public static void doctorMenu(Scanner sc){
+
+        AppointmentService appointmentService = new AppointmentService();
+        ScheduleService scheduleService = new ScheduleService();
+        EmployeeService emp = new EmployeeService();
+
         while(true) {
             System.out.println("-----Welcome to Doctor Panel-------");
             System.out.println("1. View Appointments");
@@ -140,25 +164,32 @@ public class UI {
 
             switch (ch) {
                 case 1:
-                    //viewAppointments();
+                    appointmentService.getAllAppointments();
                     break;
                 case 2:
-                    //cancelAppointment();
+                    appointmentService.cancelAppointment(1);
                     break;
                 case 3:
-                    //suggestMedications();
+                    Medication medication = new Medication(1, "Paracetamol", "500mg", "2 times a day");
+                    appointmentService.suggestMedications(medication);
                     break;
                 case 4:
-                    //suggestMedicalTest();
+                    Test test = new Test(1, "Blood Test");
+                    appointmentService.suggestTests(test);
                     break;
                 case 5:
-                    //addSchedule();
+                    List<DoctorSchedules> dsList = Arrays.asList(
+                            new DoctorSchedules(1, LocalDate.of(2024,8,26), Arrays.asList(1, 2)),
+                            new DoctorSchedules(1, LocalDate.of(2024,8,27), Arrays.asList(1, 2, 3)),
+                            new DoctorSchedules(1, LocalDate.of(2024,8,28), Arrays.asList(1, 2, 3, 4))
+                    );
+                    scheduleService.addDoctorSchedule(dsList);
                     break;
                 case 6:
-                    //updateSchedule();
+                    scheduleService.updateDoctorSchedule(1, true);
                     break;
                 case 7:
-                    //viewProfile();
+                    emp.getDoctorDetails(1);
                     break;
                 case 8:
                     System.exit(0);
@@ -170,6 +201,11 @@ public class UI {
     }
 
     public static void userMenu(Scanner sc){
+
+        AppointmentService appointmentService = new AppointmentService();
+        PatientService patientService = new PatientService();
+        EmployeeService employeeService = new EmployeeService();
+
         while(true) {
             System.out.println("-----Welcome to User Panel-------");
             System.out.println("1. Register Patient");
@@ -187,28 +223,29 @@ public class UI {
 
             switch (ch) {
                 case 1:
-                    //registerPatient();
+                    patientService.registerPatient("John Doe", PatientEnums.Gender.male, 24, "1234567890", 1);
                     break;
                 case 2:
-                    //bookAppointment();
+                    Appointment appointment = new Appointment(1, 1, 1, 1);
+                    appointmentService.bookAppointment(appointment);
                     break;
                 case 3:
-                    //viewAllPatients();
+                    patientService.getAllPatients();
                     break;
                 case 4:
-                    //viewAppointments();
+                    appointmentService.getAllAppointments();
                     break;
                 case 5:
-                    //cancelAppointment();
+                    appointmentService.cancelAppointment(1);
                     break;
                 case 6:
-                    //viewAllDoctors();
+                    employeeService.getAllDoctors();
                     break;
                 case 7:
-                    //viewProfile();
+                    employeeService.getUserDetails(1);
                     break;
                 case 8:
-                    //getPatientDetails();
+                    patientService.getPatientDetails("John Doe", "1234567890");
                     break;
                 case 9:
                     System.exit(0);
@@ -226,23 +263,19 @@ public class UI {
 
         EmployeeEnums.Role role = loginMenu(sc);
 
-        if (role != null) {
-            switch (role) {
-                case admin:
-                    adminMenu(sc);
-                    break;
-                case doctor:
-                    doctorMenu(sc);
-                    break;
-                case user:
-                    userMenu(sc);
-                    break;
-                default:
-                    System.out.println("Invalid role");
-                    break;
-            }
-        } else {
-            System.out.println("Invalid credentials");
+        switch (role) {
+            case admin:
+                adminMenu(sc);
+                break;
+            case doctor:
+                doctorMenu(sc);
+                break;
+            case user:
+                userMenu(sc);
+                break;
+            default:
+                System.out.println("Invalid role");
+                break;
         }
     }
 }

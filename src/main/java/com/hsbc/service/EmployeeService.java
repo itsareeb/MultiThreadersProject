@@ -4,9 +4,8 @@ import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.dao.EmployeeDao;
 import com.hsbc.dao.EmployeeDaoImpl;
 import com.hsbc.exceptions.*;
-import com.hsbc.models.Doctor;
-import com.hsbc.models.Employee;
-import com.hsbc.models.User;
+import com.hsbc.models.*;
+import com.hsbc.factory.EmployeeFactory;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -14,195 +13,242 @@ import java.util.List;
 
 public class EmployeeService {
     public Employee employeeLogin(String email, String password) {
-        EmployeeDao dao = new EmployeeDaoImpl();
-
-        Employee emp ;
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        Employee emp;
         try {
             emp = dao.employeeLogin(email, password);
             return emp;
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public void getAllDoctors(){
-        EmployeeDao dao = new EmployeeDaoImpl();
-        List<Doctor> doctors =  null;
+    public void getAllDoctors() {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        List<Doctor> doctors = null;
 
         try {
             doctors = dao.getAllDoctors();
-            for(Doctor doctor: doctors) {
+            for (Doctor doctor : doctors) {
                 System.out.println(doctor);
             }
-        } catch(SQLException | NoDoctorsFoundException e){
+        } catch (SQLException | NoDoctorsFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void addDoctor(String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization) {
-        Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email, qualifications, specialization);
-        EmployeeDao dao = new EmployeeDaoImpl();
-        try{
+    public void addDoctor(String empName, String password, boolean isActive, String contact, String email,
+            String qualifications, String specialization) {
+        Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email,
+                qualifications, specialization);
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
             dao.addDoctor(doctor);
-        } catch(SQLException | DoctorAlreadyExistsException e){
+        } catch (SQLException | DoctorAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void addDoctor( String empName, String password, boolean isActive, String contact, String email, String qualifications, String specialization,EmployeeEnums.Department dept) {
-        Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email, qualifications, specialization, dept);
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void addDoctor(String empName, String password, boolean isActive, String contact, String email,
+            String qualifications, String specialization, EmployeeEnums.Department dept) {
+        Doctor doctor = new Doctor(EmployeeEnums.Role.doctor, empName, password, isActive, contact, email,
+                qualifications, specialization, dept);
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
 
-        try{
+        try {
             dao.addDoctor(doctor);
-        } catch(SQLException | DoctorAlreadyExistsException e){
+        } catch (SQLException | DoctorAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void removeDoctor(int doctorId){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void removeDoctor(int doctorId) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.deleteEmployee(doctorId);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void updateDoctor(){
-        Doctor doctor = new Doctor();
+    public void removeDoctor(String email) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
+            dao.deleteEmployee(email);
+        } catch (SQLException | EmployeeNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void updateDoctor(Doctor doctor) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.updateDoctor(doctor);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void addUser(String userName, String password, String email, String contact, EmployeeEnums.Shift shift, EmployeeEnums.Department dept) {
+    public void addUser(String userName, String password, String email, String contact, EmployeeEnums.Shift shift,
+            EmployeeEnums.Department dept) {
         User user = new User(EmployeeEnums.Role.user, userName, password, true, contact, email, dept, shift);
-        EmployeeDao dao = new EmployeeDaoImpl();
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.addUser(user);
-        } catch(SQLException | UserAlreadyExistsException e){
+        } catch (SQLException | UserAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void getAllUsers() {
-        EmployeeDao dao = new EmployeeDaoImpl();
-        List<User> users =  null;
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        List<User> users = null;
 
         try {
             users = dao.getAllUsers();
-            for(User user: users) {
+            for (User user : users) {
                 System.out.println(user);
             }
 
-        } catch(SQLException | NoUsersFoundException e){
+        } catch (SQLException | NoUsersFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void removeUser(int userId) {
-        EmployeeDao dao = new EmployeeDaoImpl();
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.deleteEmployee(userId);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void updateUser(){
-        User user = new User();
+    public void removeUser(String email) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
+            dao.deleteEmployee(email);
+        } catch (SQLException | EmployeeNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void updateUser(User user) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.updateUser(user);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    public void importUsers(List<User> users) {
 
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
 
-    public void importUsers(String filepath){
-        // Import users from a json file and then add them to the database
-
-        File file = new File(filepath);
-        EmployeeDao dao = new EmployeeDaoImpl();
-
-        // Parse this file, validate file json format or xml format, and then store it in a List<User> then call Dao method
-
-        // dao.addUsers();
+        try {
+            dao.addUsers(users);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void getAllEmployees(){
-        EmployeeDao dao = new EmployeeDaoImpl();
-        List<Employee> employees =  null;
+    public void getAllEmployees() {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        List<Employee> employees = null;
 
         try {
             employees = dao.getAllEmployees();
-            for(Employee employee: employees) {
+            for (Employee employee : employees) {
                 System.out.println(employee);
             }
-        } catch(SQLException | NoEmployeesFoundException e){
+        } catch (SQLException | NoEmployeesFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void getEmployee(int empId){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void getEmployee(int empId) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.getEmployee(empId);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void deleteEmployee(int empId){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void deleteEmployee(int empId) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.deleteEmployee(empId);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void deleteEmployee(String email){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void deleteEmployee(String email) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.deleteEmployee(email);
-        } catch(SQLException | EmployeeNotFoundException e){
+        } catch (SQLException | EmployeeNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void addUsers(List<User> users){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void addUsers(List<User> users) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.addUsers(users);
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void importDoctors(List<Doctor> doctors){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void importDoctors(List<Doctor> doctors) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
             dao.addDoctors(doctors);
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void getDoctorReport(int doctorId){
-        EmployeeDao dao = new EmployeeDaoImpl();
+    public void getDoctorReport(int doctorId) {
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
         try {
-            dao.getDoctorReport(doctorId);
-        } catch(SQLException | EmployeeNotFoundException | NoRecordFoundException e){
+            DoctorReport report = dao.getDoctorReport(doctorId);
+            System.out.println(report);
+        } catch (SQLException | EmployeeNotFoundException | NoRecordFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getUserReport(int userId){
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
+            UserReport report = dao.getUserReport(userId);
+            System.out.println(report);
+        } catch (SQLException | EmployeeNotFoundException | NoRecordFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getDoctorDetails(int empId){
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
+            Doctor doctor = dao.getDoctor(empId);
+            System.out.println(doctor);
+        } catch (SQLException | DoctorNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getUserDetails(int empId){
+        EmployeeDao dao = new EmployeeFactory().getEmployeeDao();
+        try {
+            User user = dao.getUser(empId);
+            System.out.println(user);
+        } catch (SQLException | UserNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
