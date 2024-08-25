@@ -1,16 +1,21 @@
 package com.hsbc.dao;
 
+import com.hsbc.Enums.AppointmentEnums;
 import com.hsbc.Enums.EmployeeEnums;
 import com.hsbc.Enums.PatientEnums;
 import com.hsbc.exceptions.PatientAlreadyExistsException;
 import com.hsbc.exceptions.PatientNotFoundException;
 import com.hsbc.exceptions.UserNotFoundException;
+import com.hsbc.models.Appointment;
+import com.hsbc.models.AppointmentReport;
 import com.hsbc.models.Patient;
+import com.hsbc.models.PatientReport;
 import com.hsbc.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,13 +169,50 @@ public class PatientDaoImpl implements PatientDao {
         }
     }
 
+    @Override
+    public PatientReport getPatientReport(int patientId) throws SQLException, PatientNotFoundException {
+        if (!isRegisteredPatient(patientId)){
+            throw new PatientNotFoundException("Report cant be generated for unregistered patietns");
+        }
+        String query = "SELECT p.patientId, p.patientName, p.age, p.contact, p.email, a.appId, a.status AS status, s.date AS date, s.doctorId, a.userId, GROUP_CONCAT(DISTINCT m.name SEPARATOR ', ') AS medications, GROUP_CONCAT(DISTINCT t.name SEPARATOR ', ') AS tests FROM Appointments a JOIN Schedule s ON a.scheduleId = s.scheduleId LEFT JOIN Medications m ON a.appId = m.appId LEFT JOIN Tests t ON a.appId = t.appId JOIN Patient p ON a.patientId = p.patientId WHERE a.patientId = ? GROUP BY a.appId, s.date, s.doctorId, a.userId, p.patientId;";
+        try(PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, patientId);
+            ResultSet rs = ps.executeQuery();
+            List<AppointmentReport> appointmentReportList = new ArrayList<>();
+            PatientReport patientReport = new PatientReport();
+            while (rs.next()) {
+                AppointmentReport report = new AppointmentReport();
+                report.setAppId(rs.getInt("appId"));
+                report.setPid(rs.getInt("patientId"));
+                report.setPname(rs.getString("patientName"));
+                report.setAge(rs.getInt("age"));
+                report.setContact(rs.getString("contact"));
+                report.setEmail(rs.getString("email"));
+                report.setDoctorId(rs.getInt("doctorId"));
+                report.setUid(rs.getInt("userId"));
+                report.setDate(LocalDate.parse(rs.getString("date")));
+                report.setStatus(AppointmentEnums.Status.valueOf(rs.getString("status")));
+                report.setMedications(rs.getString("medications"));
+                report.setTests(rs.getString("tests"));
+                appointmentReportList.add(report);
+            }
+            patientReport.setReports(appointmentReportList);
+            return patientReport;
+
+        }
+
+    }
+
     public static void main(String[] args) {
         PatientDao patientDao = new PatientDaoImpl();
         try {
-            patientDao.getAllPatients().forEach(System.out::println);
+//            patientDao.getAllPatients().forEach(System.out::println);
+            patientDao.getPatientReport(1).getReports().forEach(System.out::println);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch (PatientNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

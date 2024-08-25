@@ -2,14 +2,14 @@ package com.hsbc.models;
 
 import java.util.List;
 
-public class PatientReport extends Patient {
-    private List<Appointment> appointments;
+public class PatientReport {
+    private List<AppointmentReport> reports;
 
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public List<AppointmentReport> getReports() {
+        return reports;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public void setReports(List<AppointmentReport> reports) {
+        this.reports = reports;
     }
 }
