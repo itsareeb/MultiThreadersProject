@@ -1,4 +1,3 @@
-/*
 package com.hsbc;
 
 import com.hsbc.Enums.PatientEnums;
@@ -33,35 +32,19 @@ public class PatientDaoTest {
         ps.close();
     }
 
+    //Test cases for isPatientRegistered Function
     @Test
-    public void testIsPatientRegisteredValidUser1(){
+    public void isPatientRegisteredTest() throws SQLException {
         PatientDao patientDao = new PatientDaoImpl();
-        try {
-            assertEquals(true, patientDao.isRegisteredPatient(403));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        assertEquals(true, patientDao.isRegisteredPatient(1));
     }
 
     @Test
-    public void negativeTestIsPatientRegisteredValidUser1(){
+    public void isPatientRegisteredTest2() throws SQLException {
         PatientDao patientDao = new PatientDaoImpl();
-        try {
-            assertNotEquals(false, patientDao.isRegisteredPatient(403));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        assertEquals(true, patientDao.isRegisteredPatient(2));
     }
 
-    @Test
-    public void testIsPatientRegisteredValidUser2(){
-        PatientDao patientDao = new PatientDaoImpl();
-        try {
-            assertEquals(true, patientDao.isRegisteredPatient(404));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     public void testIsPatientRegisteredInValidUser1(){
@@ -103,6 +86,23 @@ public class PatientDaoTest {
         }
     }
 
+    //Test Cases for isPatientRegistered : input- name, contact
+    @Test
+    public void getPatientTestForValidPatient() throws SQLException, PatientNotFoundException {
+        PatientDao patientDao = new PatientDaoImpl();
+        Patient patient = new Patient(2, "Bob White",PatientEnums.Gender.valueOf("male"),30,"9998887775","bob.white@example.com", 4);
+        assertEquals(patient, patientDao.getPatient("Bob White","9998887775"));
+    }
+
+    @Test
+    public void getPatientTestForInValidPatient() throws SQLException, PatientNotFoundException {
+        PatientDao patientDao = new PatientDaoImpl();
+        assertThrows(PatientNotFoundException.class, () -> {patientDao.getPatient("Mark","1231231230");});
+    }
+
+    //Test cases for addPatient function:
+    
+
 
 
 
@@ -111,4 +111,4 @@ public class PatientDaoTest {
 
 
 }
-*/
+

@@ -92,7 +92,7 @@ public class PatientDaoImpl implements PatientDao {
             if (rs.next()) {
                 Patient patient = new Patient();
                 patient.setPid(rs.getInt("patientID"));
-                patient.setPname(rs.getString("name"));
+                patient.setPname(rs.getString("patientName"));
                 patient.setContact(rs.getString("contact"));
                 patient.setGender(PatientEnums.Gender.valueOf(rs.getString("gender")));
                 patient.setAge(rs.getInt("age"));
