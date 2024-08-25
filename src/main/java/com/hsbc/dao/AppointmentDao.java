@@ -25,4 +25,6 @@ public interface AppointmentDao {
     public void suggestMedicines(Medication medication) throws SQLException, AppointmentNotFoundException;
     public void suggestTests(Test test) throws SQLException, AppointmentNotFoundException;
     public List<ShiftSlot> getAvailableSlots(int doctorId, LocalDate date) throws SQLException;
+    public List<Medication> getMedications(int appId) throws SQLException, AppointmentNotFoundException;
+    public List<Test> getTests(int appId) throws SQLException, AppointmentNotFoundException;
 }
